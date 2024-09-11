@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>
+      $(function () {
+        $("#main").load("game.html");
+      });
+      function sendData(params) {
+        console.log(params);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- This div must be defined with a size -->
+    <div
+      id="main"
+      style="height: 100vh; width: 100vw; container-type: size"
+    ></div>
+  </body>
+</html>
