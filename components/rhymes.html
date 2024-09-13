@@ -1,0 +1,36 @@
+<script>
+  counter = 0;
+  correctTrack = -1;
+
+  tracks = [
+    document.getElementById("track1"),
+    document.getElementById("track2"),
+    document.getElementById("track3"),
+  ];
+
+  interval = setInterval(function () {
+    correctTrack = Math.floor(Math.random() * 3);
+    tracks.forEach((track) => {
+      while (track.hasChildNodes()) {
+        track.removeChild(track.lastChild);
+      }
+    });
+
+    noteElement = document.createElement("div");
+    noteElement.classList.add("note");
+    noteElement.innerHTML = "test";
+
+    noteElement.style.animation = "moveDown 3s linear infinite";
+    tracks[0].appendChild(noteElement);
+  }, 3000);
+
+  function cleanup() {
+    clearInterval(interval);
+  }
+</script>
+
+<div id="rhymesContainer">
+  <div class="rhymesTrack" id="track1"></div>
+  <div class="rhymesTrack" id="track2"></div>
+  <div class="rhymesTrack" id="track3"></div>
+</div>

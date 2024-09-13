@@ -1,8 +1,25 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="style.css" />
+
+<div id="bg" style="display: flex">
+  <h1 id="title" class="chooseGame">選擇主題</h1>
+  <div
+    id="game"
+    style="height: 100vh; width: 100vw; container-type: size"
+  ></div>
+  <button id="backBtn" onclick="setGame(0)">返回</button>
+  <!-- <img src="./logo1.png" style="height: 801; width: 130" /> -->
+</div>
+
 <script>
+  console.log(document);
+  console.log(document.getElementById("gameContainer"));
+
+  // const gameDoc = document.getElementById("gameContainer").contentDocument;
   const bgStyle = document.getElementById("bg").style;
   const titleText = document.getElementById("title");
+  const backBtn = document.getElementById("backBtn");
+  const game = document.getElementById("game");
 
   const titles = [
     "選擇主題",
@@ -14,18 +31,27 @@
     "過三關<br>(唐玄宗、楊貴妃)",
   ];
 
-  function cleanup() {
-    delete window.data;
-  }
+  // function cleanup() {
+  //   delete window.data;
+  //   console.log(window.data);
+  // }
 
   $("#game").load("components/gameSelection.html");
 
   function setGame(gameIndex) {
     titleText.innerHTML = titles[gameIndex];
     bgStyle.filter = "hue-rotate(" + Math.round((gameIndex / 7) * 360) + "deg)";
+    backBtn.style = "";
+
+    $(window).click(function () {
+      cleanup();
+    });
     switch (gameIndex) {
       case 1:
       case 2:
+        $("#game").load("components/rhymes.html");
+        titleText.className = "inGame";
+        break;
       case 3:
       case 4:
       case 5:
@@ -35,32 +61,11 @@
         break;
 
       default:
+        backBtn.style = "display: none";
         $("#game").load("components/gameSelection.html");
         titleText.className = "chooseGame";
         break;
     }
-
-    cleanup();
   }
-
-  //   setInterval(function () {
-  //     gameIndex += 1;
-  //     if (gameIndex >= 6) gameIndex -= 6;
-  //     bgStyle.filter = "hue-rotate(" + gameIndex * 60 + "deg)";
-  //     titleText.innerHTML = titles[gameIndex];
-  //     if (gameIndex == 5)
-  //       $(function () {
-  //         $("#game").load("puzzle.html");
-  //         cleanup();
-  //       });
-  //   }, 2000);
+  setGame(2);
 </script>
-
-<div id="bg" style="display: flex">
-  <h1 id="title" class="chooseGame">選擇主題</h1>
-  <div
-    id="game"
-    style="height: 100vh; width: 100vw; container-type: size"
-  ></div>
-  <!-- <img src="./logo1.png" style="height: 801; width: 130" /> -->
-</div>

@@ -1,8 +1,10 @@
+<div id="puzzle">puzzle</div>
+
 <script>
   const data = 100;
-  sendData("puzzle");
+  window.parent.sendData("puzzle");
+
+  function cleanup() {
+    console.log("test unload" + delete window.data);
+  }
 </script>
-<div>
-  puzzle
-  <button onclick="setGame(0)">Back</button>
-</div>
