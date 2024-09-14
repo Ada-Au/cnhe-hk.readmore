@@ -120,6 +120,8 @@
   }
 
   function clickTrack(trackNumber) {
+    console.log(mark);
+
     cleanup();
     if (trackNumber === correctTrack) mark--;
     if (currentGame.correct.length == 0) endGame();
