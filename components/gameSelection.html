@@ -1,10 +1,13 @@
 <script>
-  for (let btnId = 1; btnId < titles.length; btnId++) {
-    let title = titles[btnId].split("(");
+  for (let btnId = 1; btnId < gameData.titles.length; btnId++) {
+    let title = gameData.titles[btnId].split("(");
     document.getElementById("selectGame" + btnId).innerHTML =
       title[0] + '<span style="font-size: 2.3vw">(' + title[1] + "</span>";
   }
   delete btnId;
+  function cleanup() {
+    console.log("gameSelection closed");
+  }
 </script>
 
 <div style="height: 100%; align-content: center; padding-top: 88px">

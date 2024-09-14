@@ -4,6 +4,7 @@
 }
 :root {
   --brand-color: #e4c494;
+  --border-color: #cca873;
 }
 
 body {
@@ -15,6 +16,20 @@ body {
 
 h1 {
   font-size: 8vw;
+  text-shadow: #fff 0 0 0.24rem, #fff 0 0 0.24rem, #fff 0 0 0.24rem,
+    #fff 0 0 0.24rem, #fff 0 0 0.24rem;
+}
+
+h2 {
+  font-size: 4vw;
+}
+h3 {
+  font-size: 3vw;
+}
+
+.highlight {
+  color: red;
+  text-decoration: underline;
   text-shadow: #fff 0 0 0.24rem, #fff 0 0 0.24rem, #fff 0 0 0.24rem,
     #fff 0 0 0.24rem, #fff 0 0 0.24rem;
 }
@@ -58,7 +73,7 @@ button {
 
 button:hover {
   background-color: var(--brand-color);
-  border-color: #cca873;
+  border-color: var(--border-color);
   color: white;
 }
 
@@ -75,7 +90,7 @@ button:hover {
   left: 0;
 }
 
-#rhymesContainer {
+#trackContainer {
   display: flex;
   height: 100%;
   padding: 0px 4vw;
@@ -83,25 +98,47 @@ button:hover {
 }
 
 .rhymesTrack {
-  background-color: rgba(180, 146, 96, 0.4);
-  border: 1px solid black;
+  background-color: rgba(207, 170, 118, 0.4);
+  border-left: 2px solid var(--border-color);
   height: 100%;
   flex: 1;
   position: relative;
 }
 
 .note {
-  font-size: 6cqmin;
-  height: 6cqmin;
-  width: 100%;
+  font-size: 5vw;
+  padding: 1vw;
   position: absolute;
-  left: 0;
-  bottom: 0;
+  left: calc(50% - 2.5vw);
+  bottom: -7vw;
   animation: moveDown 3s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 233, 233);
+  border-radius: 50%;
+}
+
+.user-select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @keyframes moveDown {
   0% {
-    transform: translateY(calc(-100vh + 6cqmin));
+    transform: translateY(calc(-100vh + 8vh));
   }
+}
+
+#banner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  text-shadow: none;
 }

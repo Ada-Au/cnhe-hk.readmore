@@ -1,36 +1,152 @@
-<script>
-  counter = 0;
-  correctTrack = -1;
+<div id="rhymesContainer">
+  <div
+    style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+    "
+  >
+    <button id="question1" onclick="chooseQuestion(1)">題目1</button>
+    <button id="question2" onclick="chooseQuestion(2)">題目2</button>
+    <button id="question3" onclick="chooseQuestion(3)">題目3</button>
+  </div>
+  <div>
+    <h3 style="text-align: center; height: 2vh; margin: 1vh 0 -1.5vh 0">
+      接押韻字
+    </h3>
+    <div
+      id="questionContainer"
+      style="display: flex; justify-content: center; margin-bottom: -2vh"
+    >
+      <h2 id="question" class="question"></h2>
+      <h2 id="highlight" class="question highlight"></h2>
+    </div>
+  </div>
+  <div id="trackContainer" style="display: none">
+    <div class="rhymesTrack" onclick="clickTrack(1)" id="track1"></div>
+    <div class="rhymesTrack" onclick="clickTrack(2)" id="track2"></div>
+    <div
+      style="border-right: 2px solid var(--border-color)"
+      class="rhymesTrack"
+      onclick="clickTrack(3)"
+      id="track3"
+    ></div>
+  </div>
+</div>
 
+<script>
+  mark = -1;
+  correctTrack = -1;
   tracks = [
     document.getElementById("track1"),
     document.getElementById("track2"),
     document.getElementById("track3"),
   ];
 
-  interval = setInterval(function () {
+  function runGame() {
     correctTrack = Math.floor(Math.random() * 3);
-    tracks.forEach((track) => {
+    tracks.forEach((track, i) => {
+      while (track.hasChildNodes()) {
+        track.removeChild(track.lastChild);
+      }
+      currentWord =
+        correctTrack == i
+          ? currentGame.correct[
+              Math.floor(Math.random() * currentGame.correct.length)
+            ]
+          : currentGame.wrong[
+              Math.floor(Math.random() * currentGame.wrong.length)
+            ];
+
+      if (correctTrack == i) {
+        currentGame.correct.splice(currentGame.correct.indexOf(currentWord), 1);
+      }
+
+      noteElement = document.createElement("div");
+      noteElement.classList.add("note");
+      noteElement.classList.add("user-select-none");
+      noteElement.innerHTML = currentWord;
+
+      noteElement.style.animation = "moveDown 3s linear infinite";
+      track.appendChild(noteElement);
+    });
+
+    if (currentGame.correct.length == 0) {
+      cleanup();
+      timeout = setTimeout(() => {
+        endGame();
+      }, "3000");
+    }
+  }
+
+  function cleanup() {
+    clearInterval(interval);
+    if (localStorage.getItem("interval")) localStorage.removeItem("interval");
+  }
+
+  function endGame() {
+    tracks.forEach((track, i) => {
       while (track.hasChildNodes()) {
         track.removeChild(track.lastChild);
       }
     });
+    checkMark();
+  }
 
-    noteElement = document.createElement("div");
-    noteElement.classList.add("note");
-    noteElement.innerHTML = "test";
+  function chooseQuestion(questionNumber) {
+    currentGame = structuredClone(gameData.rhymes[questionNumber - 1]);
+    mark = currentGame.correct.length;
+    document.getElementById("question").innerHTML = currentGame.question.slice(
+      0,
+      -1
+    );
+    document.getElementById("highlight").innerHTML =
+      currentGame.question.slice(-1);
 
-    noteElement.style.animation = "moveDown 3s linear infinite";
-    tracks[0].appendChild(noteElement);
-  }, 3000);
+    document.getElementById("question1").style.display = "none";
+    document.getElementById("question2").style.display = "none";
+    document.getElementById("question3").style.display = "none";
 
-  function cleanup() {
-    clearInterval(interval);
+    document.getElementById("trackContainer").style.display = "flex";
+
+    runGame();
+    interval = setInterval(function () {
+      runGame();
+    }, 3000);
+
+    localStorage.setItem("interval", interval);
+  }
+
+  function clickTrack(trackNumber) {
+    cleanup();
+    if (trackNumber === correctTrack) mark--;
+
+    if (currentGame.correct.length == 0) endGame();
+    else runGame();
+  }
+
+  function checkMark() {
+    clearTimeout(timeout);
+
+    const banner = document.createElement("h1");
+    if (mark === 0) {
+      banner.innerHTML = "全對!";
+      console.log("全對!");
+    } else if (mark === currentGame.correct.length) {
+      banner.innerHTML = "全錯!";
+      console.log("全錯!");
+    } else {
+      banner.innerHTML = "繼續努力!";
+      console.log("繼續努力");
+    }
+    banner.id = "banner";
+
+    document.getElementById("rhymesContainer").appendChild(banner);
+
+    tracks.forEach((track) => {
+      track.style.pointerEvents = "none";
+    });
   }
 </script>
-
-<div id="rhymesContainer">
-  <div class="rhymesTrack" id="track1"></div>
-  <div class="rhymesTrack" id="track2"></div>
-  <div class="rhymesTrack" id="track3"></div>
-</div>
