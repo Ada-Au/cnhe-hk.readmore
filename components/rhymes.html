@@ -25,12 +25,12 @@
     </div>
   </div>
   <div id="trackContainer" style="display: none">
-    <div class="rhymesTrack" onclick="clickTrack(1)" id="track1"></div>
-    <div class="rhymesTrack" onclick="clickTrack(2)" id="track2"></div>
+    <div class="rhymesTrack" onclick="clickTrack(0)" id="track1"></div>
+    <div class="rhymesTrack" onclick="clickTrack(1)" id="track2"></div>
     <div
       style="border-right: 2px solid var(--border-color)"
       class="rhymesTrack"
-      onclick="clickTrack(3)"
+      onclick="clickTrack(2)"
       id="track3"
     ></div>
   </div>
@@ -122,7 +122,6 @@
   function clickTrack(trackNumber) {
     cleanup();
     if (trackNumber === correctTrack) mark--;
-
     if (currentGame.correct.length == 0) endGame();
     else runGame();
   }
@@ -133,13 +132,10 @@
     const banner = document.createElement("h1");
     if (mark === 0) {
       banner.innerHTML = "全對!";
-      console.log("全對!");
     } else if (mark === currentGame.correct.length) {
       banner.innerHTML = "全錯!";
-      console.log("全錯!");
     } else {
       banner.innerHTML = "繼續努力!";
-      console.log("繼續努力");
     }
     banner.id = "banner";
 
