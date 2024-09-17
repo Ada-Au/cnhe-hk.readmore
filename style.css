@@ -27,13 +27,6 @@ h3 {
   font-size: 3vw;
 }
 
-.highlight {
-  color: red;
-  text-decoration: underline;
-  text-shadow: #fff 0 0 0.24rem, #fff 0 0 0.24rem, #fff 0 0 0.24rem,
-    #fff 0 0 0.24rem, #fff 0 0 0.24rem;
-}
-
 #bg {
   height: 100%;
   width: 100%;
@@ -43,6 +36,7 @@ h3 {
   background-size: cover;
 }
 
+/* select game */
 .chooseGame {
   position: absolute;
   top: 35%;
@@ -90,6 +84,13 @@ button:hover {
   left: 0;
 }
 
+/* rhymes game */
+.highlight {
+  color: red;
+  text-decoration: underline;
+  text-shadow: #fff 0 0 0.24rem, #fff 0 0 0.24rem, #fff 0 0 0.24rem,
+    #fff 0 0 0.24rem, #fff 0 0 0.24rem;
+}
 #trackContainer {
   display: flex;
   height: 100%;
@@ -141,4 +142,43 @@ button:hover {
   color: white;
   padding: 10px;
   text-shadow: none;
+}
+
+/* puzzle game */
+#puzzle-container {
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+#puzzle-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+#slot-container {
+  display: grid;
+  width: auto;
+  min-height: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.puzzle-piece {
+  height: calc(100% / 5);
+  aspect-ratio: 1;
+  margin: 0 1cqmin 1cqmin 1cqmin;
+}
+
+.puzzle-slot {
+  width: auto;
+  aspect-ratio: 1;
+  background-color: #fff;
+  border: 1px solid grey;
+}
+
+#scroll-bar {
+  background-color: grey;
+  width: 8px;
+  position: absolute;
+  left: 0;
+  border-radius: 4px;
 }

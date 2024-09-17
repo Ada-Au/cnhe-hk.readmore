@@ -1,10 +1,142 @@
-<div id="puzzle">puzzle</div>
+<div style="display: flex; height: 80%; margin: 10% 2cqmin">
+  <div id="slot-container"></div>
+  <div id="puzzle-container"></div>
+  <div
+    style="
+      width: 8px;
+      position: relative;
+      background-color: whitesmoke;
+      border-radius: 4px;
+    "
+  >
+    <div id="scroll-bar"></div>
+  </div>
+  <div style="flex: 1; display: flex; flex-direction: column">
+    <div
+      id="picture-container"
+      style="flex: 1; background-size: contain; background-repeat: no-repeat"
+    ></div>
+    <h2 id="puzzleText" style="margin: 0"></h2>
+  </div>
+</div>
 
 <script>
-  const data = 100;
-  window.parent.sendData("puzzle");
+  puzzleContainer = document.getElementById("puzzle-container");
+  slotContainer = document.getElementById("slot-container");
+  pictureContainer = document.getElementById("picture-container");
+  scrollBar = document.getElementById("scroll-bar");
 
-  function cleanup() {
-    console.log("test unload" + delete window.data);
+  async function init() {
+    puzzleImage = new Image();
+
+    puzzleImage.src = "../assets/puzzle.jpg";
+    puzzleImageWidth = 0;
+    puzzleImageHeight = 0;
+
+    puzzleImage.addEventListener("load", () => {
+      pictureContainer.style.backgroundImage = `url(${puzzleImage.src})`;
+      puzzleImageWidth = puzzleImage.width;
+      puzzleImageHeight = puzzleImage.height;
+    });
+
+    await puzzleImage.decode();
+
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < 4; j++) {
+        puzzlePiece = document.createElement("div");
+        puzzlePiece.classList.add("puzzle-piece");
+
+        puzzlePiece.draggable = true;
+        puzzlePiece.addEventListener("dragstart", (e) => {
+          e.target.classList.add("dragging");
+        });
+        puzzlePiece.addEventListener("dragend", (e) => {
+          e.target.classList.remove("dragging");
+        });
+
+        puzzlePiece.style.backgroundImage = `url(${puzzleImage.src})`;
+        puzzlePiece.style.backgroundSize = `${puzzleImageWidth}px ${puzzleImageHeight}px`;
+        puzzlePiece.style.backgroundPosition = `${
+          -j * (puzzleImageWidth / 4)
+        }px ${-i * (puzzleImageHeight / 5)}px`;
+
+        puzzlePiece.id = "piece-" + (i * 4 + j);
+        puzzleContainer.insertBefore(
+          puzzlePiece,
+          puzzleContainer.children[
+            Math.floor(Math.random() * puzzleContainer.children.length)
+          ]
+        );
+      }
+    }
+
+    for (let i = 0; i < 20; i++) {
+      puzzleSlot = document.createElement("div");
+      puzzleSlot.classList.add("puzzle-slot");
+
+      puzzleSlot.addEventListener("dragover", dragOver);
+      puzzleSlot.addEventListener("drop", dragDrop);
+
+      puzzleSlot.id = "slot-" + i;
+      slotContainer.appendChild(puzzleSlot);
+    }
+
+    setScrollBar();
+    puzzleContainer.addEventListener("scroll", () => {
+      posScrollBar();
+    });
   }
+
+  function dragOver(e) {
+    e.preventDefault();
+  }
+  function dragDrop(e) {
+    e.preventDefault();
+    puzzlePieceTarget = document.querySelector(".dragging");
+    puzzleSlotTarget = e.target;
+
+    if (
+      puzzlePieceTarget.id.split("-")[1] === puzzleSlotTarget.id.split("-")[1]
+    ) {
+      puzzleSlotTarget.style.width = puzzlePieceTarget.style.width;
+      puzzleSlotTarget.style.height = puzzlePieceTarget.style.height;
+      puzzleSlotTarget.style.backgroundImage =
+        puzzlePieceTarget.style.backgroundImage;
+      puzzleSlotTarget.style.backgroundPosition =
+        puzzlePieceTarget.style.backgroundPosition;
+      puzzleSlotTarget.style.backgroundSize =
+        puzzlePieceTarget.style.backgroundSize;
+      puzzleSlotTarget.style.border = "none";
+      puzzlePieceTarget.remove();
+      setScrollBar();
+      posScrollBar();
+      puzzleText.textContent = "";
+    } else {
+      puzzleText.textContent = "再試一次!";
+    }
+
+    if (puzzleContainer.children.length === 0) {
+      puzzleText.textContent = "你贏了!";
+    }
+    setScrollBar();
+    posScrollBar();
+  }
+
+  function setScrollBar() {
+    scrollBar.style.height =
+      (puzzleContainer.clientHeight / puzzleContainer.scrollHeight) * 100 + "%";
+
+    if (scrollBar.style.height == "100%") {
+      scrollBar.style.display = "none";
+    }
+  }
+
+  function posScrollBar() {
+    scrollBar.style.top =
+      (puzzleContainer.scrollTop /
+        (puzzleContainer.scrollHeight - puzzleContainer.clientHeight)) *
+      (puzzleContainer.clientHeight - scrollBar.clientHeight);
+  }
+
+  init();
 </script>
