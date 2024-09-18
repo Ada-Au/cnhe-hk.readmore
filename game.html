@@ -53,7 +53,6 @@
   async function init() {
     await $.getJSON("gameData.json", function (json) {
       gameData = json;
-      console.log(gameData.titles[1]);
     });
     $("#game").load("components/gameSelection.html");
     setGame(0);

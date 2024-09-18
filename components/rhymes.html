@@ -37,7 +37,8 @@
 </div>
 
 <script>
-  mark = -1;
+  mark = 0;
+  max = -1;
   correctTrack = -1;
   tracks = [
     document.getElementById("track1"),
@@ -97,7 +98,7 @@
 
   function chooseQuestion(questionNumber) {
     currentGame = structuredClone(gameData.rhymes[questionNumber - 1]);
-    mark = currentGame.correct.length;
+    max = currentGame.correct.length;
     document.getElementById("question").innerHTML = currentGame.question.slice(
       0,
       -1
@@ -120,10 +121,8 @@
   }
 
   function clickTrack(trackNumber) {
-    console.log(mark);
-
     cleanup();
-    if (trackNumber === correctTrack) mark--;
+    if (trackNumber === correctTrack) mark++;
     if (currentGame.correct.length == 0) endGame();
     else runGame();
   }
@@ -132,9 +131,9 @@
     clearTimeout(timeout);
 
     const banner = document.createElement("h1");
-    if (mark === 0) {
+    if (mark === max) {
       banner.innerHTML = "全對!";
-    } else if (mark === currentGame.correct.length) {
+    } else if (mark === 0) {
       banner.innerHTML = "全錯!";
     } else {
       banner.innerHTML = "繼續努力!";
@@ -143,6 +142,10 @@
 
     document.getElementById("rhymesContainer").appendChild(banner);
 
+    parent.sendData({
+      type: "rhymes",
+      mark: mark,
+    });
     tracks.forEach((track) => {
       track.style.pointerEvents = "none";
     });

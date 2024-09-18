@@ -1,22 +1,40 @@
-<div style="display: flex; height: 80%; margin: 10% 2cqmin">
-  <div id="slot-container"></div>
-  <div id="puzzle-container"></div>
-  <div
-    style="
-      width: 8px;
-      position: relative;
-      background-color: whitesmoke;
-      border-radius: 4px;
-    "
-  >
-    <div id="scroll-bar"></div>
-  </div>
-  <div style="flex: 1; display: flex; flex-direction: column">
+<div style="height: 100%; align-content: center; padding-right: 2cqmin">
+  <div style="display: flex; height: 80%">
+    <button
+      id="start-button"
+      style="
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      "
+      onclick="init()"
+    >
+      開始遊戲
+    </button>
+    <div id="slot-container"></div>
+    <div id="puzzle-container"></div>
     <div
-      id="picture-container"
-      style="flex: 1; background-size: contain; background-repeat: no-repeat"
-    ></div>
-    <h2 id="puzzleText" style="margin: 0"></h2>
+      style="
+        width: 8px;
+        position: relative;
+        background-color: whitesmoke;
+        border-radius: 4px;
+        display: none;
+      "
+      id="scroll-bar-container"
+    >
+      <div id="scroll-bar"></div>
+    </div>
+    <div style="flex: 1; display: flex; flex-direction: column">
+      <div
+        id="picture-container"
+        style="flex: 1; background-size: contain; background-repeat: no-repeat"
+      ></div>
+      <h3 id="timer" style="margin: 0; min-height: 3vw"></h2>
+      <h2 id="puzzleText" style="margin: 0; min-height: 4vw"></h2>
+    </div>
   </div>
 </div>
 
@@ -81,10 +99,51 @@
       slotContainer.appendChild(puzzleSlot);
     }
 
+    document.getElementById("scroll-bar-container").style.display = "block";
+    document.getElementById("start-button").remove();
+
     setScrollBar();
     puzzleContainer.addEventListener("scroll", () => {
       posScrollBar();
     });
+
+    startTimer();
+  }
+
+  timer = null;
+  seconds = 0;
+  minutes = 0;
+  hours = 0;
+
+  function startTimer() {
+    timer = setInterval(updateTimer, 1000);
+    localStorage.setItem("interval", timer);
+    displayTimer();
+  }
+
+  function updateTimer() {
+    seconds++;
+    if (seconds === 60) {
+      seconds = 0;
+      minutes++;
+      if (minutes === 60) {
+        minutes = 0;
+        hours++;
+      }
+    }
+    displayTimer();
+  }
+
+  function cleanup() {
+    clearInterval(timer);
+    if (localStorage.getItem("interval")) localStorage.removeItem("interval");
+  }
+
+  function displayTimer() {
+    const timerText = document.getElementById("timer");
+    timerText.textContent = `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   }
 
   function dragOver(e) {
@@ -117,6 +176,10 @@
 
     if (puzzleContainer.children.length === 0) {
       puzzleText.textContent = "你贏了!";
+      parent.sendData({"puzzle":`${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`})
+      clearInterval(timer);
     }
     setScrollBar();
     posScrollBar();
@@ -128,6 +191,7 @@
 
     if (scrollBar.style.height == "100%") {
       scrollBar.style.display = "none";
+      document.getElementById("scroll-bar-container").style.display = "block";
     }
   }
 
@@ -138,5 +202,4 @@
       (puzzleContainer.clientHeight - scrollBar.clientHeight);
   }
 
-  init();
 </script>
