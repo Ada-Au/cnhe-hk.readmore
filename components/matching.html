@@ -1,0 +1,159 @@
+<head>
+  <style>
+    .card {
+      width: 20cqmin;
+      aspect-ratio: 1;
+      border: 1px solid black;
+      display: inline-block;
+      margin: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .selected {
+      background-color: lightblue;
+    }
+
+    .matched {
+      border: 3px solid green;
+    }
+
+    .card {
+      perspective: 1000px;
+      transition: transform 0.5s;
+      background-color: red;
+      position: absolute;
+      backface-visibility: hidden;
+    }
+
+    .back {
+      background-color: blue;
+    }
+
+    .flip {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body>
+  <div id="game-board">
+    <!-- Add your cards here -->
+  </div>
+
+  <script>
+    // Array of card objects
+    var cards = [
+      { type: "image", value: "image1.jpg", match: 1 },
+      { type: "image", value: "image2.jpg", match: 2 },
+      { type: "image", value: "image3.jpg", match: 3 },
+      { type: "image", value: "image4.jpg", match: 4 },
+      { type: "text", value: "Card 1", match: 1 },
+      { type: "text", value: "Card 2", match: 1 },
+      { type: "text", value: "Card 3", match: 2 },
+      { type: "text", value: "Card 4", match: 2 },
+      { type: "text", value: "Card 5", match: 3 },
+      { type: "text", value: "Card 6", match: 3 },
+      { type: "text", value: "Card 7", match: 4 },
+      { type: "text", value: "Card 8", match: 4 },
+    ];
+
+    // Shuffle the cards
+    // cards.sort(() => Math.random() - 0.5);
+
+    // Render the cards on the game board
+    var gameBoard = document.getElementById("game-board");
+    cards.forEach((card, cardIndex) => {
+      cardFront = document.createElement("div");
+
+      cardFront.classList.add("card");
+      cardFront.classList.add("flip");
+
+      cardFront.id = "front-" + cardIndex;
+      cardFront.textContent = card.value;
+      cardFront.style.left = (cardIndex % 4) * 30 + "cqmin";
+      cardFront.style.top = Math.floor(cardIndex / 4) * 30 + "cqmin";
+
+      gameBoard.appendChild(cardFront);
+
+      cardBack = document.createElement("div");
+      cardBack.style.left = (cardIndex % 4) * 30 + "cqmin";
+      cardBack.style.top = Math.floor(cardIndex / 4) * 30 + "cqmin";
+      cardBack.id = "back-" + cardIndex;
+
+      cardBack.setAttribute("data-match", card.match);
+
+      cardBack.classList.add("card");
+      cardBack.classList.add("back");
+
+      gameBoard.appendChild(cardBack);
+    });
+
+    var selectedCards = [];
+    var matchedCards = [];
+    var cardsToMatch = 3;
+
+    var cards = Array.from(document.getElementsByClassName("back"));
+    cards.forEach((card) => {
+      card.onclick = () => handleClick(card);
+    });
+
+    function handleClick(card) {
+      if (selectedCards.length < 3) {
+        console.log(card);
+        card.classList.add("flip");
+        document
+          .getElementById("front-" + card.id.split("-")[1])
+          .classList.remove("flip");
+
+        if (
+          selectedCards.length < cardsToMatch &&
+          !matchedCards.includes(card) &&
+          !selectedCards.includes(card)
+        ) {
+          card.classList.add("selected");
+          selectedCards.push(card);
+
+          if (selectedCards.length === cardsToMatch) {
+            setTimeout(function () {
+              checkMatch();
+            }, 1000);
+          }
+        }
+      }
+    }
+
+    // Check if the selected cards match
+    function checkMatch() {
+      var match = true;
+      var firstCard = selectedCards[0];
+
+      selectedCards.forEach((card) => {
+        if (
+          card.getAttribute("data-match") !==
+          firstCard.getAttribute("data-match")
+        )
+          match = false;
+      });
+
+      if (match) {
+        selectedCards.forEach((card) => {
+          document
+            .getElementById("front-" + card.id.split("-")[1])
+            .classList.add("matched");
+        });
+      } else {
+        selectedCards.forEach((card) => {
+          card.classList.remove("flip");
+          document
+            .getElementById("front-" + card.id.split("-")[1])
+            .classList.add("flip");
+          //   card.classList.remove("selected");
+          card.classList.add("back");
+        });
+      }
+
+      console.log(matchedCards);
+      selectedCards = [];
+    }
+  </script>
+</body>
