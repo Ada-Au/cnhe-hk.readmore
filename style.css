@@ -182,3 +182,44 @@ button:hover {
   left: 0;
   border-radius: 4px;
 }
+
+/* matching */
+
+.card {
+  width: 20cqmin;
+  aspect-ratio: 0.8;
+  border: 2px solid var(--border-color);
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 1cqmin;
+}
+
+.matched {
+  border: 4px solid var(--border-color);
+
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.card {
+  perspective: 1000px;
+  transition: transform 0.5s;
+  background-color: var(--brand-color);
+  position: absolute;
+  backface-visibility: hidden;
+
+  align-content: center;
+  font-size: 3.5cqw;
+  white-space: pre-line;
+}
+
+.back {
+  background-color: var(--border-color);
+}
+
+.flip {
+  transform: rotateY(180deg);
+}
