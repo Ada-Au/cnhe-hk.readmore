@@ -39,14 +39,17 @@
         titleText.className = "inGame";
         break;
       case 4:
+        $("#game").load("./matching.html");
+        titleText.className = "inGame";
+        break;
       case 5:
         $("#game").load("./pair.html");
         titleText.className = "inGame";
         break;
       case 6:
-        $("#game").load("./puzzle.html");
-        titleText.className = "inGame";
-        break;
+      // $("#game").load("./puzzle.html");
+      // titleText.className = "inGame";
+      // break;
 
       default:
         backBtn.style = "display: none";
@@ -61,7 +64,7 @@
       gameData = json;
     });
     $("#game").load("./gameSelection.html");
-    setGame(0);
+    setGame(4);
   }
 
   init();

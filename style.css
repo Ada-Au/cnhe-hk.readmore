@@ -10,7 +10,6 @@
 body {
   background-color: #f2f2f2;
   font-family: "衡山毛筆フォント";
-  /* font-family: "Helvetica", sans-serif; */
   margin: 0px;
 }
 
@@ -185,7 +184,6 @@ button:hover {
 }
 
 /* matching */
-
 .card {
   width: 20cqmin;
   aspect-ratio: 0.8;
@@ -225,7 +223,7 @@ button:hover {
   transform: rotateY(180deg);
 }
 
-/* matching */
+/* pair */
 .connectSelection {
   height: calc((100% - 5cqmin) / 6);
   margin-bottom: 1cqmin;
