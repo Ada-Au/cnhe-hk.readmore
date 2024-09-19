@@ -1,11 +1,11 @@
 {
   "connect": { "length": 6, "path": "./assets/connect", "ext": ".png" },
   "pair": [
-    { "type": "image", "value": "./assets/matching1.png", "match": 1 },
-    { "type": "image", "value": "./assets/matching2.png", "match": 2 },
-    { "type": "image", "value": "./assets/matching3.png", "match": 3 },
-    { "type": "image", "value": "./assets/matching4.png", "match": 4 },
-    { "type": "image", "value": "./assets/matching5.png", "match": 5 },
+    { "type": "image", "value": "./assets/pair1.png", "match": 1 },
+    { "type": "image", "value": "./assets/pair2.png", "match": 2 },
+    { "type": "image", "value": "./assets/pair3.png", "match": 3 },
+    { "type": "image", "value": "./assets/pair4.png", "match": 4 },
+    { "type": "image", "value": "./assets/pair5.png", "match": 5 },
     { "type": "text", "value": "木末芙蓉花，山中發紅萼", "match": 1 },
     { "type": "text", "value": "竹喧歸驕女，蓮動下漁舟", "match": 2 },
     { "type": "text", "value": "月出驚山烏，時鳴春澗中", "match": 3 },
