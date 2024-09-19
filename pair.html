@@ -1,6 +1,6 @@
 <div id="game-board"></div>
 <script>
-  cards = gameData.matching;
+  cards = gameData.pair;
   cards.sort(() => Math.random() - 0.5);
 
   gameBoard = document.getElementById("game-board");
@@ -50,7 +50,7 @@
   selectedCards = [];
   count = 0;
   flipCount = 0;
-  cardsToMatch = 3;
+  cardsToMatch = 2;
 
   cards = Array.from(document.getElementsByClassName("back"));
   cards.forEach((card) => {
@@ -58,7 +58,7 @@
   });
 
   function handleClick(card) {
-    if (selectedCards.length < 3) {
+    if (selectedCards.length < cardsToMatch) {
       flipCount++;
       card.classList.add("flip");
       document
@@ -97,6 +97,7 @@
           .getElementById("front-" + card.id.split("-")[1])
           .classList.add("matched");
       });
+      count += cardsToMatch;
     } else {
       selectedCards.forEach((card) => {
         card.classList.remove("flip");
@@ -107,7 +108,6 @@
       });
     }
 
-    count += cardsToMatch;
     selectedCards = [];
 
     if (count === cards.length) {
@@ -116,7 +116,7 @@
       banner.id = "banner";
 
       document.getElementById("game-board").appendChild(banner);
-      parent.sendData({ type: "matching", tries: flipCount });
+      parent.sendData({ type: "pair", tries: flipCount });
     }
   }
 </script>

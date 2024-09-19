@@ -43,6 +43,7 @@
   slotContainer = document.getElementById("slot-container");
   pictureContainer = document.getElementById("picture-container");
   scrollBar = document.getElementById("scroll-bar");
+  timerText = document.getElementById("timer");
 
   async function init() {
     puzzleImage = new Image();
@@ -146,7 +147,7 @@
   }
 
   function displayTimer() {
-    const timerText = document.getElementById("timer");
+    if (puzzleText.textContent === "你贏了!") return;
     timerText.textContent = `${hours.toString().padStart(2, "0")}:${minutes
       .toString()
       .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
@@ -189,6 +190,7 @@
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`,
       });
       clearInterval(timer);
+      if (localStorage.getItem("interval")) localStorage.removeItem("interval");
     }
     setScrollBar();
     posScrollBar();
