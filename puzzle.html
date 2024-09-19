@@ -47,6 +47,18 @@
   async function init() {
     puzzleImage = new Image();
 
+    for (let i = 0; i < 20; i++) {
+      puzzleSlot = document.createElement("div");
+      puzzleSlot.classList.add("puzzle-slot");
+      puzzleSlot.style.filter =
+        "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
+      puzzleSlot.addEventListener("dragover", dragOver);
+      puzzleSlot.addEventListener("drop", dragDrop);
+
+      puzzleSlot.id = "slot-" + i;
+      slotContainer.appendChild(puzzleSlot);
+    }
+
     puzzleImage.src = gameData.puzzle;
     puzzleImageWidth = 0;
     puzzleImageHeight = 0;
@@ -55,8 +67,9 @@
       pictureContainer.style.backgroundImage = `url(${puzzleImage.src})`;
       pictureContainer.style.filter =
         "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
-      puzzleImageWidth = puzzleImage.width;
-      puzzleImageHeight = puzzleImage.height;
+      puzzleImageWidth = slotContainer.offsetWidth;
+      puzzleImageHeight = slotContainer.clientHeight;
+      console.log(puzzleImageWidth, puzzleImageHeight);
     });
 
     await puzzleImage.decode();
@@ -90,18 +103,6 @@
           ]
         );
       }
-    }
-
-    for (let i = 0; i < 20; i++) {
-      puzzleSlot = document.createElement("div");
-      puzzleSlot.classList.add("puzzle-slot");
-      puzzleSlot.style.filter =
-        "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
-      puzzleSlot.addEventListener("dragover", dragOver);
-      puzzleSlot.addEventListener("drop", dragDrop);
-
-      puzzleSlot.id = "slot-" + i;
-      slotContainer.appendChild(puzzleSlot);
     }
 
     document.getElementById("scroll-bar-container").style.display = "block";
