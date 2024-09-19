@@ -27,27 +27,30 @@
 
     switch (gameIndex) {
       case 1:
-        $("#game").load("components/puzzle.html");
+        $("#game").load("./puzzle.html");
         titleText.className = "inGame";
         break;
       case 2:
-        $("#game").load("components/rhymes.html");
+        $("#game").load("./rhymes.html");
         titleText.className = "inGame";
         break;
       case 3:
+        $("#game").load("./connect.html");
+        titleText.className = "inGame";
+        break;
       case 4:
-        $("#game").load("components/matching.html");
+        $("#game").load("./matching.html");
         titleText.className = "inGame";
         break;
       case 5:
       case 6:
-        $("#game").load("components/puzzle.html");
+        $("#game").load("./puzzle.html");
         titleText.className = "inGame";
         break;
 
       default:
         backBtn.style = "display: none";
-        $("#game").load("components/gameSelection.html");
+        $("#game").load("./gameSelection.html");
         titleText.className = "chooseGame";
         break;
     }
@@ -57,8 +60,8 @@
     await $.getJSON("gameData.json", function (json) {
       gameData = json;
     });
-    $("#game").load("components/gameSelection.html");
-    setGame(0);
+    $("#game").load("./gameSelection.html");
+    setGame(3);
   }
 
   init();

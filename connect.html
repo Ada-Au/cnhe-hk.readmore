@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Connect Game</title>
+    <style>
+      /* Add your CSS styles here */
+      #gameCanvas {
+        border: 1px solid black;
+      }
+      .connectSelection {
+        height: calc(100% / 6);
+        width: 100%;
+        border: 1px solid black;
+        box-sizing: border-box;
+
+        background-size: contain;
+        background-position: right;
+        background-repeat: no-repeat;
+      }
+      .column {
+        width: 40%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="
+        height: 100%;
+        width: 100%;
+        display: flex;
+        padding: 4cqmin;
+        box-sizing: border-box;
+      "
+    >
+      <div class="column" id="column-left"></div>
+      <canvas id="gameCanvas"></canvas>
+      <div class="column" id="column-right"></div>
+    </div>
+    <script>
+      columnLeft = document.getElementById("column-left");
+      columnRight = document.getElementById("column-right");
+      canvas = document.getElementById("gameCanvas");
+      ctx = canvas.getContext("2d");
+
+      width = window.innerWidth * 0.2;
+      height = window.innerHeight * 0.9;
+      canvas.width = width;
+      canvas.height = height;
+
+      // Define the starting and ending points of the lines
+      startPoint = { x: 0, y: 50 };
+      endPoint = { x: 200, y: 20 };
+
+      // Draw the lines
+      ctx.beginPath();
+      ctx.moveTo(startPoint.x, startPoint.y);
+      ctx.lineTo(endPoint.x, endPoint.y);
+      ctx.stroke();
+
+      for (let i = 0; i < 6; i++) {
+        div = document.createElement("div");
+        div.classList.add("connectSelection");
+        div.style.backgroundImage =
+          "url('./assets/connect" + (i + 1) + ".png')";
+        div.style.filter = "hue-rotate(" + -Math.round((3 / 7) * 360) + "deg)";
+        columnLeft.appendChild(div);
+
+        const audio = document.createElement("audio");
+        audio.classList.add("connectSelection");
+        audio.src = "./assets/matching" + (i + 1) + ".mp3";
+        audio.controls = true;
+
+        columnRight.insertBefore(
+          audio,
+          columnRight.children[
+            Math.floor(Math.random() * columnRight.children.length)
+          ]
+        );
+      }
+
+      function drawLine() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.moveTo(startPoint.x, startPoint.y);
+        ctx.lineTo(endPoint.x, endPoint.y);
+        ctx.stroke();
+      }
+    </script>
+  </body>
+</html>

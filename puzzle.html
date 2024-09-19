@@ -32,7 +32,7 @@
         id="picture-container"
         style="flex: 1; background-size: contain; background-repeat: no-repeat"
       ></div>
-      <h3 id="timer" style="margin: 0; min-height: 3vw"></h2>
+      <h3 id="timer" style="margin: 0; min-height: 3vw"></h3>
       <h2 id="puzzleText" style="margin: 0; min-height: 4vw"></h2>
     </div>
   </div>
@@ -47,12 +47,14 @@
   async function init() {
     puzzleImage = new Image();
 
-    puzzleImage.src = "../assets/puzzle.jpg";
+    puzzleImage.src = gameData.puzzle;
     puzzleImageWidth = 0;
     puzzleImageHeight = 0;
 
     puzzleImage.addEventListener("load", () => {
       pictureContainer.style.backgroundImage = `url(${puzzleImage.src})`;
+      pictureContainer.style.filter =
+        "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
       puzzleImageWidth = puzzleImage.width;
       puzzleImageHeight = puzzleImage.height;
     });
@@ -74,6 +76,8 @@
 
         puzzlePiece.style.backgroundImage = `url(${puzzleImage.src})`;
         puzzlePiece.style.backgroundSize = `${puzzleImageWidth}px ${puzzleImageHeight}px`;
+        puzzlePiece.style.filter =
+          "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
         puzzlePiece.style.backgroundPosition = `${
           -j * (puzzleImageWidth / 4)
         }px ${-i * (puzzleImageHeight / 5)}px`;
@@ -91,7 +95,8 @@
     for (let i = 0; i < 20; i++) {
       puzzleSlot = document.createElement("div");
       puzzleSlot.classList.add("puzzle-slot");
-
+      puzzleSlot.style.filter =
+        "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
       puzzleSlot.addEventListener("dragover", dragOver);
       puzzleSlot.addEventListener("drop", dragDrop);
 
@@ -176,9 +181,11 @@
 
     if (puzzleContainer.children.length === 0) {
       puzzleText.textContent = "你贏了!";
-      parent.sendData({"puzzle":`${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`})
+      parent.sendData({
+        puzzle: `${hours.toString().padStart(2, "0")}:${minutes
+          .toString()
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`,
+      });
       clearInterval(timer);
     }
     setScrollBar();
@@ -201,5 +208,4 @@
         (puzzleContainer.scrollHeight - puzzleContainer.clientHeight)) *
       (puzzleContainer.clientHeight - scrollBar.clientHeight);
   }
-
 </script>

@@ -1,19 +1,7 @@
 <div id="game-board"></div>
 <script>
-  cards = [
-    { type: "image", value: "../assets/matching1.png", match: 1 },
-    { type: "image", value: "../assets/matching2.png", match: 2 },
-    { type: "image", value: "../assets/matching3.png", match: 3 },
-    { type: "image", value: "../assets/matching4.png", match: 4 },
-    { type: "text", value: "胡旋舞", match: 1 },
-    { type: "text", value: "快速、\r\n不斷旋轉", match: 1 },
-    { type: "text", value: "胡騰舞", match: 2 },
-    { type: "text", value: "跳躍騰踏、\r\n怠促多變", match: 2 },
-    { type: "text", value: "綠腰", match: 3 },
-    { type: "text", value: "身著衣襟\r\n修長的舞衣", match: 3 },
-    { type: "text", value: "柘枝舞", match: 4 },
-    { type: "text", value: "用蠻鼓引舞", match: 4 },
-  ];
+  cards = gameData.matching;
+  cards.sort(() => Math.random() - 0.5);
 
   gameBoard = document.getElementById("game-board");
   cards.forEach((card, cardIndex) => {
@@ -79,7 +67,6 @@
 
       if (
         selectedCards.length < cardsToMatch &&
-        // !matchedCards.includes(card) &&
         !selectedCards.includes(card)
       ) {
         selectedCards.push(card);
@@ -93,7 +80,6 @@
     }
   }
 
-  // Check if the selected cards match
   function checkMatch() {
     match = true;
     firstCard = selectedCards[0];
