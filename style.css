@@ -142,6 +142,7 @@ button:hover {
   color: white;
   padding: 10px;
   text-shadow: none;
+  pointer-events: none;
 }
 
 /* puzzle game */
@@ -222,4 +223,32 @@ button:hover {
 
 .flip {
   transform: rotateY(180deg);
+}
+
+/* matching */
+.connectSelection {
+  height: calc((100% - 5cqmin) / 6);
+  margin-bottom: 1cqmin;
+
+  width: 100%;
+  border: 2px solid var(--border-color);
+  box-sizing: border-box;
+  border-radius: 8px;
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.connectSelection:hover {
+  background-color: #fbff0071;
+}
+
+.connectColumn {
+  width: 40%;
+  height: 100%;
 }

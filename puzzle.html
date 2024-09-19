@@ -182,7 +182,8 @@
     if (puzzleContainer.children.length === 0) {
       puzzleText.textContent = "你贏了!";
       parent.sendData({
-        puzzle: `${hours.toString().padStart(2, "0")}:${minutes
+        type: "puzzle",
+        time: `${hours.toString().padStart(2, "0")}:${minutes
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`,
       });

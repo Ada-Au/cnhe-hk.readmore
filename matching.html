@@ -115,8 +115,8 @@
       banner.innerHTML = "你贏了!";
       banner.id = "banner";
 
-      parent.sendData({ type: "matching", flips: flipCount });
       document.getElementById("game-board").appendChild(banner);
+      parent.sendData({ type: "matching", tries: flipCount });
     }
   }
 </script>

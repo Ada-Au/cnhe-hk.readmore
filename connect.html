@@ -1,91 +1,137 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Connect Game</title>
-    <style>
-      /* Add your CSS styles here */
-      #gameCanvas {
-        border: 1px solid black;
-      }
-      .connectSelection {
-        height: calc(100% / 6);
-        width: 100%;
-        border: 1px solid black;
-        box-sizing: border-box;
+<div
+  style="
+    height: 100%;
+    width: 100%;
+    display: flex;
+    padding: 4cqmin;
+    box-sizing: border-box;
+  "
+>
+  <div class="connectColumn" id="column-left"></div>
+  <canvas id="gameCanvas"></canvas>
+  <div class="connectColumn" id="column-right"></div>
+</div>
+<script>
+  columnLeft = document.getElementById("column-left");
+  columnRight = document.getElementById("column-right");
+  canvas = document.getElementById("gameCanvas");
+  ctx = canvas.getContext("2d");
 
-        background-size: contain;
-        background-position: right;
-        background-repeat: no-repeat;
-      }
-      .column {
-        width: 40%;
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div
-      style="
-        height: 100%;
-        width: 100%;
-        display: flex;
-        padding: 4cqmin;
-        box-sizing: border-box;
-      "
-    >
-      <div class="column" id="column-left"></div>
-      <canvas id="gameCanvas"></canvas>
-      <div class="column" id="column-right"></div>
-    </div>
-    <script>
-      columnLeft = document.getElementById("column-left");
-      columnRight = document.getElementById("column-right");
-      canvas = document.getElementById("gameCanvas");
-      ctx = canvas.getContext("2d");
+  width = window.innerWidth * 0.2;
+  height = window.innerHeight * 0.9;
+  canvas.width = width;
+  canvas.height = height;
 
-      width = window.innerWidth * 0.2;
-      height = window.innerHeight * 0.9;
-      canvas.width = width;
-      canvas.height = height;
+  audioOrder = [0, 1, 2, 3, 4, 5].sort(() => Math.random() - 0.5);
+  isDrawing = false;
 
-      // Define the starting and ending points of the lines
-      startPoint = { x: 0, y: 50 };
-      endPoint = { x: 200, y: 20 };
+  for (let i = 0; i < 6; i++) {
+    div = document.createElement("div");
+    div.classList.add("connectSelection");
+    div.style.backgroundImage = "url('./assets/connect" + (i + 1) + ".png')";
+    div.style.filter = "hue-rotate(" + -Math.round((3 / 7) * 360) + "deg)";
 
-      // Draw the lines
+    div.onclick = () => {
+      if (isDrawing) stopDrawing(i, true);
+      else startDrawing(i, true);
+    };
+
+    columnLeft.appendChild(div);
+
+    div = document.createElement("div");
+    audio = document.createElement("audio");
+    audio.src = "./assets/connect" + (audioOrder[i] + 1) + ".mp3";
+    audio.controls = true;
+    div.appendChild(audio);
+
+    div.classList.add("connectSelection");
+
+    div.onclick = () => {
+      if (isDrawing) stopDrawing(i, false);
+      else startDrawing(i, false);
+    };
+
+    columnRight.appendChild(div);
+  }
+
+  startPoint = { x: 0, y: 0 };
+  endPoint = { x: 0, y: 0 };
+  existingLines = [];
+  existingId = [];
+  current = -1;
+  count = 0;
+
+  function startDrawing(i, isLeft) {
+    if (existingId.includes(isLeft ? i : audioOrder[i])) return;
+    isDrawing = true;
+    startPoint.x = isLeft ? 0 : width;
+    startPoint.y = (height / 6) * (i + 0.5);
+    current = isLeft ? i : audioOrder[i];
+  }
+
+  function drawLine(event) {
+    if (!isDrawing) return;
+    endPoint.x = event.clientX - canvas.offsetLeft - $(window).width() * 0.18;
+    endPoint.y = event.clientY - canvas.offsetTop;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    redraw();
+    ctx.beginPath();
+    ctx.moveTo(startPoint.x, startPoint.y);
+    ctx.lineTo(endPoint.x, endPoint.y);
+    ctx.stroke();
+  }
+
+  function stopDrawing(i, isLeft) {
+    isDrawing = false;
+    endPoint.x = isLeft ? 0 : width;
+    endPoint.y = (height / 6) * (i + 0.5);
+    count++;
+
+    if (current == (isLeft ? i : audioOrder[i])) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      redraw();
       ctx.beginPath();
       ctx.moveTo(startPoint.x, startPoint.y);
       ctx.lineTo(endPoint.x, endPoint.y);
       ctx.stroke();
 
-      for (let i = 0; i < 6; i++) {
-        div = document.createElement("div");
-        div.classList.add("connectSelection");
-        div.style.backgroundImage =
-          "url('./assets/connect" + (i + 1) + ".png')";
-        div.style.filter = "hue-rotate(" + -Math.round((3 / 7) * 360) + "deg)";
-        columnLeft.appendChild(div);
+      existingLines.push({
+        start: structuredClone(startPoint),
+        end: structuredClone(endPoint),
+      });
+      existingId.push(current);
+    } else {
+      banner = document.createElement("h1");
+      banner.innerHTML = "再試一次!";
+      banner.id = "banner";
+      document.getElementById("game").appendChild(banner);
 
-        const audio = document.createElement("audio");
-        audio.classList.add("connectSelection");
-        audio.src = "./assets/matching" + (i + 1) + ".mp3";
-        audio.controls = true;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      redraw();
 
-        columnRight.insertBefore(
-          audio,
-          columnRight.children[
-            Math.floor(Math.random() * columnRight.children.length)
-          ]
-        );
-      }
+      setTimeout(() => {
+        document.getElementById("game").removeChild(banner);
+      }, 500);
+    }
 
-      function drawLine() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        ctx.moveTo(startPoint.x, startPoint.y);
-        ctx.lineTo(endPoint.x, endPoint.y);
-        ctx.stroke();
-      }
-    </script>
-  </body>
-</html>
+    if (existingId.length == 6) {
+      banner = document.createElement("h1");
+      banner.innerHTML = "你贏了!";
+      banner.id = "banner";
+      document.getElementById("game").appendChild(banner);
+      parent.sendData({ type: "connect", tries: count });
+    }
+  }
+
+  function redraw() {
+    existingLines.forEach((line) => {
+      ctx.beginPath();
+      ctx.moveTo(line.start.x, line.start.y);
+      ctx.lineTo(line.end.x, line.end.y);
+      ctx.stroke();
+    });
+  }
+
+  document.addEventListener("mousemove", drawLine);
+</script>
