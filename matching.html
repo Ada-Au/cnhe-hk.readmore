@@ -1,121 +1,88 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Game Board</title>
-    <style>
-      .game-board {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-auto-rows: 2fr 1fr 1fr;
-        grid-gap: 2cqmin;
-        height: 100%;
-        width: 100%;
-        padding: 2cqmin;
-        box-sizing: border-box;
+<div class="matching-board"></div>
+<script>
+  gameBoard = document.querySelector(".matching-board");
+
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 4; j++) {
+      matchingCard = gameData.matching[i * 4 + j];
+      const card = document.createElement("div");
+
+      if (matchingCard.type == "image") {
+        const img = document.createElement("img");
+
+        img.src = matchingCard.value;
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.objectFit = "contain";
+        img.style.filter = "hue-rotate(" + -Math.round((4 / 7) * 360) + "deg)";
+
+        card.appendChild(img);
+      } else {
+        card.textContent = matchingCard.value;
+        card.style.display = "flex";
+        card.style.justifyContent = "center";
+        card.style.alignItems = "center";
       }
 
-      .game-board div {
-        background-color: var(--brand-color);
-        width: 100%;
-        height: 100%;
-        font-size: 3.8cqw;
-        border-radius: 2cqmin;
-        border: 2px solid var(--border-color);
-        box-sizing: border-box;
-        white-space: pre-line;
-        overflow: hidden;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="game-board"></div>
-    <script>
-      gameBoard = document.querySelector(".game-board");
+      card.id = i + "-" + (j % 4);
+      card.onclick = handleClick;
+      gameBoard.insertBefore(
+        card,
+        gameBoard.children[Math.floor(Math.random() * 4) + i * 4]
+      );
+    }
+  }
 
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 4; j++) {
-          matchingCard = gameData.matching[i * 4 + j];
-          const card = document.createElement("div");
+  currentCards = [-1, -1, -1];
+  count = 0;
+  countCorrect = 0;
 
-          if (matchingCard.type == "image") {
-            const img = document.createElement("img");
+  function handleClick() {
+    currentRow = this.id.split("-")[0];
+    currentId = this.id.split("-")[1];
 
-            img.src = matchingCard.value;
-            img.style.width = "100%";
-            img.style.height = "100%";
-            img.style.objectFit = "contain";
-            img.style.filter =
-              "hue-rotate(" + -Math.round((4 / 7) * 360) + "deg)";
+    if (currentCards[currentRow] !== -1) {
+      console.log(currentRow + "-" + currentId);
+      document.getElementById(
+        currentRow + "-" + currentCards[currentRow]
+      ).style.borderWidth = "2px";
+    }
+    this.style.borderWidth = "8px";
+    currentCards[currentRow] = currentId;
 
-            card.appendChild(img);
-          } else {
-            card.textContent = matchingCard.value;
-            card.style.display = "flex";
-            card.style.justifyContent = "center";
-            card.style.alignItems = "center";
-          }
+    currentCards.reduce((count, card) => {
+      if (card != -1) return count + 1;
+      return count;
+    }, 0) === 3 && checkMatch();
+  }
 
-          card.id = i + "-" + (j % 4);
-          card.onclick = handleClick;
-          gameBoard.insertBefore(
-            card,
-            gameBoard.children[Math.floor(Math.random() * 4) + i * 4]
-          );
-        }
-      }
-
+  function checkMatch() {
+    count++;
+    setTimeout(() => {
       currentCards = [-1, -1, -1];
-      count = 0;
-      countCorrect = 0;
+      gameBoard.childNodes.forEach((card) => {
+        card.style.borderWidth = "2px";
+      });
+    });
 
-      function handleClick() {
-        currentRow = this.id.split("-")[0];
-        currentId = this.id.split("-")[1];
-
-        if (currentCards[currentRow] !== -1) {
-          console.log(currentRow + "-" + currentId);
-          document.getElementById(
-            currentRow + "-" + currentCards[currentRow]
-          ).style.borderWidth = "2px";
-        }
-        this.style.borderWidth = "8px";
-        currentCards[currentRow] = currentId;
-
-        currentCards.reduce((count, card) => {
-          if (card != -1) return count + 1;
-          return count;
-        }, 0) === 3 && checkMatch();
+    if (
+      currentCards[0] === currentCards[1] &&
+      currentCards[1] === currentCards[2]
+    ) {
+      countCorrect++;
+      for (let i = 0; i < 3; i++) {
+        document.getElementById(
+          i + "-" + currentCards[currentRow]
+        ).style.backgroundColor = "#ffb7e5";
       }
+    }
 
-      function checkMatch() {
-        count++;
-        setTimeout(() => {
-          currentCards = [-1, -1, -1];
-          gameBoard.childNodes.forEach((card) => {
-            card.style.borderWidth = "2px";
-          });
-        });
-
-        if (
-          currentCards[0] === currentCards[1] &&
-          currentCards[1] === currentCards[2]
-        ) {
-          countCorrect++;
-          for (let i = 0; i < 3; i++) {
-            document.getElementById(
-              i + "-" + currentCards[currentRow]
-            ).style.backgroundColor = "#ffb7e5";
-          }
-        }
-
-        if (countCorrect === 4) {
-          banner = document.createElement("h1");
-          banner.innerHTML = "你贏了!";
-          banner.id = "banner";
-          document.getElementById("game").appendChild(banner);
-          parent.sendData({ type: "matching", tries: count });
-        }
-      }
-    </script>
-  </body>
-</html>
+    if (countCorrect === 4) {
+      banner = document.createElement("h1");
+      banner.innerHTML = "你贏了!";
+      banner.id = "banner";
+      document.getElementById("game").appendChild(banner);
+      parent.sendData({ type: "matching", tries: count });
+    }
+  }
+</script>

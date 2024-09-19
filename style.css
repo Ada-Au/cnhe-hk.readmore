@@ -250,3 +250,28 @@ button:hover {
   width: 40%;
   height: 100%;
 }
+
+/* matching */
+
+.matching-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 2fr 1fr 1fr;
+  grid-gap: 2cqmin;
+  height: 100%;
+  width: 100%;
+  padding: 2cqmin;
+  box-sizing: border-box;
+}
+
+.matching-board div {
+  background-color: var(--brand-color);
+  width: 100%;
+  height: 100%;
+  font-size: 3.8cqw;
+  border-radius: 2cqmin;
+  border: 2px solid var(--border-color);
+  box-sizing: border-box;
+  white-space: pre-line;
+  overflow: hidden;
+}

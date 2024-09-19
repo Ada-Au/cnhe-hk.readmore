@@ -1,0 +1,112 @@
+<style>
+  table {
+    border-collapse: collapse;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+  }
+  td {
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 48px;
+    cursor: pointer;
+  }
+</style>
+<table>
+  <tr>
+    <td id="cell-0" onclick="handleCellClick(0)"></td>
+    <td id="cell-1" onclick="handleCellClick(1)"></td>
+    <td id="cell-2" onclick="handleCellClick(2)"></td>
+  </tr>
+  <tr>
+    <td id="cell-3" onclick="handleCellClick(3)"></td>
+    <td id="cell-4" onclick="handleCellClick(4)"></td>
+    <td id="cell-5" onclick="handleCellClick(5)"></td>
+  </tr>
+  <tr>
+    <td id="cell-6" onclick="handleCellClick(6)"></td>
+    <td id="cell-7" onclick="handleCellClick(7)"></td>
+    <td id="cell-8" onclick="handleCellClick(8)"></td>
+  </tr>
+</table>
+<script>
+  // Initialize the game state
+  let currentPlayer = "X";
+  let gameEnded = false;
+
+  // Function to handle cell click event
+  function handleCellClick(cellId) {
+    // Check if the game has already ended or the cell is already occupied
+    if (
+      gameEnded ||
+      document.getElementById("cell-" + cellId).innerHTML !== ""
+    ) {
+      return;
+    }
+
+    // Update the cell with the current player's symbol
+    document.getElementById("cell-" + cellId).innerHTML = currentPlayer;
+
+    // Check for a winning condition
+    if (checkWin()) {
+      // Display the winner
+      alert("Player " + currentPlayer + " wins!");
+      gameEnded = true;
+      return;
+    }
+
+    // Check for a draw condition
+    if (checkDraw()) {
+      // Display a draw message
+      alert("It's a draw!");
+      gameEnded = true;
+      return;
+    }
+
+    // Switch to the next player
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+  }
+
+  // Function to check for a winning condition
+  function checkWin() {
+    // Define the winning combinations
+    const winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8], // Rows
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8], // Columns
+      [0, 4, 8],
+      [2, 4, 6], // Diagonals
+    ];
+
+    // Check each winning combination
+    for (let combination of winningCombinations) {
+      const [a, b, c] = combination;
+      if (
+        document.getElementById("cell-" + a).innerHTML === currentPlayer &&
+        document.getElementById("cell-" + b).innerHTML === currentPlayer &&
+        document.getElementById("cell-" + c).innerHTML === currentPlayer
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  // Function to check for a draw condition
+  function checkDraw() {
+    // Check if all cells are occupied
+    for (let i = 0; i < 9; i++) {
+      if (document.getElementById("cell-" + i).innerHTML === "") {
+        return false;
+      }
+    }
+
+    return true;
+  }
+</script>
