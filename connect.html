@@ -25,10 +25,11 @@
   audioOrder = [0, 1, 2, 3, 4, 5].sort(() => Math.random() - 0.5);
   isDrawing = false;
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < gameData.connect.length; i++) {
     div = document.createElement("div");
     div.classList.add("connectSelection");
-    div.style.backgroundImage = "url('./assets/connect" + (i + 1) + ".png')";
+    div.style.backgroundImage =
+      "url('" + gameData.connect.path + (i + 1) + gameData.connect.ext + "')";
     div.style.filter = "hue-rotate(" + -Math.round((3 / 7) * 360) + "deg)";
 
     div.onclick = () => {
@@ -40,7 +41,7 @@
 
     div = document.createElement("div");
     audio = document.createElement("audio");
-    audio.src = "./assets/connect" + (audioOrder[i] + 1) + ".mp3";
+    audio.src = gameData.connect.path + (audioOrder[i] + 1) + ".mp3";
     audio.controls = true;
     div.appendChild(audio);
 
@@ -65,7 +66,7 @@
     if (existingId.includes(isLeft ? i : audioOrder[i])) return;
     isDrawing = true;
     startPoint.x = isLeft ? 0 : width;
-    startPoint.y = (height / 6) * (i + 0.5);
+    startPoint.y = (height / gameData.connect.length) * (i + 0.5);
     current = isLeft ? i : audioOrder[i];
   }
 
@@ -85,7 +86,7 @@
   function stopDrawing(i, isLeft) {
     isDrawing = false;
     endPoint.x = isLeft ? 0 : width;
-    endPoint.y = (height / 6) * (i + 0.5);
+    endPoint.y = (height / gameData.connect.length) * (i + 0.5);
     count++;
 
     if (current == (isLeft ? i : audioOrder[i])) {
@@ -115,7 +116,7 @@
       }, 500);
     }
 
-    if (existingId.length == 6) {
+    if (existingId.length == gameData.connect.length) {
       banner = document.createElement("h1");
       banner.innerHTML = "你贏了!";
       banner.id = "banner";

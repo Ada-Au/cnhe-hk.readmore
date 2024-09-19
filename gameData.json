@@ -1,4 +1,5 @@
 {
+  "connect": { "length": 6, "path": "./assets/connect", "ext": ".png" },
   "matching": [
     { "type": "image", "value": "./assets/matching1.png", "match": 1 },
     { "type": "image", "value": "./assets/matching2.png", "match": 2 },
