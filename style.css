@@ -14,13 +14,14 @@ body {
 }
 
 h1 {
-  font-size: 7.8vw;
+  font-size: 7vw;
   text-shadow: #fff 0 0 0.24rem, #fff 0 0 0.24rem, #fff 0 0 0.24rem,
     #fff 0 0 0.24rem, #fff 0 0 0.24rem;
 }
 
 h2 {
   font-size: 4vw;
+  font-weight: 100;
 }
 h3 {
   font-size: 3vw;
@@ -274,4 +275,37 @@ button:hover {
   box-sizing: border-box;
   white-space: pre-line;
   overflow: hidden;
+}
+
+/* ticTacToe */
+
+table {
+  border-collapse: collapse;
+  width: 45cqmin;
+  height: 45cqmin;
+  margin: 0 auto;
+}
+td {
+  border: 1px solid black;
+  width: 15cqmin;
+  height: 15cqmin;
+  text-align: center;
+  font-size: 48px;
+  cursor: pointer;
+}
+td:hover {
+  background-color: #fadada75;
+}
+td.done:hover {
+  background-color: unset;
+}
+
+#choice-container {
+  display: none;
+  width: 100%;
+  justify-content: space-around;
+}
+
+#choice-container button {
+  width: 30%;
 }

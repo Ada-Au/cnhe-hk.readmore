@@ -1,77 +1,79 @@
-<style>
-  table {
-    border-collapse: collapse;
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
-  }
-  td {
-    border: 1px solid black;
-    width: 100px;
-    height: 100px;
-    text-align: center;
-    font-size: 48px;
-    cursor: pointer;
-  }
-</style>
-<table>
-  <tr>
-    <td id="cell-0" onclick="handleCellClick(0)"></td>
-    <td id="cell-1" onclick="handleCellClick(1)"></td>
-    <td id="cell-2" onclick="handleCellClick(2)"></td>
-  </tr>
-  <tr>
-    <td id="cell-3" onclick="handleCellClick(3)"></td>
-    <td id="cell-4" onclick="handleCellClick(4)"></td>
-    <td id="cell-5" onclick="handleCellClick(5)"></td>
-  </tr>
-  <tr>
-    <td id="cell-6" onclick="handleCellClick(6)"></td>
-    <td id="cell-7" onclick="handleCellClick(7)"></td>
-    <td id="cell-8" onclick="handleCellClick(8)"></td>
-  </tr>
-</table>
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  "
+>
+  <div>
+    <h3>玩家: O<br />電腦: X</h3>
+    <table>
+      <tr>
+        <td id="cell-0" onclick="handleCellClick(0)"></td>
+        <td id="cell-1" onclick="handleCellClick(1)"></td>
+        <td id="cell-2" onclick="handleCellClick(2)"></td>
+      </tr>
+      <tr>
+        <td id="cell-3" onclick="handleCellClick(3)"></td>
+        <td id="cell-4" onclick="handleCellClick(4)"></td>
+        <td id="cell-5" onclick="handleCellClick(5)"></td>
+      </tr>
+      <tr>
+        <td id="cell-6" onclick="handleCellClick(6)"></td>
+        <td id="cell-7" onclick="handleCellClick(7)"></td>
+        <td id="cell-8" onclick="handleCellClick(8)"></td>
+      </tr>
+    </table>
+  </div>
+  <div style="padding-left: 4cqmin; width: 50%">
+    <h2 id="tic-question" style="height: 9vw; padding-bottom: 4cqmin">
+      按九宮格開始遊戲
+    </h2>
+    <div id="choice-container">
+      <button onclick="ansQuestion(true)">是</button>
+      <button onclick="ansQuestion(false)">否</button>
+    </div>
+  </div>
+</div>
 <script>
-  // Initialize the game state
-  let currentPlayer = "X";
-  let gameEnded = false;
+  currentQuestion = -1;
+  count = 0;
+  choiceContainer = document.getElementById("choice-container");
+  questionText = document.getElementById("tic-question");
 
-  // Function to handle cell click event
-  function handleCellClick(cellId) {
-    // Check if the game has already ended or the cell is already occupied
-    if (
-      gameEnded ||
-      document.getElementById("cell-" + cellId).innerHTML !== ""
-    ) {
-      return;
+  ticQuestions = structuredClone(gameData.ticTacToe).sort(
+    () => Math.random() - 0.5
+  );
+
+  function ansQuestion(ans) {
+    if (currentQuestion === -1) return;
+    currentCell = document.getElementById("cell-" + currentQuestion);
+    if (currentCell.innerHTML !== "") return;
+
+    if (ans == ticQuestions[currentQuestion].answer) {
+      currentCell.innerHTML = "O";
+    } else {
+      currentCell.innerHTML = "X";
     }
+    currentCell.style.cursor = "default";
+    currentCell.classList.add("done");
+    count++;
 
-    // Update the cell with the current player's symbol
-    document.getElementById("cell-" + cellId).innerHTML = currentPlayer;
-
-    // Check for a winning condition
-    if (checkWin()) {
-      // Display the winner
-      alert("Player " + currentPlayer + " wins!");
-      gameEnded = true;
-      return;
-    }
-
-    // Check for a draw condition
-    if (checkDraw()) {
-      // Display a draw message
-      alert("It's a draw!");
-      gameEnded = true;
-      return;
-    }
-
-    // Switch to the next player
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    if (count === 9) checkWin();
   }
 
-  // Function to check for a winning condition
+  function handleCellClick(cellId) {
+    if (document.getElementById("cell-" + cellId).innerHTML !== "") {
+      return;
+    }
+
+    currentQuestion = cellId;
+    questionText.innerHTML = ticQuestions[cellId].question;
+    choiceContainer.style.display = "flex";
+  }
+
   function checkWin() {
-    // Define the winning combinations
     const winningCombinations = [
       [0, 1, 2],
       [3, 4, 5],
@@ -83,30 +85,41 @@
       [2, 4, 6], // Diagonals
     ];
 
-    // Check each winning combination
+    countWin = 0;
     for (let combination of winningCombinations) {
       const [a, b, c] = combination;
       if (
-        document.getElementById("cell-" + a).innerHTML === currentPlayer &&
-        document.getElementById("cell-" + b).innerHTML === currentPlayer &&
-        document.getElementById("cell-" + c).innerHTML === currentPlayer
+        document.getElementById("cell-" + a).innerHTML === "O" &&
+        document.getElementById("cell-" + b).innerHTML === "O" &&
+        document.getElementById("cell-" + c).innerHTML === "O"
       ) {
-        return true;
+        countWin++;
+      }
+      if (
+        document.getElementById("cell-" + a).innerHTML === "X" &&
+        document.getElementById("cell-" + b).innerHTML === "X" &&
+        document.getElementById("cell-" + c).innerHTML === "X"
+      ) {
+        countWin--;
       }
     }
 
-    return false;
-  }
+    banner = document.createElement("h1");
 
-  // Function to check for a draw condition
-  function checkDraw() {
-    // Check if all cells are occupied
-    for (let i = 0; i < 9; i++) {
-      if (document.getElementById("cell-" + i).innerHTML === "") {
-        return false;
-      }
+    if (countWin > 0) {
+      banner.innerHTML = "你贏了!";
+    } else if (countWin == 0) {
+      banner.innerHTML = "平手!";
+    } else {
+      banner.innerHTML = "繼續努力!";
     }
 
-    return true;
+    banner.id = "banner";
+    document.getElementById("game").appendChild(banner);
+
+    parent.sendData({
+      game: "ticTacToe",
+      mark: countWin,
+    });
   }
 </script>
