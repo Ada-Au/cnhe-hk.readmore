@@ -27,6 +27,12 @@ h3 {
   font-size: 3vw;
 }
 
+.logo {
+  position: absolute;
+  top: 2cqmin;
+  max-height: 10%;
+}
+
 #bg {
   height: 100%;
   width: 100%;
@@ -34,6 +40,12 @@ h3 {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+#backBtn {
+  position: absolute;
+  top: 2cqmin;
+  left: 2cqmin;
 }
 
 /* select game */
@@ -76,12 +88,6 @@ button:hover {
   grid-template-columns: repeat(3, 1fr);
   gap: 2vw;
   margin: 2vh 16vw;
-}
-
-#backBtn {
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 /* rhymes game */

@@ -7,4 +7,4 @@
 **唐詩(⁠ 聲韻接字)(rhymes)** sendData with marks, the **_higher_** the better \
 **過三關(唐玄宗、楊貴妃)⁠(ticTacToe)** sendData with marks, the **_higher_** the better\
 \
-{type: ["connect" || "matching" || "pair" || "puzzle" || "rhymes" || "ticTacToe], tries || time || marks: number}
+{type: ["connect" || "matching" || "pair" || "puzzle" || "rhymes" || "ticTacToe], [tries || time || marks]: number}

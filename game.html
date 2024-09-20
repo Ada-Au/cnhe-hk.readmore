@@ -2,10 +2,19 @@
 <link rel="stylesheet" href="style.css" />
 
 <div id="bg" style="display: flex">
+  <img
+    class="logo"
+    src="./assets/logo1.png"
+    style="right: 4cqmin; max-width: 20%"
+  />
+  <img
+    class="logo"
+    src="./assets/logo2.png"
+    style="left: 4cqmin; max-width: 50%"
+  />
   <h1 id="title" class="chooseGame">選擇主題</h1>
   <div id="game" style="height: 100%; width: 100%; container-type: size"></div>
   <button id="backBtn" onclick="setGame(0)">返回</button>
-  <!-- <img src="./logo1.png" style="height: 801; width: 130" /> -->
 </div>
 
 <script>
@@ -13,8 +22,17 @@
   const titleText = document.getElementById("title");
   const backBtn = document.getElementById("backBtn");
   const game = document.getElementById("game");
+  const logos = document.getElementsByClassName("logo");
+
   let gameData = $.getJSON("./gameData.json");
 
+  function clearBg() {
+    for (let i = 0; i < logos.length; i++) {
+      logos[i].style.display = "none";
+    }
+    delete i;
+    titleText.className = "inGame";
+  }
   function setGame(gameIndex) {
     titleText.innerHTML = gameData.titles[gameIndex];
     bgStyle.filter = "hue-rotate(" + Math.round((gameIndex / 7) * 360) + "deg)";
@@ -28,33 +46,37 @@
     switch (gameIndex) {
       case 1:
         $("#game").load("./puzzle.html");
-        titleText.className = "inGame";
+        clearBg();
         break;
       case 2:
         $("#game").load("./rhymes.html");
-        titleText.className = "inGame";
+        clearBg();
         break;
       case 3:
         $("#game").load("./connect.html");
-        titleText.className = "inGame";
+        clearBg();
         break;
       case 4:
         $("#game").load("./matching.html");
-        titleText.className = "inGame";
+        clearBg();
         break;
       case 5:
         $("#game").load("./pair.html");
-        titleText.className = "inGame";
+        clearBg();
         break;
       case 6:
         $("#game").load("./ticTacToe.html");
-        titleText.className = "inGame";
+        clearBg();
         break;
 
       default:
         backBtn.style = "display: none";
         $("#game").load("./gameSelection.html");
         titleText.className = "chooseGame";
+        for (let i = 0; i < logos.length; i++) {
+          logos[i].style.display = "block";
+        }
+        delete i;
         break;
     }
   }
@@ -64,7 +86,7 @@
       gameData = json;
     });
     $("#game").load("./gameSelection.html");
-    setGame(6);
+    setGame(0);
   }
 
   init();
