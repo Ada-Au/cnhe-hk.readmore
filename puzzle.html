@@ -185,9 +185,7 @@
       puzzleText.textContent = "你贏了!";
       parent.sendData({
         type: "puzzle",
-        time: `${hours.toString().padStart(2, "0")}:${minutes
-          .toString()
-          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`,
+        time: hours * 360 + minutes * 60 + seconds,
       });
       clearInterval(timer);
       if (localStorage.getItem("interval")) localStorage.removeItem("interval");
