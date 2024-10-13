@@ -34,7 +34,7 @@
     titleText.className = "inGame";
   }
 
-  function setGame(path = "select") {
+  function setGame(path = "") {
     if (localStorage.getItem("interval")) {
       clearInterval(localStorage.getItem("interval"));
       localStorage.removeItem("interval");
@@ -44,7 +44,7 @@
     params = new URLSearchParams(parent.window.location.search);
 
     if (gameData[gamePath] === undefined) {
-      gamePath = "select";
+      gamePath = params.get("game") || "select";
     }
 
     titleText.innerHTML = gameData[gamePath].title;
