@@ -1,20 +1,22 @@
 <script>
-  buttons = document.getElementsByTagName("button");
+  selectionContainers = document.getElementsByClassName("selectionContainer");
 
-  for (const btn of buttons) {
-    btn.innerHTML = gameData[btn.innerHTML].title;
+  for (const selectionContainer of selectionContainers) {
+    for (const btn of selectionContainer.children) {
+      btn.innerHTML = gameData[btn.innerHTML].title;
+    }
   }
 </script>
 
 <div style="height: 100%; align-content: center; padding-top: 88px">
   <div class="selectionContainer">
-    <button onclick="setGame('puzzle')" id="selectGame1">puzzle</button>
-    <button onclick="setGame('rhymes')" id="selectGame2">rhymes</button>
-    <button onclick="setGame('connect')" id="selectGame3">connect</button>
+    <button onclick="setGame('puzzle')">puzzle</button>
+    <button onclick="setGame('rhymes')">rhymes</button>
+    <button onclick="setGame('connect')">connect</button>
   </div>
   <div class="selectionContainer">
-    <button onclick="setGame('matching')" id="selectGame4">matching</button>
-    <button onclick="setGame('pair')" id="selectGame5">pair</button>
-    <button onclick="setGame('ticTacToe')" id="selectGame6">ticTacToe</button>
+    <button onclick="setGame('matching')">matching</button>
+    <button onclick="setGame('pair')">pair</button>
+    <button onclick="setGame('ticTacToe')">ticTacToe</button>
   </div>
 </div>

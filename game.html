@@ -15,7 +15,7 @@
   />
   <h1 id="title" class="chooseGame">選擇主題</h1>
   <div id="game" style="height: 100%; width: 100%; container-type: size"></div>
-  <button id="backBtn" onclick="setGame()">返回</button>
+  <button id="backBtn" onclick="setGame('select')">返回</button>
 </div>
 
 <script>
@@ -54,7 +54,6 @@
 
     $("#game").load("./" + gamePath + ".html");
     params.set("game", gamePath);
-    console.log(params.toString());
     parent.window.history.replaceState(null, null, "?" + params.toString());
 
     clearBg();
