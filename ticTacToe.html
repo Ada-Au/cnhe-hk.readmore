@@ -42,7 +42,7 @@
   choiceContainer = document.getElementById("choice-container");
   questionText = document.getElementById("tic-question");
 
-  ticQuestions = structuredClone(gameData.ticTacToe).sort(
+  ticQuestions = structuredClone(gameData.ticTacToe.game).sort(
     () => Math.random() - 0.5
   );
 

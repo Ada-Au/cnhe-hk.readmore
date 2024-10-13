@@ -1,75 +1,113 @@
 {
-  "ticTacToe": [
-    { "question": "唐玄宗的全名為李隆基​", "answer": true },
-    { "question": "《霓裳羽衣曲》為唐玄宗所創​", "answer": true },
-    { "question": "楊貴妃堂兄為安祿山​", "answer": false },
-    {
-      "question": "後宮佳麗三千人，三千寵愛在一身」指的便是楊貴妃​",
-      "answer": true
-    },
-    { "question": "唐玄宗是出色的舞蹈家​", "answer": false },
-    { "question": "唐玄宗是出色的音樂家​", "answer": true },
-    {
-      "question": "據史書記載，唐玄宗無法察覺演奏者是否演奏錯誤​",
-      "answer": false
-    },
-    { "question": "唐代音樂得以發展蓬勃，這與唐代國勢無關​", "answer": false },
-    { "question": "唐代是一個社會文化開放多元的朝代​", "answer": true }
-  ],
+  "ticTacToe": {
+    "title": "⁠詩畫對對碰<br>(詩佛王維)",
+    "color": 5,
+    "game": [
+      { "question": "唐玄宗的全名為李隆基​", "answer": true },
+      { "question": "《霓裳羽衣曲》為唐玄宗所創​", "answer": true },
+      { "question": "楊貴妃堂兄為安祿山​", "answer": false },
+      {
+        "question": "後宮佳麗三千人，三千寵愛在一身」指的便是楊貴妃​",
+        "answer": true
+      },
+      { "question": "唐玄宗是出色的舞蹈家​", "answer": false },
+      { "question": "唐玄宗是出色的音樂家​", "answer": true },
+      {
+        "question": "據史書記載，唐玄宗無法察覺演奏者是否演奏錯誤​",
+        "answer": false
+      },
+      {
+        "question": "唐代音樂得以發展蓬勃，這與唐代國勢無關​",
+        "answer": false
+      },
+      { "question": "唐代是一個社會文化開放多元的朝代​", "answer": true }
+    ]
+  },
 
-  "connect": { "length": 6, "path": "./assets/connect", "ext": ".png" },
-  "pair": [
-    { "type": "image", "value": "./assets/pair1.png", "match": 1 },
-    { "type": "image", "value": "./assets/pair2.png", "match": 2 },
-    { "type": "image", "value": "./assets/pair3.png", "match": 3 },
-    { "type": "image", "value": "./assets/pair4.png", "match": 4 },
-    { "type": "image", "value": "./assets/pair5.png", "match": 5 },
-    { "type": "text", "value": "木末芙蓉花，山中發紅萼", "match": 1 },
-    { "type": "text", "value": "竹喧歸驕女，蓮動下漁舟", "match": 2 },
-    { "type": "text", "value": "月出驚山烏，時鳴春澗中", "match": 3 },
-    { "type": "text", "value": "大漠孤煙直，長河落日圓", "match": 4 },
-    { "type": "text", "value": "獨坐豳篁裏，彈琴復長嘯", "match": 5 }
-  ],
-  "matching": [
-    { "type": "image", "value": "./assets/matching1.png", "match": 1 },
-    { "type": "image", "value": "./assets/matching2.png", "match": 2 },
-    { "type": "image", "value": "./assets/matching3.png", "match": 3 },
-    { "type": "image", "value": "./assets/matching4.png", "match": 4 },
-    { "type": "text", "value": "胡旋舞", "match": 1 },
-    { "type": "text", "value": "胡騰舞", "match": 2 },
-    { "type": "text", "value": "綠腰", "match": 3 },
-    { "type": "text", "value": "柘枝舞", "match": 4 },
-    { "type": "text", "value": "快速、\r\n不斷旋轉", "match": 1 },
-    { "type": "text", "value": "跳躍騰踏、\r\n怠促多變", "match": 2 },
-    { "type": "text", "value": "身著衣襟\r\n修長的舞衣", "match": 3 },
-    { "type": "text", "value": "用蠻鼓引舞", "match": 4 }
-  ],
-  "puzzle": "./assets/puzzle.jpg",
-  "rhymes": [
-    {
-      "question": "紅豆生南國，春來發幾枝",
-      "correct": ["恩", "之", "師", "詩", "知"],
-      "wrong": ["必", "迫", "搬", "愛", "仙", "煙", "煎"]
-    },
+  "connect": {
+    "length": 6,
+    "path": "./assets/connect/connect",
+    "ext": ".jpeg",
+    "title": "⁠聽聲連線<br>(唐朝樂器)",
+    "color": 3
+  },
+  "pair": {
+    "title": "⁠詩畫對對碰<br>(詩佛王維)",
+    "color": 5,
+    "game": [
+      { "type": "image", "value": "./assets/pair/pair1.jpeg", "match": 1 },
+      { "type": "image", "value": "./assets/pair/pair2.jpeg", "match": 2 },
+      { "type": "image", "value": "./assets/pair/pair3.jpeg", "match": 3 },
+      { "type": "image", "value": "./assets/pair/pair4.jpeg", "match": 4 },
+      { "type": "image", "value": "./assets/pair/pair5.jpeg", "match": 5 },
+      { "type": "text", "value": "木末芙蓉花，山中發紅萼", "match": 1 },
+      { "type": "text", "value": "竹喧歸驕女，蓮動下漁舟", "match": 2 },
+      { "type": "text", "value": "月出驚山烏，時鳴春澗中", "match": 3 },
+      { "type": "text", "value": "大漠孤煙直，長河落日圓", "match": 4 },
+      { "type": "text", "value": "獨坐豳篁裏，彈琴復長嘯", "match": 5 }
+    ]
+  },
+  "matching": {
+    "title": "⁠配對<br>(唐朝舞蹈)",
+    "color": 4,
+    "game": [
+      {
+        "type": "image",
+        "value": "./assets/matching/matching1.jpeg",
+        "match": 1
+      },
+      {
+        "type": "image",
+        "value": "./assets/matching/matching2.jpeg",
+        "match": 2
+      },
+      {
+        "type": "image",
+        "value": "./assets/matching/matching3.jpeg",
+        "match": 3
+      },
+      {
+        "type": "image",
+        "value": "./assets/matching/matching4.jpeg",
+        "match": 4
+      },
+      { "type": "text", "value": "胡旋舞", "match": 1 },
+      { "type": "text", "value": "胡騰舞", "match": 2 },
+      { "type": "text", "value": "綠腰", "match": 3 },
+      { "type": "text", "value": "柘枝舞", "match": 4 },
+      { "type": "text", "value": "快速、\r\n不斷旋轉", "match": 1 },
+      { "type": "text", "value": "跳躍騰踏、\r\n怠促多變", "match": 2 },
+      { "type": "text", "value": "身著衣襟\r\n修長的舞衣", "match": 3 },
+      { "type": "text", "value": "用蠻鼓引舞", "match": 4 }
+    ]
+  },
+  "puzzle": {
+    "title": "⁠砌圖<br>(王維畫)",
+    "color": 1,
+    "path": "./assets/puzzle.jpeg"
+  },
+  "rhymes": {
+    "title": "⁠聲韻接字<br>(唐詩)",
+    "color": 2,
+    "game": [
+      {
+        "question": "紅豆生南國，春來發幾枝",
+        "correct": ["恩", "之", "師", "詩", "知"],
+        "wrong": ["必", "迫", "搬", "愛", "仙", "煙", "煎"]
+      },
 
-    {
-      "question": "獨坐幽篁裏，彈琴復長靈",
-      "correct": ["照", "消", "囂", "兆", "釣"],
-      "wrong": ["必", "詩", "知", "煙", "桃", "衣", "哀"]
-    },
-    {
-      "question": "空山不見人，但聞人語蠁",
-      "correct": ["上", "搶", "想", "賞", "掌"],
-      "wrong": ["病", "餅", "影", "港", "朗", "綁", "廣"]
-    }
-  ],
-  "titles": [
-    "選擇主題",
-    "⁠砌圖<br>(王維畫)",
-    "⁠聲韻接字<br>(唐詩)",
-    "⁠聽聲連線<br>(唐朝樂器)",
-    "⁠配對<br>(唐朝舞蹈)",
-    "⁠詩畫對對碰<br>(詩佛王維)",
-    "過三關<br>(唐玄宗、楊貴妃)"
-  ]
+      {
+        "question": "獨坐幽篁裏，彈琴復長靈",
+        "correct": ["照", "消", "囂", "兆", "釣"],
+        "wrong": ["必", "詩", "知", "煙", "桃", "衣", "哀"]
+      },
+      {
+        "question": "空山不見人，但聞人語蠁",
+        "correct": ["上", "搶", "想", "賞", "掌"],
+        "wrong": ["病", "餅", "影", "港", "朗", "綁", "廣"]
+      }
+    ]
+  },
+  "select": { "title": "選擇主題", "color": 0 },
+  "titles": ["過三關<br>(唐玄宗、楊貴妃)"]
 }

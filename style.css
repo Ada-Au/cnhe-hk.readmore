@@ -36,7 +36,7 @@ h3 {
 #bg {
   height: 100%;
   width: 100%;
-  background-image: url(./assets/bg.jpg);
+  background-image: url(./assets/bg.jpeg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -296,7 +296,7 @@ td {
   width: 15cqmin;
   height: 15cqmin;
   text-align: center;
-  font-size: 48px;
+  font-size: 12cqmin;
   cursor: pointer;
 }
 td:hover {

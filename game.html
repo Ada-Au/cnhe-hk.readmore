@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="style.css" />
 
 <div id="bg" style="display: flex">
+  <!-- jpeg cannot be transparent -->
   <img
     class="logo"
     src="./assets/logo1.png"
@@ -14,7 +15,7 @@
   />
   <h1 id="title" class="chooseGame">選擇主題</h1>
   <div id="game" style="height: 100%; width: 100%; container-type: size"></div>
-  <button id="backBtn" onclick="setGame(0)">返回</button>
+  <button id="backBtn" onclick="setGame()">返回</button>
 </div>
 
 <script>
@@ -27,57 +28,43 @@
   let gameData = $.getJSON("./gameData.json");
 
   function clearBg() {
-    for (let i = 0; i < logos.length; i++) {
+    for (i = 0; i < logos.length; i++) {
       logos[i].style.display = "none";
     }
-    delete i;
     titleText.className = "inGame";
   }
-  function setGame(gameIndex) {
-    titleText.innerHTML = gameData.titles[gameIndex];
-    bgStyle.filter = "hue-rotate(" + Math.round((gameIndex / 7) * 360) + "deg)";
-    backBtn.style = "";
 
+  function setGame(path = "select") {
     if (localStorage.getItem("interval")) {
       clearInterval(localStorage.getItem("interval"));
       localStorage.removeItem("interval");
     }
 
-    switch (gameIndex) {
-      case 1:
-        $("#game").load("./puzzle.html");
-        clearBg();
-        break;
-      case 2:
-        $("#game").load("./rhymes.html");
-        clearBg();
-        break;
-      case 3:
-        $("#game").load("./connect.html");
-        clearBg();
-        break;
-      case 4:
-        $("#game").load("./matching.html");
-        clearBg();
-        break;
-      case 5:
-        $("#game").load("./pair.html");
-        clearBg();
-        break;
-      case 6:
-        $("#game").load("./ticTacToe.html");
-        clearBg();
-        break;
+    gamePath = path;
+    params = new URLSearchParams(parent.window.location.search);
 
-      default:
-        backBtn.style = "display: none";
-        $("#game").load("./gameSelection.html");
-        titleText.className = "chooseGame";
-        for (let i = 0; i < logos.length; i++) {
-          logos[i].style.display = "block";
-        }
-        delete i;
-        break;
+    if (gameData[gamePath] === undefined) {
+      gamePath = "select";
+    }
+
+    titleText.innerHTML = gameData[gamePath].title;
+    bgStyle.filter =
+      "hue-rotate(" + Math.round((gameData[gamePath].color / 7) * 360) + "deg)";
+    backBtn.style = "";
+
+    $("#game").load("./" + gamePath + ".html");
+    params.set("game", gamePath);
+    console.log(params.toString());
+    parent.window.history.replaceState(null, null, "?" + params.toString());
+
+    clearBg();
+
+    if (gamePath === "select") {
+      backBtn.style = "display: none";
+      titleText.className = "chooseGame";
+      for (i = 0; i < logos.length; i++) {
+        logos[i].style.display = "block";
+      }
     }
   }
 
@@ -85,8 +72,7 @@
     await $.getJSON("gameData.json", function (json) {
       gameData = json;
     });
-    $("#game").load("./gameSelection.html");
-    setGame(0);
+    setGame();
   }
 
   init();

@@ -97,7 +97,7 @@
   }
 
   function chooseQuestion(questionNumber) {
-    currentGame = structuredClone(gameData.rhymes[questionNumber - 1]);
+    currentGame = structuredClone(gameData.rhymes.game[questionNumber - 1]);
     max = currentGame.correct.length;
     document.getElementById("question").innerHTML = currentGame.question.slice(
       0,

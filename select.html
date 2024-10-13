@@ -1,0 +1,20 @@
+<script>
+  buttons = document.getElementsByTagName("button");
+
+  for (const btn of buttons) {
+    btn.innerHTML = gameData[btn.innerHTML].title;
+  }
+</script>
+
+<div style="height: 100%; align-content: center; padding-top: 88px">
+  <div class="selectionContainer">
+    <button onclick="setGame('puzzle')" id="selectGame1">puzzle</button>
+    <button onclick="setGame('rhymes')" id="selectGame2">rhymes</button>
+    <button onclick="setGame('connect')" id="selectGame3">connect</button>
+  </div>
+  <div class="selectionContainer">
+    <button onclick="setGame('matching')" id="selectGame4">matching</button>
+    <button onclick="setGame('pair')" id="selectGame5">pair</button>
+    <button onclick="setGame('ticTacToe')" id="selectGame6">ticTacToe</button>
+  </div>
+</div>
