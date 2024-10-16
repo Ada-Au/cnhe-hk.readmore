@@ -1,7 +1,7 @@
 {
   "ticTacToe": {
-    "title": "⁠詩畫對對碰<br>(詩佛王維)",
-    "color": 5,
+    "title": "過三關<br>(唐玄宗、楊貴妃)",
+    "color": 6,
     "game": [
       { "question": "唐玄宗的全名為李隆基​", "answer": true },
       { "question": "《霓裳羽衣曲》為唐玄宗所創​", "answer": true },
@@ -108,6 +108,5 @@
       }
     ]
   },
-  "select": { "title": "選擇主題", "color": 0 },
-  "titles": ["過三關<br>(唐玄宗、楊貴妃)"]
+  "select": { "title": "選擇主題", "color": 0 }
 }

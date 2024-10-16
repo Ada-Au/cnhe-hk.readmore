@@ -1,0 +1,22 @@
+<body>
+  <div
+    style="
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <embed id="pdf" type="application/pdf" style="width: 100%; height: 100%" />
+  </div>
+</body>
+<script>
+  pdf = document.getElementById("pdf");
+
+  params = new URLSearchParams(parent.window.location.search);
+  src = params.get("pdf") || "game5";
+
+  pdf.src = `./assets/${src}.pdf#toolbar=0&navpanes=0`;
+</script>

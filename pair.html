@@ -25,12 +25,13 @@
       cardImage.style.backgroundRepeat = "no-repeat";
       cardImage.style.backgroundPosition = "center";
       cardImage.style.filter =
-        "hue-rotate(" + -Math.round((4 / 7) * 360) + "deg)";
+        "hue-rotate(" + -Math.round((5 / 7) * 360) + "deg)";
       cardImage.style.height = "100%";
 
       cardFront.appendChild(cardImage);
     } else {
       cardFront.textContent = card.value;
+      // cardFront.style.fontSize = "";
     }
     gameBoard.appendChild(cardFront);
 
@@ -74,7 +75,7 @@
         if (selectedCards.length === cardsToMatch) {
           setTimeout(function () {
             checkMatch();
-          }, 1000);
+          }, 1500);
         }
       }
     }

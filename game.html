@@ -47,10 +47,17 @@
       gamePath = params.get("game") || "select";
     }
 
-    titleText.innerHTML = gameData[gamePath].title;
-    bgStyle.filter =
-      "hue-rotate(" + Math.round((gameData[gamePath].color / 7) * 360) + "deg)";
-    backBtn.style = "";
+    if (gamePath !== "game5") {
+      titleText.innerHTML = gameData[gamePath].title;
+      bgStyle.filter =
+        "hue-rotate(" +
+        Math.round((gameData[gamePath].color / 7) * 360) +
+        "deg)";
+      backBtn.style = "";
+    } else {
+      titleText.style = "display: none";
+      backBtn.style = "display: none";
+    }
 
     $("#game").load("./" + gamePath + ".html");
     params.set("game", gamePath);

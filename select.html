@@ -3,7 +3,12 @@
 
   for (const selectionContainer of selectionContainers) {
     for (const btn of selectionContainer.children) {
-      btn.innerHTML = gameData[btn.innerHTML].title;
+      title = gameData[btn.innerHTML].title.split("(");
+      btn.innerHTML = title[0];
+      subtitle = document.createElement("div");
+      subtitle.innerHTML = "(" + title[1];
+      subtitle.style = "font-size: 2.2vw";
+      btn.appendChild(subtitle);
     }
   }
 </script>
