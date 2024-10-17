@@ -11,19 +11,26 @@
     "
   >
     <button style="height: 50%" onclick="prevPage()"><</button>
-    <div style="flex: 1">
+    <div
+      style="
+        flex: 1;
+        display: flex;
+        position: relative;
+        justify-content: center;
+      "
+    >
       <img
         id="image"
         style="max-width: 100%; max-height: 100%; object-fit: contain"
       />
+      <a
+        id="link"
+        href="#"
+        onclick="setGame('select')"
+        style="display: none; position: absolute; bottom: 5%; font-size: 4cqh"
+      ></a>
     </div>
     <button style="height: 50%" onclick="nextPage()">></button>
-    <a
-      id="link"
-      href="#"
-      onclick="setGame('select')"
-      style="display: none; position: absolute; bottom: 20vh; font-size: 5cqw"
-    ></a>
   </div>
 </body>
 <script>
@@ -44,7 +51,7 @@
   link = document.getElementById("link");
 
   link.innerHTML = gameData.pdf[currenPdf].button;
-  link.href = gameData.pdf[currenPdf].href;
+  link.href = gameData.pdf[currenPdf].href || "#";
   link.target = gameData.pdf[currenPdf].href ? "_blank" : "_self";
 
   currentIndex = 1;
