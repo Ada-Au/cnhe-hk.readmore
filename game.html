@@ -46,6 +46,9 @@
     if (gameData[gamePath] === undefined) {
       gamePath = params.get("game") || "select";
     }
+    if (gameData[gamePath] === undefined) {
+      gamePath = "select";
+    }
 
     if (gamePath !== "pdf") {
       titleText.innerHTML = gameData[gamePath].title;
