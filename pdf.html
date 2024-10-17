@@ -14,7 +14,6 @@
     <div style="flex: 1">
       <img
         id="image"
-        src="./assets/ppt_game/game1.jpg"
         style="max-width: 100%; max-height: 100%; object-fit: contain"
       />
     </div>
@@ -29,7 +28,7 @@
 </body>
 <script>
   params = new URLSearchParams(parent.window.location.search);
-  currenPdf = gameData.pdf.map((e) => e.prefix).indexOf(params.get("pdf"));
+  currenPdf = gameData.pdf?.map((e) => e.prefix).indexOf(params.get("pdf"));
   if (currenPdf === -1) {
     currenPdf = 0;
   }
@@ -40,7 +39,8 @@
   size = gameData.pdf[currenPdf].size;
 
   viewer = document.getElementById("image");
-  image.src = path + "/" + prefix + 1 + ext;
+  viewer.src = path + "/" + prefix + 1 + ext;
+
   link = document.getElementById("link");
 
   link.innerHTML = gameData.pdf[currenPdf].button;
