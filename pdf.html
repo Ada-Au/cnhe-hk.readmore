@@ -1,38 +1,96 @@
 <body>
   <div
     style="
-      width: 100%;
-      height: 100%;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      justify-content: space-evenly;
+      width: 96%;
+      height: 95%;
+      padding: 2vh 2vh;
+      overflow: hidden;
       align-items: center;
     "
   >
-    <object
-      id="pdf"
-      type="application/pdf"
-      style="width: 100%; height: 100%"
-      data="./assets/game.pdf#toolbar=0&navpanes=0&view=fit"
-      frameborder="0"
-    >
-      <embed id="embed" src="" width="100%" height="100%" />
-    </object>
+    <button style="height: 50%" onclick="prevPage()"><</button>
+    <div style="flex: 1">
+      <img
+        id="image"
+        src="./assets/ppt_game/game1.jpg"
+        style="max-width: 100%; max-height: 100%; object-fit: contain"
+      />
+    </div>
+    <button style="height: 50%" onclick="nextPage()">></button>
+    <a
+      id="link"
+      href="#"
+      onclick="setGame('select')"
+      style="display: none; position: absolute; bottom: 20vh; font-size: 5cqw"
+    ></a>
   </div>
 </body>
 <script>
-  pdf = document.getElementById("pdf");
-  embed = document.getElementById("embed");
-
   params = new URLSearchParams(parent.window.location.search);
-  src = params.get("pdf") || "game";
+  currenPdf = gameData.pdf.map((e) => e.prefix).indexOf(params.get("pdf"));
+  if (currenPdf === -1) {
+    currenPdf = 0;
+  }
 
-  pdf.data = `./assets/${src}.pdf#toolbar=0&navpanes=0&view=fit`;
-  console.log(pdf);
-  // $("#pdf").attr("src", `./assets/${src}.pdf#toolbar=0&navpanes=0&view=fit`);
+  path = gameData.pdf[currenPdf].path;
+  prefix = gameData.pdf[currenPdf].prefix;
+  ext = gameData.pdf[currenPdf].ext;
+  size = gameData.pdf[currenPdf].size;
 
-  embed.src =
-    src === "video"
-      ? "https://drive.google.com/file/d/1x9iwQH9ekMZjocbo_mnrqApIj5sWyv1U/preview?usp=sharing#zoom=150"
-      : "https://drive.google.com/file/d/1-Oz3LzuxQlVvtzuzPjdowCPe33EED1YH/preview?usp=sharing#zoom=150";
+  viewer = document.getElementById("image");
+  image.src = path + "/" + prefix + 1 + ext;
+  link = document.getElementById("link");
+
+  link.innerHTML = gameData.pdf[currenPdf].button;
+  link.href = gameData.pdf[currenPdf].href;
+  link.target = gameData.pdf[currenPdf].href ? "_blank" : "_self";
+
+  currentIndex = 1;
+  xDown = null;
+
+  viewer.addEventListener("touchstart", handleTouchStart, false);
+  viewer.addEventListener("touchmove", handleTouchMove, false);
+
+  function handleTouchStart(evt) {
+    firstTouch = evt.touches[0];
+    xDown = firstTouch.clientX;
+  }
+
+  function handleTouchMove(evt) {
+    evt.preventDefault();
+    if (!xDown) return;
+
+    xUp = evt.touches[0].clientX;
+    xDiff = xDown - xUp;
+
+    if (xDiff > 0) {
+      nextPage();
+    } else {
+      prevPage();
+    }
+
+    xDown = null;
+  }
+
+  function nextPage() {
+    if (currentIndex < size) {
+      currentIndex++;
+      viewer.src = path + "/" + prefix + currentIndex + ext;
+      if (currentIndex === size) {
+        link.style.display = "block";
+      }
+    }
+  }
+
+  function prevPage() {
+    if (currentIndex > 1) {
+      currentIndex--;
+      viewer.src = path + "/" + prefix + currentIndex + ext;
+      if (currentIndex != size) {
+        link.style.display = "none";
+      }
+    }
+  }
 </script>

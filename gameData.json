@@ -108,5 +108,22 @@
       }
     ]
   },
-  "select": { "title": "選擇主題", "color": 0 }
+  "select": { "title": "選擇主題", "color": 0 },
+  "pdf": [
+    {
+      "path": "./assets/ppt_game",
+      "prefix": "game",
+      "size": 8,
+      "ext": ".jpg",
+      "button": "玩遊戲"
+    },
+    {
+      "path": "./assets/ppt_video",
+      "prefix": "video",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "觀看影片",
+      "href": "https://youtu.be/OX8onGnC-Dc?si=hgey0yYE0tG2EyH_"
+    }
+  ]
 }
