@@ -1,16 +1,6 @@
 <body>
-  <div
-    style="
-      display: flex;
-      justify-content: center;
-      width: 96%;
-      height: 95%;
-      padding: 2vh 2vh;
-      overflow: hidden;
-      align-items: center;
-    "
-  >
-    <button style="height: 50%" onclick="prevPage()"><</button>
+  <div class="pdfContainer">
+    <button class="pageBtn" onclick="prevPage()"><</button>
     <div
       style="
         display: flex;
@@ -31,7 +21,7 @@
         style="display: none; position: absolute; bottom: 5%; font-size: 4cqh"
       ></a>
     </div>
-    <button style="height: 50%" onclick="nextPage()">></button>
+    <button class="pageBtn" onclick="nextPage()">></button>
   </div>
 </body>
 <script>
