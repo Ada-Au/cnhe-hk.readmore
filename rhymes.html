@@ -121,10 +121,43 @@
   }
 
   function clickTrack(trackNumber) {
-    cleanup();
-    if (trackNumber === correctTrack) mark++;
-    if (currentGame.correct.length == 0) endGame();
-    else runGame();
+    if (trackNumber === correctTrack) {
+      mark++;
+      tracks[trackNumber].style.backgroundColor = "rgba(207, 170, 118, 0.8)";
+      setTimeout(() => {
+        tracks[trackNumber].style.backgroundColor = "rgba(207, 170, 118, 0.4)";
+      }, 200);
+      setTimeout(() => {
+        tracks[trackNumber].style.backgroundColor = "rgba(207, 170, 118, 0.8)";
+      }, 400);
+      setTimeout(() => {
+        tracks[trackNumber].style.backgroundColor = "rgba(207, 170, 118, 0.4)";
+      }, 600);
+      setTimeout(() => {
+        tracks[trackNumber].style.backgroundColor = "rgba(207, 170, 118, 0.8)";
+      }, 800);
+    } else {
+      tracks[trackNumber].style.backgroundColor = "rgba(0, 0, 255, 0.6)";
+      setTimeout(() => {
+        tracks[trackNumber].style.backgroundColor = "rgba(0, 0, 255, 0.4)";
+      }, 200);
+      setTimeout(() => {
+        tracks[trackNumber].style.backgroundColor = "rgba(0, 0, 255, 0.6)";
+      }, 400);
+      setTimeout(() => {
+        tracks[trackNumber].style.backgroundColor = "rgba(0, 0, 255, 0.4)";
+      }, 600);
+      setTimeout(() => {
+        tracks[trackNumber].style.backgroundColor = "rgba(0, 0, 255, 0.6)";
+      }, 800);
+    }
+
+    setTimeout(() => {
+      tracks[trackNumber].style.backgroundColor = "rgba(207, 170, 118, 0.4)";
+      cleanup();
+      if (currentGame.correct.length == 0) endGame();
+      else runGame();
+    }, 1000);
   }
 
   function checkMark() {

@@ -262,13 +262,17 @@ button:hover {
   box-sizing: border-box;
   border-radius: 8px;
 
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.connectSelectionPic {
+  height: 100%;
+  width: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .connectSelection:hover {

@@ -16,6 +16,7 @@
   columnRight = document.getElementById("column-right");
   canvas = document.getElementById("gameCanvas");
   ctx = canvas.getContext("2d");
+  audios = [];
 
   width = window.innerWidth * 0.2;
   height = window.innerHeight * 0.9;
@@ -26,8 +27,10 @@
   isDrawing = false;
 
   for (let i = 0; i < gameData.connect.length; i++) {
+    container = document.createElement("div");
     div = document.createElement("div");
-    div.classList.add("connectSelection");
+    container.classList.add("connectSelection");
+    div.classList.add("connectSelectionPic");
     div.style.backgroundImage =
       "url('" + gameData.connect.path + (i + 1) + gameData.connect.ext + "')";
     div.style.filter = "hue-rotate(" + -Math.round((3 / 7) * 360) + "deg)";
@@ -37,12 +40,18 @@
       else startDrawing(i, true);
     };
 
-    columnLeft.appendChild(div);
+    text = document.createElement("div");
+    text.innerHTML = gameData.connect.name[i];
+    text.style.fontSize = " 2.5cqw";
+    container.appendChild(div);
+    container.appendChild(text);
+    columnLeft.appendChild(container);
 
     div = document.createElement("div");
     audio = document.createElement("audio");
     audio.src = gameData.connect.path + (audioOrder[i] + 1) + ".mp3";
     audio.controls = true;
+    audios.push(audio);
     div.appendChild(audio);
 
     div.classList.add("connectSelection");
@@ -72,7 +81,7 @@
 
   function drawLine(event) {
     if (!isDrawing) return;
-    endPoint.x = event.clientX - canvas.offsetLeft - $(window).width() * 0.18;
+    endPoint.x = event.clientX - canvas.offsetLeft;
     endPoint.y = event.clientY - canvas.offsetTop;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -102,6 +111,11 @@
         end: structuredClone(endPoint),
       });
       existingId.push(current);
+
+      audios.forEach((audio) => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
     } else {
       banner = document.createElement("h1");
       banner.innerHTML = "再試一次!";

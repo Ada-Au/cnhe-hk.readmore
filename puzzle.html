@@ -193,6 +193,29 @@
     posScrollBar();
   }
 
+  scrollBar.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    document.addEventListener("mousemove", moveScrollBar);
+    document.addEventListener("mouseup", () => {
+      document.removeEventListener("mousemove", moveScrollBar);
+    });
+  });
+
+  function moveScrollBar() {
+    scrollBar.style.top =
+      Math.min(
+        Math.max(
+          event.clientY - puzzleContainer.getBoundingClientRect().top,
+          0
+        ),
+        puzzleContainer.clientHeight - scrollBar.clientHeight
+      ) + "px";
+    puzzleContainer.scrollTop =
+      (scrollBar.offsetTop /
+        (puzzleContainer.clientHeight - scrollBar.clientHeight)) *
+      (puzzleContainer.scrollHeight - puzzleContainer.clientHeight);
+  }
+
   function setScrollBar() {
     scrollBar.style.height =
       (puzzleContainer.clientHeight / puzzleContainer.scrollHeight) * 100 + "%";
