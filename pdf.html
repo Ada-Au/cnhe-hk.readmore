@@ -1,6 +1,6 @@
 <body>
   <div class="pdfContainer">
-    <button class="pageBtn" onclick="prevPage()"><</button>
+    <button class="pageBtn" id="prevBtn" onclick="changePage(-1)"><</button>
     <div
       style="
         display: flex;
@@ -13,37 +13,49 @@
       <img
         id="image"
         style="max-width: 100%; max-height: 100%; object-fit: contain"
+        onload="imageLoaded()"
+      />
+      <img
+        id="loading"
+        src="./assets/loading.svg"
+        alt="Kiwi standing on oval"
       />
       <a
         id="link"
         href="#"
-        onclick="setGame('pair')"
         style="display: none; position: absolute; bottom: 5%; font-size: 4cqh"
       ></a>
     </div>
-    <button class="pageBtn" onclick="nextPage()">></button>
+    <button class="pageBtn" id="nextBtn" onclick="changePage(1)">></button>
   </div>
 </body>
 <script>
   params = new URLSearchParams(parent.window.location.search);
-  currenPdf = gameData.pdf?.map((e) => e.prefix).indexOf(params.get("pdf"));
+  currenPdf = gameData.pdf?.map((e) => e.name).indexOf(params.get("pdf"));
   if (currenPdf === -1) {
     currenPdf = 0;
   }
 
   path = gameData.pdf[currenPdf].path;
-  prefix = gameData.pdf[currenPdf].prefix;
   ext = gameData.pdf[currenPdf].ext;
   size = gameData.pdf[currenPdf].size;
 
+  nextBtn = document.getElementById("nextBtn");
+  prevBtn = document.getElementById("prevBtn");
+  prevBtn.className = "hideBtn";
+
+  loadImg = document.getElementById("loading");
   viewer = document.getElementById("image");
-  viewer.src = path + "/" + prefix + 1 + ext;
+  viewer.src = path + "/" + 1 + ext;
 
   link = document.getElementById("link");
 
   link.innerHTML = gameData.pdf[currenPdf].button;
   link.href = gameData.pdf[currenPdf].href || "#";
   link.target = gameData.pdf[currenPdf].href ? "_blank" : "_self";
+  link.onclick = gameData.pdf[currenPdf].to
+    ? () => setGame(gameData.pdf[currenPdf].to)
+    : "";
 
   currentIndex = 1;
   xDown = null;
@@ -64,31 +76,41 @@
     xDiff = xDown - xUp;
 
     if (xDiff > 0) {
-      nextPage();
+      changePage(1);
     } else {
-      prevPage();
+      changePage(-1);
     }
 
     xDown = null;
   }
 
-  function nextPage() {
-    if (currentIndex < size) {
-      currentIndex++;
-      viewer.src = path + "/" + prefix + currentIndex + ext;
+  function changePage(page) {
+    if (currentIndex + page >= 1 && currentIndex + page <= size) {
+      currentIndex = currentIndex + page;
+      viewer.src = path + "/" + currentIndex + ext;
+
+      loadImg.display = "block";
       if (currentIndex === size) {
         link.style.display = "block";
+      } else {
+        link.style.display = "none";
+      }
+
+      if (currentIndex === 1) {
+        prevBtn.className = "hideBtn";
+      } else {
+        prevBtn.className = "pageBtn";
+      }
+
+      if (currentIndex === size) {
+        nextBtn.className = "hideBtn";
+      } else {
+        nextBtn.className = "pageBtn";
       }
     }
   }
 
-  function prevPage() {
-    if (currentIndex > 1) {
-      currentIndex--;
-      viewer.src = path + "/" + prefix + currentIndex + ext;
-      if (currentIndex != size) {
-        link.style.display = "none";
-      }
-    }
+  function imageLoaded() {
+    loadImg.display = "none";
   }
 </script>

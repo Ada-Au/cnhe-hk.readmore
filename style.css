@@ -73,6 +73,29 @@ h3 {
   }
 }
 
+#loading {
+  animation: spin 1.5s linear infinite;
+  width: 8cqmin;
+  height: 8cqmin;
+  object-fit: contain;
+  filter: invert(0.75) sepia(1) saturate(2) hue-rotate(330deg);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
 /* select game */
 .chooseGame {
   position: absolute;
@@ -100,6 +123,18 @@ button {
   font-size: 3vw;
   padding: 1vmin 2vmin;
   font-family: "衡山毛筆フォント";
+}
+
+.hideBtn {
+  height: 50%;
+  border: 2px solid transparent;
+  background-color: transparent;
+  color: transparent;
+}
+.hideBtn:hover {
+  background-color: transparent;
+  border-color: transparent;
+  color: transparent;
 }
 
 button:hover {

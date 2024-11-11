@@ -112,19 +112,100 @@
   "select": { "title": "選擇主題", "color": 0 },
   "pdf": [
     {
-      "path": "./assets/ppt_game",
-      "prefix": "game",
-      "size": 8,
+      "path": "./assets/ppt/game01",
+      "name": "g01",
+      "size": 5,
       "ext": ".jpg",
-      "button": "玩遊戲"
+      "button": "齊齊來砌圖",
+      "to": "puzzle"
     },
     {
-      "path": "./assets/ppt_video",
-      "prefix": "video",
+      "path": "./assets/ppt/video01",
+      "name": "v01",
       "size": 6,
       "ext": ".jpg",
-      "button": "觀看影片",
+      "button": "主題一：中國書畫的文化內涵",
+      "href": "https://youtu.be/7F_1RrmrmcY?si=AH5K-SWLcysaiuR8"
+    },
+    {
+      "path": "./assets/ppt/game02",
+      "name": "g02",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "聲韻接字",
+      "to": "pair"
+    },
+    {
+      "path": "./assets/ppt/video02",
+      "name": "v02",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題二：趣談唐詩",
+      "href": "https://youtu.be/YW3XQGZyyiA?si=K0qbR7Upmpoh8rQ·6"
+    },
+    {
+      "path": "./assets/ppt/game03",
+      "name": "g03",
+      "size": 9,
+      "ext": ".jpg",
+      "button": "聽聲連線",
+      "to": "pair"
+    },
+    {
+      "path": "./assets/ppt/video03",
+      "name": "v03",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題三：唐朝音樂",
+      "href": "https://youtu.be/DAtP6FbQsIE?si=vD76uxu-tQpxtFLq"
+    },
+    {
+      "path": "./assets/ppt/game04",
+      "name": "g04",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "舞蹈配對",
+      "to": "pair"
+    },
+    {
+      "path": "./assets/ppt/video04",
+      "name": "v04",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題四：唐朝舞蹈",
+      "href": "https://youtu.be/ND5cHDrCuxY?si=1GUxPnfQlV6ImJWQ"
+    },
+    {
+      "path": "./assets/ppt/game05",
+      "name": "g05",
+      "size": 8,
+      "ext": ".jpg",
+      "button": "詩畫對對碰",
+      "to": "pair"
+    },
+    {
+      "path": "./assets/ppt/video05",
+      "name": "v05",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題五：詩佛王維",
       "href": "https://youtu.be/OX8onGnC-Dc?si=hgey0yYE0tG2EyH_"
+    },
+    {
+      "path": "./assets/ppt/game06",
+      "name": "g06",
+      "size": 5,
+      "ext": ".jpg",
+      "button": "過三關",
+      "to": "ticTacToe"
+    },
+    {
+      "path": "./assets/ppt/video06",
+      "name": "v06",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題六：楊貴妃與唐玄宗",
+      "href": "https://youtu.be/CnUpeYvqSf0?si=w2mJT675TyCA67ey"
     }
   ]
 }
