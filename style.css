@@ -113,6 +113,7 @@ h3 {
   height: 100%;
   writing-mode: vertical-lr;
   text-align: center;
+  line-height: 1;
 }
 
 button {

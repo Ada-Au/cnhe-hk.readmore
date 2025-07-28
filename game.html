@@ -82,7 +82,7 @@
 
   async function init() {
     params = new URLSearchParams(parent.window.location.search);
-    if (params.get("name") == "cg") {
+    if (params.get("name") === "cg") {
       await $.getJSON("gameData_cg.json", function (json) {
         gameData = json;
       });
@@ -93,6 +93,5 @@
     }
     setGame();
   }
-
   init();
 </script>

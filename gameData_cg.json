@@ -1,26 +1,85 @@
 {
   "ticTacToe": {
-    "title": "過三關<br>(唐玄宗、楊貴妃)",
+    "title": "過三關",
     "color": 6,
     "game": [
-      { "question": "唐玄宗的全名為李隆基​", "answer": true },
-      { "question": "《霓裳羽衣曲》為唐玄宗所創​", "answer": true },
-      { "question": "楊貴妃堂兄為安祿山​", "answer": false },
       {
-        "question": "後宮佳麗三千人，三千寵愛在一身」指的便是楊貴妃​",
+        "question": "在白鷺書院讀書時，文天祥因想念家鄉和親人，感到困惑​",
+        "answer": false
+      },
+      {
+        "question": "文天祥被罷官回到老家後，仍擔心國家的安危​",
         "answer": true
       },
-      { "question": "唐玄宗是出色的舞蹈家​", "answer": false },
-      { "question": "唐玄宗是出色的音樂家​", "answer": true },
       {
-        "question": "據史書記載，唐玄宗無法察覺演奏者是否演奏錯誤​",
+        "question": "霍去病為了組織義軍，變賣了自己所有的家產​",
         "answer": false
       },
       {
-        "question": "唐代音樂得以發展蓬勃，這與唐代國勢無關​",
+        "question": "在元軍逼迫文天祥寫信勸降宋將時，他沉默不語​",
         "answer": false
       },
-      { "question": "唐代是一個社會文化開放多元的朝代​", "answer": true }
+      {
+        "question": "戚繼光是在16歲的時候，在沙灘上寫下“封侯非我意，但願海波平！”​",
+        "answer": true
+      },
+      {
+        "question": "小戚繼光最喜歡用銅錢排在沙地上當「士兵」布陣​",
+        "answer": true
+      },
+      {
+        "question": "郭子儀發明的秘密武器「狼筅」是用粗毛竹和枝杈做的​",
+        "answer": false
+      },
+      {
+        "question": "「長生天」是吐蕃人信仰的天神",
+        "answer": false
+      },
+      { "question": "郭子儀8歲時立志要當大將軍​", "answer": true },
+      {
+        "question": "吐蕃再次入侵，朝廷緊急召喚郭子儀時，當時郭子儀是八十歲​",
+        "answer": true
+      },
+      {
+        "question": "當回紇王要求郭子儀親自見面時，他帶二十名騎兵去談判​",
+        "answer": false
+      },
+      {
+        "question": "郭子儀遇到了大詩人李白，並獲贈一首詩​",
+        "answer": true
+      },
+      {
+        "question": "小時候的曾國藩非常聰明，過目不忘​",
+        "answer": false
+      },
+      {
+        "question": "曾國藩考秀才考了6次才成功​",
+        "answer": true
+      },
+      {
+        "question": "戚繼光說：亂世用重典！軍紀敗壞，比敵人更可怕！我寧做『剃頭匠』，也要護一方百姓平安！​",
+        "answer": false
+      },
+      {
+        "question": "曾國藩點燃「洋務」第一把火指的是：安慶內軍械所​",
+        "answer": true
+      },
+      {
+        "question": "漢武帝賞識霍去病背誦《兵書》的能力​",
+        "answer": false
+      },
+      {
+        "question": "霍去病第一次出征是跟隨衛青將軍​",
+        "answer": true
+      },
+      {
+        "question": "霍去病去世時的年齡是30歲​",
+        "answer": false
+      },
+      {
+        "question": "漠北大戰發生在唐朝​",
+        "answer": false
+      }
     ]
   },
 
@@ -40,19 +99,19 @@
     "audio": false
   },
   "pair": {
-    "title": "⁠詩畫對對碰<br>(詩佛王維)",
+    "title": "⁠對對碰",
     "color": 5,
     "game": [
-      { "type": "image", "value": "./assets/pair/pair1.jpeg", "match": 1 },
-      { "type": "image", "value": "./assets/pair/pair2.jpeg", "match": 2 },
-      { "type": "image", "value": "./assets/pair/pair3.jpeg", "match": 3 },
-      { "type": "image", "value": "./assets/pair/pair4.jpeg", "match": 4 },
-      { "type": "image", "value": "./assets/pair/pair5.jpeg", "match": 5 },
-      { "type": "text", "value": "木末芙蓉花，山中發紅萼", "match": 1 },
-      { "type": "text", "value": "竹喧歸驕女，蓮動下漁舟", "match": 2 },
-      { "type": "text", "value": "月出驚山烏，時鳴春澗中", "match": 3 },
-      { "type": "text", "value": "大漠孤煙直，長河落日圓", "match": 4 },
-      { "type": "text", "value": "獨坐豳篁裏，彈琴復長嘯", "match": 5 }
+      { "type": "text", "value": "霍去病", "match": 1 },
+      { "type": "text", "value": "郭子儀", "match": 2 },
+      { "type": "text", "value": "文天祥", "match": 3 },
+      { "type": "text", "value": "戚繼光", "match": 4 },
+      { "type": "text", "value": "曾國藩", "match": 5 },
+      { "type": "text", "value": "封狼居胥", "match": 1 },
+      { "type": "text", "value": "單騎退敌兵", "match": 2 },
+      { "type": "text", "value": "正氣歌", "match": 3 },
+      { "type": "text", "value": "狼筅", "match": 4 },
+      { "type": "text", "value": "打呆仗", "match": 5 }
     ]
   },
   "matching": {
@@ -134,102 +193,5 @@
     ]
   },
   "select": { "title": "選擇主題", "color": 0 },
-  "pdf": [
-    {
-      "path": "./assets/ppt/game01",
-      "name": "g01",
-      "size": 5,
-      "ext": ".jpg",
-      "button": "齊齊來砌圖",
-      "to": "puzzle"
-    },
-    {
-      "path": "./assets/ppt/video01",
-      "name": "v01",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題一：中國書畫的文化內涵",
-      "href": "https://youtu.be/7F_1RrmrmcY?si=AH5K-SWLcysaiuR8"
-    },
-    {
-      "path": "./assets/ppt/game02",
-      "name": "g02",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "聲韻接字",
-      "to": "pair"
-    },
-    {
-      "path": "./assets/ppt/video02",
-      "name": "v02",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題二：趣談唐詩",
-      "href": "https://youtu.be/YW3XQGZyyiA?si=K0qbR7Upmpoh8rQ·6"
-    },
-    {
-      "path": "./assets/ppt/game03",
-      "name": "g03",
-      "size": 9,
-      "ext": ".jpg",
-      "button": "聽聲連線",
-      "to": "pair"
-    },
-    {
-      "path": "./assets/ppt/video03",
-      "name": "v03",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題三：唐朝音樂",
-      "href": "https://youtu.be/DAtP6FbQsIE?si=vD76uxu-tQpxtFLq"
-    },
-    {
-      "path": "./assets/ppt/game04",
-      "name": "g04",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "舞蹈配對",
-      "to": "pair"
-    },
-    {
-      "path": "./assets/ppt/video04",
-      "name": "v04",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題四：唐朝舞蹈",
-      "href": "https://youtu.be/ND5cHDrCuxY?si=1GUxPnfQlV6ImJWQ"
-    },
-    {
-      "path": "./assets/ppt/game05",
-      "name": "g05",
-      "size": 8,
-      "ext": ".jpg",
-      "button": "詩畫對對碰",
-      "to": "pair"
-    },
-    {
-      "path": "./assets/ppt/video05",
-      "name": "v05",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題五：詩佛王維",
-      "href": "https://youtu.be/OX8onGnC-Dc?si=hgey0yYE0tG2EyH_"
-    },
-    {
-      "path": "./assets/ppt/game06",
-      "name": "g06",
-      "size": 5,
-      "ext": ".jpg",
-      "button": "過三關",
-      "to": "ticTacToe"
-    },
-    {
-      "path": "./assets/ppt/video06",
-      "name": "v06",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題六：楊貴妃與唐玄宗",
-      "href": "https://youtu.be/CnUpeYvqSf0?si=w2mJT675TyCA67ey"
-    }
-  ]
+  "pdf": []
 }
