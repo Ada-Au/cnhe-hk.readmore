@@ -27,7 +27,7 @@
   const game = document.getElementById("game");
   const logos = document.getElementsByClassName("logo");
 
-  let gameData = $.getJSON("./gameData.json");
+  let gameData = {};
 
   function clearBg() {
     for (i = 0; i < logos.length; i++) {
@@ -66,6 +66,7 @@
 
     $("#game").load("./" + gamePath + ".html");
     params.set("game", gamePath);
+    if (params.get("name")) params.set("name", params.get("name"));
     parent.window.history.replaceState(null, null, "?" + params.toString());
 
     clearBg();
@@ -80,9 +81,16 @@
   }
 
   async function init() {
-    await $.getJSON("gameData.json", function (json) {
-      gameData = json;
-    });
+    params = new URLSearchParams(parent.window.location.search);
+    if (params.get("name") == "cg") {
+      await $.getJSON("gameData_cg.json", function (json) {
+        gameData = json;
+      });
+    } else {
+      await $.getJSON("gameData.json", function (json) {
+        gameData = json;
+      });
+    }
     setGame();
   }
 

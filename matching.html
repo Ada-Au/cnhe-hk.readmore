@@ -1,15 +1,23 @@
-<div class="matching-board"></div>
+<div class="matching-board">
+  <h1 id="banner">再試一次!</h1>
+</div>
+
 <script>
   gameBoard = document.querySelector(".matching-board");
+  tryAgainText = document.getElementById("banner");
+  tryAgainText.style.display = "none";
 
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 4; j++) {
-      matchingCard = gameData.matching.game[i * 4 + j];
+  column = gameData.matching.game.length / gameData.matching.row;
+  width = (gameBoard.clientWidth * 0.85) / column + "px";
+  height = (gameBoard.clientHeight * 0.9) / gameData.matching.row + "px";
+
+  for (let i = 0; i < gameData.matching.row; i++) {
+    for (let j = 0; j < column; j++) {
+      matchingCard = gameData.matching.game[i * column + j];
       const card = document.createElement("div");
 
       if (matchingCard.type == "image") {
         const img = document.createElement("img");
-
         img.src = matchingCard.value;
         img.style.width = "100%";
         img.style.height = "100%";
@@ -24,22 +32,27 @@
         card.style.alignItems = "center";
       }
 
-      card.id = i + "-" + (j % 4);
+      card.id = i + "-" + (j % column);
       card.onclick = handleClick;
+      card.classList.add("matching-card");
+      card.style.width = width;
+      card.style.height = height;
+
       gameBoard.insertBefore(
         card,
-        gameBoard.children[Math.floor(Math.random() * 4) + i * 4]
+        gameBoard.children[Math.floor(Math.random() * j) + i * column]
       );
     }
   }
 
-  currentCards = [-1, -1, -1];
+  currentCards = Array(gameData.matching.row).fill(-1);
   count = 0;
   countCorrect = 0;
 
   function handleClick() {
     currentRow = this.id.split("-")[0];
     currentId = this.id.split("-")[1];
+    console.log(this.id);
 
     if (currentCards[currentRow] !== -1) {
       document.getElementById(
@@ -52,31 +65,36 @@
     currentCards.reduce((count, card) => {
       if (card != -1) return count + 1;
       return count;
-    }, 0) === 3 && checkMatch();
+    }, 0) === gameData.matching.row && checkMatch();
   }
 
   function checkMatch() {
     count++;
-    setTimeout(() => {
-      currentCards = [-1, -1, -1];
-      gameBoard.childNodes.forEach((card) => {
-        card.style.borderWidth = "2px";
-      });
-    });
-
-    if (
-      currentCards[0] === currentCards[1] &&
-      currentCards[1] === currentCards[2]
-    ) {
-      countCorrect++;
-      for (let i = 0; i < 3; i++) {
-        document.getElementById(
-          i + "-" + currentCards[currentRow]
-        ).style.backgroundColor = "#ffb7e5";
+    if (!currentCards.every((val) => val === -1)) {
+      console.log("test");
+      if (currentCards.every((val, i, arr) => val === arr[0])) {
+        countCorrect++;
+        for (let i = 0; i < gameData.matching.row; i++) {
+          document.getElementById(
+            i + "-" + currentCards[currentRow]
+          ).style.backgroundColor = "#ffb7e5";
+        }
+      } else {
+        tryAgainText.style.display = "block";
+        console.log("Try again text displayed");
+        setTimeout(() => {
+          console.log("Try again text not displayed");
+          tryAgainText.style.display = "none";
+        }, 500);
       }
     }
 
-    if (countCorrect === 4) {
+    currentCards = Array(gameData.matching.row).fill(-1);
+    gameBoard.childNodes.forEach((card) => {
+      if (card.id) card.style.borderWidth = "2px";
+    });
+
+    if (countCorrect === column) {
       banner = document.createElement("h1");
       banner.innerHTML = "你贏了!";
       banner.id = "banner";

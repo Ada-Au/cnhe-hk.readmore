@@ -1,0 +1,235 @@
+{
+  "ticTacToe": {
+    "title": "過三關<br>(唐玄宗、楊貴妃)",
+    "color": 6,
+    "game": [
+      { "question": "唐玄宗的全名為李隆基​", "answer": true },
+      { "question": "《霓裳羽衣曲》為唐玄宗所創​", "answer": true },
+      { "question": "楊貴妃堂兄為安祿山​", "answer": false },
+      {
+        "question": "後宮佳麗三千人，三千寵愛在一身」指的便是楊貴妃​",
+        "answer": true
+      },
+      { "question": "唐玄宗是出色的舞蹈家​", "answer": false },
+      { "question": "唐玄宗是出色的音樂家​", "answer": true },
+      {
+        "question": "據史書記載，唐玄宗無法察覺演奏者是否演奏錯誤​",
+        "answer": false
+      },
+      {
+        "question": "唐代音樂得以發展蓬勃，這與唐代國勢無關​",
+        "answer": false
+      },
+      { "question": "唐代是一個社會文化開放多元的朝代​", "answer": true }
+    ]
+  },
+
+  "connect": {
+    "path": "./assets/connect_cg/connect",
+    "name": ["霍去病", "郭子儀", "文天祥", "戚繼光", "曾國藩"],
+    "answers": [
+      "抵禦匈奴、開疆拓土",
+      "權傾天下而朝不忌",
+      "丹心照汗青",
+      "抗倭功臣",
+      "十年七遷。連躍十級"
+    ],
+    "ext": ".jpeg",
+    "title": "連線",
+    "color": 3,
+    "audio": false
+  },
+  "pair": {
+    "title": "⁠詩畫對對碰<br>(詩佛王維)",
+    "color": 5,
+    "game": [
+      { "type": "image", "value": "./assets/pair/pair1.jpeg", "match": 1 },
+      { "type": "image", "value": "./assets/pair/pair2.jpeg", "match": 2 },
+      { "type": "image", "value": "./assets/pair/pair3.jpeg", "match": 3 },
+      { "type": "image", "value": "./assets/pair/pair4.jpeg", "match": 4 },
+      { "type": "image", "value": "./assets/pair/pair5.jpeg", "match": 5 },
+      { "type": "text", "value": "木末芙蓉花，山中發紅萼", "match": 1 },
+      { "type": "text", "value": "竹喧歸驕女，蓮動下漁舟", "match": 2 },
+      { "type": "text", "value": "月出驚山烏，時鳴春澗中", "match": 3 },
+      { "type": "text", "value": "大漠孤煙直，長河落日圓", "match": 4 },
+      { "type": "text", "value": "獨坐豳篁裏，彈琴復長嘯", "match": 5 }
+    ]
+  },
+  "matching": {
+    "title": "⁠配對",
+    "color": 4,
+    "row": 3,
+    "game": [
+      {
+        "type": "image",
+        "value": "./assets/matching_cg/matching1.png",
+        "match": 1
+      },
+      {
+        "type": "image",
+        "value": "./assets/matching_cg/matching2.png",
+        "match": 2
+      },
+      {
+        "type": "image",
+        "value": "./assets/matching_cg/matching3.png",
+        "match": 3
+      },
+      {
+        "type": "image",
+        "value": "./assets/matching_cg/matching4.png",
+        "match": 4
+      },
+      {
+        "type": "image",
+        "value": "./assets/matching_cg/matching5.png",
+        "match": 5
+      },
+      { "type": "text", "value": "霍去病", "match": 1 },
+      { "type": "text", "value": "郭子儀", "match": 2 },
+      { "type": "text", "value": "文天祥", "match": 3 },
+      { "type": "text", "value": "戚繼光", "match": 4 },
+      { "type": "text", "value": "曾國藩", "match": 5 },
+      { "type": "text", "value": "18歲封冠軍侯", "match": 1 },
+      { "type": "text", "value": "武狀元、宰相", "match": 2 },
+      { "type": "text", "value": "一生致力抗元", "match": 3 },
+      { "type": "text", "value": "鴛鴦陣", "match": 4 },
+      { "type": "text", "value": "洋務運動", "match": 5 }
+    ]
+  },
+  "puzzle": {
+    "title": "⁠砌圖<br>(海報)",
+    "color": 1,
+    "path": "./assets/puzzle_cg.jpg"
+  },
+  "rhymes": {
+    "title": "⁠接字<br>(護疆守土，<br>安國惠民)",
+    "color": 2,
+    "random": false,
+    "highlight": false,
+    "game": [
+      {
+        "question": "護疆守土，安國惠民",
+        "correct": ["護", "疆", "守", "土", "安", "國", "惠", "民"],
+        "wrong": [
+          "必",
+          "迫",
+          "搬",
+          "愛",
+          "仙",
+          "煙",
+          "煎",
+          "照",
+          "消",
+          "囂",
+          "兆",
+          "釣",
+          "上",
+          "搶",
+          "想",
+          "賞",
+          "掌"
+        ]
+      }
+    ]
+  },
+  "select": { "title": "選擇主題", "color": 0 },
+  "pdf": [
+    {
+      "path": "./assets/ppt/game01",
+      "name": "g01",
+      "size": 5,
+      "ext": ".jpg",
+      "button": "齊齊來砌圖",
+      "to": "puzzle"
+    },
+    {
+      "path": "./assets/ppt/video01",
+      "name": "v01",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題一：中國書畫的文化內涵",
+      "href": "https://youtu.be/7F_1RrmrmcY?si=AH5K-SWLcysaiuR8"
+    },
+    {
+      "path": "./assets/ppt/game02",
+      "name": "g02",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "聲韻接字",
+      "to": "pair"
+    },
+    {
+      "path": "./assets/ppt/video02",
+      "name": "v02",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題二：趣談唐詩",
+      "href": "https://youtu.be/YW3XQGZyyiA?si=K0qbR7Upmpoh8rQ·6"
+    },
+    {
+      "path": "./assets/ppt/game03",
+      "name": "g03",
+      "size": 9,
+      "ext": ".jpg",
+      "button": "聽聲連線",
+      "to": "pair"
+    },
+    {
+      "path": "./assets/ppt/video03",
+      "name": "v03",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題三：唐朝音樂",
+      "href": "https://youtu.be/DAtP6FbQsIE?si=vD76uxu-tQpxtFLq"
+    },
+    {
+      "path": "./assets/ppt/game04",
+      "name": "g04",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "舞蹈配對",
+      "to": "pair"
+    },
+    {
+      "path": "./assets/ppt/video04",
+      "name": "v04",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題四：唐朝舞蹈",
+      "href": "https://youtu.be/ND5cHDrCuxY?si=1GUxPnfQlV6ImJWQ"
+    },
+    {
+      "path": "./assets/ppt/game05",
+      "name": "g05",
+      "size": 8,
+      "ext": ".jpg",
+      "button": "詩畫對對碰",
+      "to": "pair"
+    },
+    {
+      "path": "./assets/ppt/video05",
+      "name": "v05",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題五：詩佛王維",
+      "href": "https://youtu.be/OX8onGnC-Dc?si=hgey0yYE0tG2EyH_"
+    },
+    {
+      "path": "./assets/ppt/game06",
+      "name": "g06",
+      "size": 5,
+      "ext": ".jpg",
+      "button": "過三關",
+      "to": "ticTacToe"
+    },
+    {
+      "path": "./assets/ppt/video06",
+      "name": "v06",
+      "size": 6,
+      "ext": ".jpg",
+      "button": "主題六：楊貴妃與唐玄宗",
+      "href": "https://youtu.be/CnUpeYvqSf0?si=w2mJT675TyCA67ey"
+    }
+  ]
+}

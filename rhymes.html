@@ -7,11 +7,8 @@
       transform: translate(-50%, -50%);
       display: flex;
     "
-  >
-    <button id="question1" onclick="chooseQuestion(1)">題目1</button>
-    <button id="question2" onclick="chooseQuestion(2)">題目2</button>
-    <button id="question3" onclick="chooseQuestion(3)">題目3</button>
-  </div>
+    id="questionButtons"
+  ></div>
   <div>
     <h3 style="text-align: center; height: 2vh; margin: 1vh 0 -1.5vh 0">
       接押韻字
@@ -37,9 +34,19 @@
 </div>
 
 <script>
+  questionButtons = document.getElementById("questionButtons");
+
+  for (let i = 0; i < gameData.rhymes.game.length; i++) {
+    button = document.createElement("button");
+    button.innerHTML = "題目" + (i + 1);
+    button.onclick = () => chooseQuestion(i + 1);
+    questionButtons.appendChild(button);
+  }
+
   mark = 0;
   max = -1;
   correctTrack = -1;
+  clicking = false;
   tracks = [
     document.getElementById("track1"),
     document.getElementById("track2"),
@@ -55,7 +62,9 @@
       currentWord =
         correctTrack == i
           ? currentGame.correct[
-              Math.floor(Math.random() * currentGame.correct.length)
+              gameData.rhymes.random
+                ? Math.floor(Math.random() * currentGame.correct.length)
+                : 0
             ]
           : currentGame.wrong[
               Math.floor(Math.random() * currentGame.wrong.length)
@@ -99,16 +108,15 @@
   function chooseQuestion(questionNumber) {
     currentGame = structuredClone(gameData.rhymes.game[questionNumber - 1]);
     max = currentGame.correct.length;
-    document.getElementById("question").innerHTML = currentGame.question.slice(
-      0,
-      -1
-    );
-    document.getElementById("highlight").innerHTML =
-      currentGame.question.slice(-1);
 
-    document.getElementById("question1").style.display = "none";
-    document.getElementById("question2").style.display = "none";
-    document.getElementById("question3").style.display = "none";
+    if (gameData.rhymes.highlight) {
+      document.getElementById("question").innerHTML =
+        currentGame.question.slice(0, -1);
+      document.getElementById("highlight").innerHTML =
+        currentGame.question.slice(-1);
+    } else document.getElementById("question").innerHTML = currentGame.question;
+
+    questionButtons.style.display = "none";
 
     document.getElementById("trackContainer").style.display = "flex";
 
@@ -121,6 +129,8 @@
   }
 
   function clickTrack(trackNumber) {
+    if (clicking) return;
+    clicking = true;
     if (trackNumber === correctTrack) {
       mark++;
       tracks[trackNumber].style.backgroundColor = "rgba(207, 170, 118, 0.8)";
@@ -157,6 +167,7 @@
       cleanup();
       if (currentGame.correct.length == 0) endGame();
       else runGame();
+      clicking = false;
     }, 1000);
   }
 

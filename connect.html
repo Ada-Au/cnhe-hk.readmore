@@ -23,38 +23,53 @@
   canvas.width = width;
   canvas.height = height;
 
-  audioOrder = [0, 1, 2, 3, 4, 5].sort(() => Math.random() - 0.5);
+  ansOrder = Array.from(
+    { length: gameData.connect.name.length },
+    (_, index) => index
+  ).sort(() => Math.random() - 0.5);
   isDrawing = false;
 
-  for (let i = 0; i < gameData.connect.length; i++) {
+  for (let i = 0; i < gameData.connect.name.length; i++) {
     container = document.createElement("div");
     div = document.createElement("div");
     container.classList.add("connectSelection");
-    div.classList.add("connectSelectionPic");
-    div.style.backgroundImage =
-      "url('" + gameData.connect.path + (i + 1) + gameData.connect.ext + "')";
-    div.style.filter = "hue-rotate(" + -Math.round((3 / 7) * 360) + "deg)";
+    container.style.height = `calc((100% - 5cqmin) / ${gameData.connect.name.length})`;
 
-    div.onclick = () => {
+    if (gameData.connect.path) {
+      div.classList.add("connectSelectionPic");
+      div.style.backgroundImage =
+        "url('" + gameData.connect.path + (i + 1) + gameData.connect.ext + "')";
+      div.style.filter = "hue-rotate(" + -Math.round((3 / 7) * 360) + "deg)";
+    }
+
+    container.onclick = () => {
       if (isDrawing) stopDrawing(i, true);
       else startDrawing(i, true);
     };
 
     text = document.createElement("div");
     text.innerHTML = gameData.connect.name[i];
+    text.style.width = "100%";
+    text.style.textAlign = "center";
     text.style.fontSize = " 2.5cqw";
     container.appendChild(div);
     container.appendChild(text);
     columnLeft.appendChild(container);
 
     div = document.createElement("div");
-    audio = document.createElement("audio");
-    audio.src = gameData.connect.path + (audioOrder[i] + 1) + ".mp3";
-    audio.controls = true;
-    audios.push(audio);
-    div.appendChild(audio);
+    if (gameData.connect.audio) {
+      audio = document.createElement("audio");
+      audio.src = gameData.connect.path + (ansOrder[i] + 1) + ".mp3";
+      audio.controls = true;
+      audios.push(audio);
+      div.appendChild(audio);
+    } else {
+      div.innerHTML = gameData.connect.answers[ansOrder[i]];
+      div.style.fontSize = " 2.5cqw";
+    }
 
     div.classList.add("connectSelection");
+    div.style.height = `calc((100% - 5cqmin) / ${gameData.connect.name.length})`;
 
     div.onclick = () => {
       if (isDrawing) stopDrawing(i, false);
@@ -72,11 +87,11 @@
   count = 0;
 
   function startDrawing(i, isLeft) {
-    if (existingId.includes(isLeft ? i : audioOrder[i])) return;
+    if (existingId.includes(isLeft ? i : ansOrder[i])) return;
     isDrawing = true;
     startPoint.x = isLeft ? 0 : width;
-    startPoint.y = (height / gameData.connect.length) * (i + 0.5);
-    current = isLeft ? i : audioOrder[i];
+    startPoint.y = (height / gameData.connect.name.length) * (i + 0.5);
+    current = isLeft ? i : ansOrder[i];
   }
 
   function drawLine(event) {
@@ -95,10 +110,10 @@
   function stopDrawing(i, isLeft) {
     isDrawing = false;
     endPoint.x = isLeft ? 0 : width;
-    endPoint.y = (height / gameData.connect.length) * (i + 0.5);
+    endPoint.y = (height / gameData.connect.name.length) * (i + 0.5);
     count++;
 
-    if (current == (isLeft ? i : audioOrder[i])) {
+    if (current == (isLeft ? i : ansOrder[i])) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       redraw();
       ctx.beginPath();
@@ -130,7 +145,7 @@
       }, 500);
     }
 
-    if (existingId.length == gameData.connect.length) {
+    if (existingId.length == gameData.connect.name.length) {
       banner = document.createElement("h1");
       banner.innerHTML = "你贏了!";
       banner.id = "banner";

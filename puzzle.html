@@ -64,46 +64,50 @@
     puzzleImageWidth = 0;
     puzzleImageHeight = 0;
 
-    puzzleImage.addEventListener("load", () => {
+    puzzleImage.addEventListener("load", (e) => {
       pictureContainer.style.backgroundImage = `url(${puzzleImage.src})`;
       pictureContainer.style.filter =
         "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
-      puzzleImageWidth = slotContainer.offsetWidth;
+      slotContainer.style.aspectRatio = e.target.width / e.target.height;
+
+      puzzleImageWidth = slotContainer.clientWidth;
       puzzleImageHeight = slotContainer.clientHeight;
+
+      puzzleContainer.style.width = puzzleImageWidth / 4;
+
+      for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 4; j++) {
+          puzzlePiece = document.createElement("div");
+          puzzlePiece.classList.add("puzzle-piece");
+
+          puzzlePiece.draggable = true;
+          puzzlePiece.addEventListener("dragstart", (e) => {
+            e.target.classList.add("dragging");
+          });
+          puzzlePiece.addEventListener("dragend", (e) => {
+            e.target.classList.remove("dragging");
+          });
+
+          puzzlePiece.style.backgroundImage = `url(${puzzleImage.src})`;
+          puzzlePiece.style.backgroundSize = `${puzzleImageWidth}px ${puzzleImageHeight}px`;
+          puzzlePiece.style.filter =
+            "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
+          puzzlePiece.style.backgroundPosition = `${
+            -j * (puzzleImageWidth / 4)
+          }px ${-i * (puzzleImageHeight / 5)}px`;
+
+          puzzlePiece.id = "piece-" + (i * 4 + j);
+          puzzleContainer.insertBefore(
+            puzzlePiece,
+            puzzleContainer.children[
+              Math.floor(Math.random() * puzzleContainer.children.length)
+            ]
+          );
+        }
+      }
     });
 
     await puzzleImage.decode();
-
-    for (let i = 0; i < 5; i++) {
-      for (let j = 0; j < 4; j++) {
-        puzzlePiece = document.createElement("div");
-        puzzlePiece.classList.add("puzzle-piece");
-
-        puzzlePiece.draggable = true;
-        puzzlePiece.addEventListener("dragstart", (e) => {
-          e.target.classList.add("dragging");
-        });
-        puzzlePiece.addEventListener("dragend", (e) => {
-          e.target.classList.remove("dragging");
-        });
-
-        puzzlePiece.style.backgroundImage = `url(${puzzleImage.src})`;
-        puzzlePiece.style.backgroundSize = `${puzzleImageWidth}px ${puzzleImageHeight}px`;
-        puzzlePiece.style.filter =
-          "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
-        puzzlePiece.style.backgroundPosition = `${
-          -j * (puzzleImageWidth / 4)
-        }px ${-i * (puzzleImageHeight / 5)}px`;
-
-        puzzlePiece.id = "piece-" + (i * 4 + j);
-        puzzleContainer.insertBefore(
-          puzzlePiece,
-          puzzleContainer.children[
-            Math.floor(Math.random() * puzzleContainer.children.length)
-          ]
-        );
-      }
-    }
 
     document.getElementById("scroll-bar-container").style.display = "block";
     document.getElementById("start-button").remove();

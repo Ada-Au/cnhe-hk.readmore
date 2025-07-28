@@ -30,7 +30,8 @@
     "name": ["琵琶", "空篌", "古箏", "直笛", "笙", "竹笛"],
     "ext": ".jpeg",
     "title": "⁠聽聲連線<br>(唐朝樂器)",
-    "color": 3
+    "color": 3,
+    "audio": true
   },
   "pair": {
     "title": "⁠詩畫對對碰<br>(詩佛王維)",
@@ -51,6 +52,8 @@
   "matching": {
     "title": "⁠配對<br>(唐朝舞蹈)",
     "color": 4,
+    "height": 3,
+    "width": 4,
     "game": [
       {
         "type": "image",
@@ -90,6 +93,8 @@
   "rhymes": {
     "title": "⁠聲韻接字<br>(唐詩)",
     "color": 2,
+    "random": true,
+    "highlight": true,
     "game": [
       {
         "question": "紅豆生南國，春來發幾枝",

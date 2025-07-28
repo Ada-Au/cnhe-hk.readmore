@@ -8,3 +8,11 @@
 **過三關(唐玄宗、楊貴妃)⁠(ticTacToe)** sendData with marks, the **_higher_** the better\
 \
 {type: ["connect" || "matching" || "pair" || "puzzle" || "rhymes" || "ticTacToe], [tries || time || marks]: number}
+
+# 中華儒将：智、仁、勇
+
+## To reduce image size
+
+```sh
+imgmini 1.jpg 2.jpg 3.jpg 4.jpg 5.jpg 6.jpg
+```
