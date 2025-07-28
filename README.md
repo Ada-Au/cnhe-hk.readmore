@@ -1,5 +1,7 @@
 # 《空山印深情・王維》小遊戲
 
+Can be used via iframe or just as a website. send data to parent container.
+
 **聽聲連線(唐朝樂器)(connect)** sendData with tries, the **_lower_** the better \
 **配對(唐朝舞蹈)(matching⁠)** sendData with tries, the **_lower_** the better \
 **詩畫對對碰(詩佛王維)(pair⁠)** sendData with tries, the **_lower_** the better \
