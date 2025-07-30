@@ -157,12 +157,13 @@
     ]
   },
   "puzzle": {
-    "title": "⁠砌圖<br>(海報)",
+    "title": "⁠砌圖",
     "color": 1,
     "path": "./assets/puzzle_cg.jpg"
   },
   "rhymes": {
-    "title": "⁠接字<br>(護疆守土，<br>安國惠民)",
+    "title": "⁠接字",
+    "hideSubtitle": true,
     "color": 2,
     "random": false,
     "highlight": false,

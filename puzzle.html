@@ -6,7 +6,7 @@
     position: relative;
   "
 >
-  <div style="display: flex; height: 80%">
+  <div id="puzzle-wrapper">
     <button
       id="start-button"
       style="
@@ -22,16 +22,7 @@
     </button>
     <div id="slot-container"></div>
     <div id="puzzle-container"></div>
-    <div
-      style="
-        width: 8px;
-        position: relative;
-        background-color: whitesmoke;
-        border-radius: 4px;
-        display: none;
-      "
-      id="scroll-bar-container"
-    >
+    <div id="scroll-bar-container">
       <div id="scroll-bar"></div>
     </div>
     <div style="flex: 1; display: flex; flex-direction: column">
@@ -62,32 +53,52 @@
   async function init() {
     puzzleImage = new Image();
 
-    for (let i = 0; i < 20; i++) {
-      puzzleSlot = document.createElement("div");
-      puzzleSlot.classList.add("puzzle-slot");
-      puzzleSlot.style.filter =
-        "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
-      puzzleSlot.addEventListener("dragover", dragOver);
-      puzzleSlot.addEventListener("drop", dragDrop);
-
-      puzzleSlot.id = "slot-" + i;
-      slotContainer.appendChild(puzzleSlot);
-    }
-
     puzzleImage.src = gameData.puzzle.path;
-    puzzleImageWidth = 0;
-    puzzleImageHeight = 0;
 
     puzzleImage.addEventListener("load", (e) => {
       pictureContainer.style.backgroundImage = `url(${puzzleImage.src})`;
       pictureContainer.style.filter =
         "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
-      slotContainer.style.aspectRatio = e.target.width / e.target.height;
 
-      puzzleImageWidth = slotContainer.clientWidth;
-      puzzleImageHeight = slotContainer.clientHeight;
+      ratio = e.target.width / 4 / (e.target.height / 5);
 
-      puzzleContainer.style.width = puzzleImageWidth / 4;
+      for (let i = 0; i < 20; i++) {
+        puzzleSlot = document.createElement("div");
+        puzzleSlot.classList.add("puzzle-slot");
+        puzzleSlot.style.filter =
+          "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
+        puzzleSlot.addEventListener("dragover", dragOver);
+        puzzleSlot.addEventListener("drop", dragDrop);
+
+        puzzleSlot.id = "slot-" + i;
+        puzzleSlot.style.aspectRatio = ratio;
+        slotContainer.appendChild(puzzleSlot);
+      }
+
+      if (window.innerWidth < window.innerHeight) {
+        slotContainer.style.flex = 1;
+        slotContainer.style.width =
+          (slotContainer.clientHeight * ratio * 4) / 5;
+
+        width = slotContainer.clientWidth / 4;
+        height = slotContainer.clientHeight / 5;
+        puzzleContainer.style.width = width;
+      } else {
+        slotContainer.style.height = "100%";
+        console.log(slotContainer.clientHeight);
+        slotContainer.style.width =
+          (slotContainer.clientHeight * ratio * 4) / 5;
+
+        width = slotContainer.clientWidth / 4;
+        height = slotContainer.clientHeight / 5;
+        puzzleContainer.style.width = width;
+      }
+
+      slotContainer.style.flex = "unset";
+      slotContainer.style.width = width * 4;
+      slotContainer.style.height = height * 5;
+
+      console.log(width, height);
 
       for (let i = 0; i < 5; i++) {
         for (let j = 0; j < 4; j++) {
@@ -102,15 +113,15 @@
             e.target.classList.remove("dragging");
           });
 
-          puzzlePiece.style.width = puzzleImageWidth / 4 + "px";
-          puzzlePiece.style.height = puzzleImageHeight / 5 + "px";
+          puzzlePiece.style.width = width;
+          puzzlePiece.style.height = height;
           puzzlePiece.style.backgroundImage = `url(${puzzleImage.src})`;
-          puzzlePiece.style.backgroundSize = `${puzzleImageWidth}px ${puzzleImageHeight}px`;
+          puzzlePiece.style.backgroundSize = `${width * 4}px ${height * 5}px`;
           puzzlePiece.style.filter =
             "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
-          puzzlePiece.style.backgroundPosition = `${
-            -j * (puzzleImageWidth / 4)
-          }px ${-i * (puzzleImageHeight / 5)}px`;
+          puzzlePiece.style.backgroundPosition = `${-j * width}px ${
+            -i * height
+          }px`;
 
           puzzlePiece.id = "piece-" + (i * 4 + j);
           puzzleContainer.insertBefore(
@@ -119,6 +130,8 @@
               Math.floor(Math.random() * puzzleContainer.children.length)
             ]
           );
+          puzzleContainer.style.minHeight = height;
+          puzzleContainer.style.minWidth = width;
         }
       }
     });
@@ -241,11 +254,8 @@
   function setScrollBar() {
     scrollBar.style.height =
       (puzzleContainer.clientHeight / puzzleContainer.scrollHeight) * 100 + "%";
-
-    if (scrollBar.style.height == "100%") {
-      scrollBar.style.display = "none";
-      document.getElementById("scroll-bar-container").style.display = "block";
-    }
+    scrollBar.style.width =
+      (puzzleContainer.clientWidth / puzzleContainer.scrollWidth) * 100 + "%";
   }
 
   function posScrollBar() {
@@ -253,5 +263,10 @@
       (puzzleContainer.scrollTop /
         (puzzleContainer.scrollHeight - puzzleContainer.clientHeight)) *
       (puzzleContainer.clientHeight - scrollBar.clientHeight);
+
+    scrollBar.style.left =
+      (puzzleContainer.scrollLeft /
+        (puzzleContainer.scrollWidth - puzzleContainer.clientWidth)) *
+      (puzzleContainer.clientWidth - scrollBar.clientWidth);
   }
 </script>

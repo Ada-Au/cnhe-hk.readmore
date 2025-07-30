@@ -126,6 +126,15 @@ button {
   font-family: "Bakudai-Regular";
 }
 
+@media only screen and (max-device-width: 768px) {
+  .chooseGame {
+    font-size: 9cqw;
+  }
+  button {
+    font-size: 5.4cqw;
+  }
+}
+
 .hideBtn {
   height: 50%;
   border: 2px solid transparent;
@@ -213,6 +222,11 @@ button:hover {
 }
 
 /* puzzle game */
+#puzzle-wrapper {
+  display: flex;
+  height: 80%;
+}
+
 #puzzle-container {
   overflow-y: scroll;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -224,8 +238,11 @@ button:hover {
 
 #slot-container {
   display: grid;
+  height: fit-content;
+  max-height: 100%;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
+  margin: 0 1cqmin 1cqmin 1cqmin;
 }
 
 .puzzle-piece {
@@ -247,6 +264,44 @@ button:hover {
   position: absolute;
   left: 0;
   border-radius: 4px;
+}
+
+#scroll-bar-container {
+  width: 8px;
+  position: relative;
+  background-color: whitesmoke;
+  border-radius: 4px;
+  display: none;
+}
+
+@media only screen and (max-device-width: 768px) {
+  #puzzle-wrapper {
+    flex-direction: column;
+  }
+  #puzzle-container {
+    overflow-x: scroll;
+    width: 100% !important;
+    display: inline-block;
+    display: -webkit-inline-box;
+  }
+  #scroll-bar-container {
+    height: 8px;
+    width: 100%;
+  }
+  #scroll-bar {
+    height: 8px;
+    width: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  #slot-container {
+    height: fit-content;
+    max-height: 50%;
+  }
+  #timer {
+    font-size: 3cqh;
+  }
 }
 
 /* matching */
@@ -286,7 +341,14 @@ button:hover {
   transform: rotateY(180deg);
 }
 
-/* pair */
+@media only screen and (max-device-width: 768px) {
+  .matching-card {
+    writing-mode: vertical-lr;
+    font-size: 7cqw !important;
+  }
+}
+
+/* connect */
 .connectSelection {
   margin-bottom: 1cqmin;
 
@@ -315,6 +377,17 @@ button:hover {
 .connectColumn {
   width: 40%;
   height: 100%;
+}
+
+@media only screen and (max-device-width: 768px) {
+  .connectSelection {
+    flex-direction: column;
+    font-size: 2.5cqh !important;
+    text-align: center;
+    div {
+      font-size: 2cqh !important;
+    }
+  }
 }
 
 /* matching */

@@ -66,13 +66,23 @@
 
     $("#game").load("./" + gamePath + ".html");
     params.set("game", gamePath);
-    if (params.get("name")) params.set("name", params.get("name"));
+
+    name = params.get("name");
+    if (name) params.set("name", name);
     parent.window.history.replaceState(null, null, "?" + params.toString());
+
+    if (name === "cg") {
+      bgStyle.backgroundImage = "url('./assets/bg_cg.jpg')";
+    } else {
+      bgStyle.backgroundImage = "url('./assets/bg.jpg')";
+    }
 
     clearBg();
 
     if (gamePath === "select") {
       backBtn.style = "display: none";
+      if (name === "cg") titleText.innerHTML = "中華儒将：智、仁、勇";
+      else titleText.innerHTML = "選擇主題";
       titleText.className = "chooseGame";
       for (i = 0; i < logos.length; i++) {
         logos[i].style.display = "block";
