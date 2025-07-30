@@ -195,7 +195,7 @@
 
     parent.sendData({
       type: "rhymes",
-      marks: mark,
+      marks: Math.round((mark / max) * 10),
     });
     tracks.forEach((track) => {
       track.style.pointerEvents = "none";

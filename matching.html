@@ -40,7 +40,7 @@
 
       gameBoard.insertBefore(
         card,
-        gameBoard.children[Math.floor(Math.random() * j) + i * column]
+        gameBoard.children[Math.round(Math.random() * j) + i * column]
       );
     }
   }
@@ -52,7 +52,6 @@
   function handleClick() {
     currentRow = this.id.split("-")[0];
     currentId = this.id.split("-")[1];
-    console.log(this.id);
 
     if (currentCards[currentRow] !== -1) {
       document.getElementById(
@@ -71,7 +70,6 @@
   function checkMatch() {
     count++;
     if (!currentCards.every((val) => val === -1)) {
-      console.log("test");
       if (currentCards.every((val, i, arr) => val === arr[0])) {
         countCorrect++;
         for (let i = 0; i < gameData.matching.row; i++) {
@@ -81,9 +79,7 @@
         }
       } else {
         tryAgainText.style.display = "block";
-        console.log("Try again text displayed");
         setTimeout(() => {
-          console.log("Try again text not displayed");
           tryAgainText.style.display = "none";
         }, 500);
       }
@@ -99,7 +95,13 @@
       banner.innerHTML = "你贏了!";
       banner.id = "banner";
       document.getElementById("game").appendChild(banner);
-      parent.sendData({ type: "matching", tries: count });
+      parent.sendData({
+        type: "matching",
+        marks: Math.max(
+          10 - Math.ceil((count - column) / ((column + 1) / 2)),
+          0
+        ),
+      });
     }
   }
 </script>

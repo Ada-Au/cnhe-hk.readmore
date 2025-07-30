@@ -119,7 +119,7 @@
 
     parent.sendData({
       type: "ticTacToe",
-      marks: countWin,
+      marks: Math.round((10 * (countWin + 8)) / 16),
     });
   }
 </script>

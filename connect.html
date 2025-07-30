@@ -150,7 +150,17 @@
       banner.innerHTML = "你贏了!";
       banner.id = "banner";
       document.getElementById("game").appendChild(banner);
-      parent.sendData({ type: "connect", tries: count });
+      parent.sendData({
+        type: "connect",
+        marks: Math.max(
+          10 -
+            Math.ceil(
+              (count - gameData.connect.name.length) /
+                ((gameData.connect.name.length + 1) / 2)
+            ),
+          0
+        ),
+      });
     }
   }
 

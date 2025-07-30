@@ -217,10 +217,23 @@
 
     if (puzzleContainer.children.length === 0) {
       puzzleText.textContent = "你贏了!";
-      parent.sendData({
-        type: "puzzle",
-        time: hours * 360 + minutes * 60 + seconds,
-      });
+      time = hours * 360 + minutes * 60 + seconds;
+      if (time < 30) {
+        parent.sendData({
+          type: "puzzle",
+          marks: 10,
+        });
+      } else if (time < 150) {
+        parent.sendData({
+          type: "puzzle",
+          marks: 10 - Math.ceil(time / 30),
+        });
+      } else {
+        parent.sendData({
+          type: "puzzle",
+          marks: Math.max(5 - Math.ceil((time - 150) / 60), 0),
+        });
+      }
       clearInterval(timer);
       if (localStorage.getItem("interval")) localStorage.removeItem("interval");
     }

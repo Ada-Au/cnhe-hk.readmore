@@ -116,7 +116,14 @@
       banner.id = "banner";
 
       document.getElementById("game-board").appendChild(banner);
-      parent.sendData({ type: "pair", tries: flipCount });
+      parent.sendData({
+        type: "pair",
+        marks: Math.max(
+          10 -
+            Math.ceil((flipCount - cards.length / 2) / ((cards / 2 + 1) / 2)),
+          0
+        ),
+      });
     }
   }
 </script>
