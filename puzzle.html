@@ -40,6 +40,7 @@
     alt="Loading"
     style="position: absolute; display: none; top: 50%; left: 50%"
   />
+  <!-- TODO: move text to side not as puzzle -->
 </div>
 
 <script>
@@ -216,24 +217,21 @@
     }
 
     if (puzzleContainer.children.length === 0) {
-      puzzleText.textContent = "你贏了!";
       time = hours * 360 + minutes * 60 + seconds;
-      if (time < 30) {
-        parent.sendData({
-          type: "puzzle",
-          marks: 10,
-        });
-      } else if (time < 150) {
-        parent.sendData({
-          type: "puzzle",
-          marks: 10 - Math.ceil(time / 30),
-        });
+      marks = 0;
+      if (time < 60) {
+        marks = 10;
+      } else if (time < 180) {
+        marks = 10 - Math.ceil(time / 30);
       } else {
-        parent.sendData({
-          type: "puzzle",
-          marks: Math.max(5 - Math.ceil((time - 150) / 60), 0),
-        });
+        marks = Math.max(5 - Math.ceil((time - 180) / 60), 0);
       }
+
+      puzzleText.textContent = "你贏了!" + "<br>你的分數是: " + marks;
+      parent.sendData({
+        type: "puzzle",
+        marks: marks,
+      });
       clearInterval(timer);
       if (localStorage.getItem("interval")) localStorage.removeItem("interval");
     }

@@ -219,6 +219,7 @@ button:hover {
   padding: 10px;
   text-shadow: none;
   pointer-events: none;
+  font-size: 7cqw;
 }
 
 /* puzzle game */
@@ -247,13 +248,11 @@ button:hover {
 
 .puzzle-piece {
   height: calc(100% / 5);
-  /* aspect-ratio: 1; */
   margin: 0 1cqmin 1cqmin 1cqmin;
 }
 
 .puzzle-slot {
   width: auto;
-  /* height: 100%; */
   background-color: #fff;
   border: 1px solid grey;
 }
@@ -426,10 +425,8 @@ table {
 }
 td {
   border: 1px solid black;
-  width: 15cqmin;
-  height: 15cqmin;
   text-align: center;
-  font-size: 12cqmin;
+  /* font-size: 12cqmin; */
   cursor: pointer;
 }
 td:hover {

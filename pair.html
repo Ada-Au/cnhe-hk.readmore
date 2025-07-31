@@ -112,17 +112,21 @@
 
     if (count === cards.length) {
       banner = document.createElement("h1");
-      banner.innerHTML = "你贏了!";
+      marks = 10;
+      if (flipCount > cards.length) {
+        marks = Math.max(
+          10 - Math.ceil((flipCount - 10) / cards.length / 2),
+          0
+        );
+      }
+
+      banner.innerHTML = "你贏了!" + "<br>你的分數是: " + marks;
       banner.id = "banner";
 
       document.getElementById("game-board").appendChild(banner);
       parent.sendData({
         type: "pair",
-        marks: Math.max(
-          10 -
-            Math.ceil((flipCount - cards.length / 2) / ((cards / 2 + 1) / 2)),
-          0
-        ),
+        marks: marks,
       });
     }
   }

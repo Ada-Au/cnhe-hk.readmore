@@ -8,8 +8,8 @@
 >
   <div>
     <h3>玩家: O<br />電腦: X</h3>
-    <table>
-      <tr>
+    <table id="ticTacToeTable">
+      <!-- <tr>
         <td id="cell-0" onclick="handleCellClick(0)"></td>
         <td id="cell-1" onclick="handleCellClick(1)"></td>
         <td id="cell-2" onclick="handleCellClick(2)"></td>
@@ -23,7 +23,7 @@
         <td id="cell-6" onclick="handleCellClick(6)"></td>
         <td id="cell-7" onclick="handleCellClick(7)"></td>
         <td id="cell-8" onclick="handleCellClick(8)"></td>
-      </tr>
+      </tr> -->
     </table>
   </div>
   <div style="padding-left: 4cqmin; width: 50%">
@@ -41,9 +41,45 @@
   count = 0;
   choiceContainer = document.getElementById("choice-container");
   questionText = document.getElementById("tic-question");
+  ticTacToeTable = document.getElementById("ticTacToeTable");
 
   ticQuestions = structuredClone(gameData.ticTacToe.game).sort(
     () => Math.random() - 0.5
+  );
+
+  size = gameData.ticTacToe.size || 3;
+
+  winningCombinations = [];
+
+  for (let i = 0; i < size; i++) {
+    row = document.createElement("tr");
+    for (let j = 0; j < size; j++) {
+      cell = document.createElement("td");
+      cell.id = "cell-" + (i * size + j);
+      cell.onclick = () => handleCellClick(i * size + j);
+      cell.style.width = "calc(100% / " + size + ")";
+      cell.style.height = "calc(100% / " + size + ")";
+      cell.style.fontSize = "calc(36cqmin / " + size + ")";
+      row.appendChild(cell);
+    }
+    ticTacToeTable.appendChild(row);
+
+    // row
+    winningCombinations.push(
+      Array.from({ length: size }, (_, k) => i * size + k)
+    );
+    // column
+    winningCombinations.push(
+      Array.from({ length: size }, (_, k) => k * size + i)
+    );
+  }
+
+  // diagonal
+  winningCombinations.push(
+    Array.from({ length: size }, (_, k) => k * (size + 1))
+  );
+  winningCombinations.push(
+    Array.from({ length: size }, (_, k) => (k + 1) * (size - 1))
   );
 
   function ansQuestion(ans) {
@@ -60,7 +96,7 @@
     currentCell.classList.add("done");
     count++;
 
-    if (count === 9) checkWin();
+    checkWin();
   }
 
   function handleCellClick(cellId) {
@@ -71,55 +107,46 @@
     currentQuestion = cellId;
     questionText.innerHTML = ticQuestions[cellId].question;
     choiceContainer.style.display = "flex";
+
+    console.log("Current question:", ticQuestions[cellId].answer);
   }
 
   function checkWin() {
-    const winningCombinations = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8], // Rows
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8], // Columns
-      [0, 4, 8],
-      [2, 4, 6], // Diagonals
-    ];
-
-    countWin = 0;
     for (let combination of winningCombinations) {
-      const [a, b, c] = combination;
       if (
-        document.getElementById("cell-" + a).innerHTML === "O" &&
-        document.getElementById("cell-" + b).innerHTML === "O" &&
-        document.getElementById("cell-" + c).innerHTML === "O"
+        count >= size * size ||
+        combination.every((index) => {
+          return document.getElementById("cell-" + index).innerHTML === "O";
+        })
       ) {
-        countWin++;
-      }
-      if (
-        document.getElementById("cell-" + a).innerHTML === "X" &&
-        document.getElementById("cell-" + b).innerHTML === "X" &&
-        document.getElementById("cell-" + c).innerHTML === "X"
-      ) {
-        countWin--;
+        banner = document.createElement("h1");
+
+        if (count < size * size) {
+          banner.innerHTML = "你贏了!";
+        } else {
+          if (
+            combination.every((index) => {
+              return document.getElementById("cell-" + index).innerHTML === "X";
+            })
+          ) {
+            banner.innerHTML = "繼續努力!";
+          } else {
+            banner.innerHTML = "平手!";
+          }
+        }
+
+        banner.id = "banner";
+        document.getElementById("game").appendChild(banner);
+
+        marks = Math.round((10 * (size * size - count)) / (size * size - size));
+
+        banner.innerHTML += "<br>你的分數是: " + marks;
+        parent.sendData({
+          type: "ticTacToe",
+          marks: marks,
+        });
+        break;
       }
     }
-
-    banner = document.createElement("h1");
-
-    if (countWin > 0) {
-      banner.innerHTML = "你贏了!";
-    } else if (countWin == 0) {
-      banner.innerHTML = "平手!";
-    } else {
-      banner.innerHTML = "繼續努力!";
-    }
-
-    banner.id = "banner";
-    document.getElementById("game").appendChild(banner);
-
-    parent.sendData({
-      type: "ticTacToe",
-      marks: Math.round((10 * (countWin + 8)) / 16),
-    });
   }
 </script>

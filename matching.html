@@ -92,15 +92,16 @@
 
     if (countCorrect === column) {
       banner = document.createElement("h1");
-      banner.innerHTML = "你贏了!";
+      marks = Math.max(
+        10 - Math.ceil((count - column) / ((column + 1) / 2)),
+        0
+      );
+      banner.innerHTML = "你贏了!" + "<br>你的分數是: " + marks;
       banner.id = "banner";
       document.getElementById("game").appendChild(banner);
       parent.sendData({
         type: "matching",
-        marks: Math.max(
-          10 - Math.ceil((count - column) / ((column + 1) / 2)),
-          0
-        ),
+        marks: marks,
       });
     }
   }

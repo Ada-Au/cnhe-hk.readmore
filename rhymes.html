@@ -192,10 +192,11 @@
     banner.id = "banner";
 
     document.getElementById("rhymesContainer").appendChild(banner);
-
+    marks = Math.round((mark / max) * 10);
+    banner.innerHTML += "<br>你的分數是: " + marks;
     parent.sendData({
       type: "rhymes",
-      marks: Math.round((mark / max) * 10),
+      marks: marks,
     });
     tracks.forEach((track) => {
       track.style.pointerEvents = "none";
