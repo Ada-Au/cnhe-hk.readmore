@@ -122,7 +122,8 @@
         banner.id = "banner";
         document.getElementById("game").appendChild(banner);
 
-        marks = Math.round((10 * (size * size - count)) / (size * size - size));
+        marks = 10 - Math.max(count - size, 0);
+        // Math.round((10 * (size * size - count)) / (size * size - size));
 
         banner.innerHTML += "<br>你的分數是: " + marks;
         parent.sendData({

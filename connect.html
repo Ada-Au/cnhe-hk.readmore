@@ -147,7 +147,7 @@
 
     if (existingId.length == gameData.connect.name.length) {
       banner = document.createElement("h1");
-      marks = Math.round((10 * count) / gameData.connect.name.length);
+      marks = Math.round((10 * gameData.connect.name.length) / count);
       banner.innerHTML = "你贏了!" + "<br>你的分數是: " + marks;
       banner.id = "banner";
       document.getElementById("game").appendChild(banner);
