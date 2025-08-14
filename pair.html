@@ -124,7 +124,7 @@
       banner.id = "banner";
 
       document.getElementById("game-board").appendChild(banner);
-      parent.sendData({
+      parent.postMessage({
         type: "pair",
         marks: marks,
       });

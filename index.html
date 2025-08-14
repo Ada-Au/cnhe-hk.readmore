@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script>
-      $(function () {
-        $("#main").load("game.html");
+      window.addEventListener("message", function (event) {
+        console.log("message", event.data);
       });
-      function sendData(params) {
-        console.log(params);
-      }
     </script>
   </head>
 
@@ -16,6 +12,7 @@
     <!-- iframe must be defined with a size -->
     <!-- src="https://raw.githack.com/Ada-Au/cnhe-hk.readmore/main/game.html" -->
     <iframe
+      x-frame-options="SAMEORIGIN"
       src="./game.html"
       style="height: 90vh; width: 90vw; container-type: size"
     ></iframe>

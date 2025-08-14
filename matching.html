@@ -99,7 +99,7 @@
       banner.innerHTML = "你贏了!" + "<br>你的分數是: " + marks;
       banner.id = "banner";
       document.getElementById("game").appendChild(banner);
-      parent.sendData({
+      parent.postMessage({
         type: "matching",
         marks: marks,
       });

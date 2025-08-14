@@ -241,7 +241,7 @@
       }
 
       puzzleText.textContent = "你贏了!" + "<br>你的分數是: " + marks;
-      parent.sendData({
+      parent.postMessage({
         type: "puzzle",
         marks: marks,
       });

@@ -123,10 +123,9 @@
         document.getElementById("game").appendChild(banner);
 
         marks = 10 - Math.max(count - size, 0);
-        // Math.round((10 * (size * size - count)) / (size * size - size));
 
         banner.innerHTML += "<br>你的分數是: " + marks;
-        parent.sendData({
+        parent.postMessage({
           type: "ticTacToe",
           marks: marks,
         });
