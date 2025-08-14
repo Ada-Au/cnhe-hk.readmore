@@ -3,24 +3,24 @@
     "title": "過三關<br>(唐玄宗、楊貴妃)",
     "color": 6,
     "game": [
-      { "question": "唐玄宗的全名為李隆基​", "answer": true },
-      { "question": "《霓裳羽衣曲》為唐玄宗所創​", "answer": true },
-      { "question": "楊貴妃堂兄為安祿山​", "answer": false },
+      { "question": "唐玄宗的全名為李隆基", "answer": true },
+      { "question": "《霓裳羽衣曲》為唐玄宗所創", "answer": true },
+      { "question": "楊貴妃堂兄為安祿山", "answer": false },
       {
-        "question": "後宮佳麗三千人，三千寵愛在一身」指的便是楊貴妃​",
+        "question": "後宮佳麗三千人，三千寵愛在一身」指的便是楊貴妃",
         "answer": true
       },
-      { "question": "唐玄宗是出色的舞蹈家​", "answer": false },
-      { "question": "唐玄宗是出色的音樂家​", "answer": true },
+      { "question": "唐玄宗是出色的舞蹈家", "answer": false },
+      { "question": "唐玄宗是出色的音樂家", "answer": true },
       {
-        "question": "據史書記載，唐玄宗無法察覺演奏者是否演奏錯誤​",
+        "question": "據史書記載，唐玄宗無法察覺演奏者是否演奏錯誤",
         "answer": false
       },
       {
-        "question": "唐代音樂得以發展蓬勃，這與唐代國勢無關​",
+        "question": "唐代音樂得以發展蓬勃，這與唐代國勢無關",
         "answer": false
       },
-      { "question": "唐代是一個社會文化開放多元的朝代​", "answer": true }
+      { "question": "唐代是一個社會文化開放多元的朝代", "answer": true }
     ]
   },
 
