@@ -29,8 +29,9 @@
 
   let gameData = {};
 
-  paramStr = document.referrer.split("?");
+  paramStr = location.href.split("?");
   params = new URLSearchParams("");
+  if (paramStr.length < 1) paramStr = document.referrer.split("?");
   if (paramStr.length > 1) params = new URLSearchParams(paramStr[1]);
 
   function clearBg() {
