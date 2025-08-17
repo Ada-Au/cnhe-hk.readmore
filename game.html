@@ -43,7 +43,8 @@
     }
 
     gamePath = path;
-    params = new URLSearchParams(parent.window.location.search);
+    params = parent.params;
+    // new URLSearchParams(window.location.search);
 
     if (gameData[gamePath] === undefined) {
       gamePath = params.get("game") || "select";
