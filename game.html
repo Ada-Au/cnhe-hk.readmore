@@ -29,6 +29,8 @@
 
   let gameData = {};
 
+  params = new URLSearchParams(window.location.search);
+
   function clearBg() {
     for (i = 0; i < logos.length; i++) {
       logos[i].style.display = "none";
@@ -43,7 +45,6 @@
     }
 
     gamePath = path;
-    params = new URLSearchParams(window.location.search);
 
     if (gameData[gamePath] === undefined) {
       gamePath = params.get("game") || "select";
@@ -91,7 +92,6 @@
   }
 
   async function init() {
-    params = new URLSearchParams(parent.window.location.search);
     if (params.get("name") === "cg") {
       await $.getJSON("gameData_cg.json", function (json) {
         gameData = json;
