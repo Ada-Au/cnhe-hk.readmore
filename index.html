@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script>
-      window.addEventListener("message", function (event) {
-        console.log("message", event.data);
-      });
-    </script>
-  </head>
-
   <body>
     <!-- iframe must be defined with a size -->
     <!-- src="https://raw.githack.com/Ada-Au/cnhe-hk.readmore/main/game.html" -->
     <iframe
       x-frame-options="SAMEORIGIN"
-      src="https://raw.githack.com/Ada-Au/cnhe-hk.readmore/main/game.html?game=cg"
       style="height: 90vh; width: 90vw; container-type: size"
-      id="myIframe"
+      id="gameFrame"
     ></iframe>
   </body>
+
+  <script>
+    window.addEventListener("message", function (event) {
+      console.log("message", event.data);
+    });
+    frame = document.getElementById("gameFrame");
+    frame.src = "./game.html" + window.location.search;
+  </script>
 </html>
