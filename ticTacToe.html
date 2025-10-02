@@ -27,7 +27,7 @@
   questionText = document.getElementById("tic-question");
   ticTacToeTable = document.getElementById("ticTacToeTable");
 
-  ticQuestions = structuredClone(gameData.ticTacToe.game).sort(
+  ticQuestions = structuredClone(gameData.ticTacToe[params.get("pdf")]).sort(
     () => Math.random() - 0.5
   );
 

@@ -15,30 +15,25 @@
     src="./assets/logo2.png"
     style="left: 4cqmin; max-width: 50%"
   />
-  <h1 id="title" class="chooseGame">選擇主題</h1>
   <div id="game" style="height: 100%; width: 100%; container-type: size"></div>
-  <button id="backBtn" onclick="setGame('select')">返回</button>
+  <button id="backBtn" onclick="setGame('pdf')">返回</button>
 </div>
 
 <script>
   const bgStyle = document.getElementById("bg").style;
-  const titleText = document.getElementById("title");
-  const backBtn = document.getElementById("backBtn");
   const game = document.getElementById("game");
   const logos = document.getElementsByClassName("logo");
+  const backBtn = document.getElementById("backBtn");
+  backBtn.style.display = "none";
 
   let gameData = {};
 
-  paramStr = location.href.split("?");
-  params = new URLSearchParams("");
-  if (paramStr.length < 1) paramStr = document.referrer.split("?");
-  if (paramStr.length > 1) params = new URLSearchParams(paramStr[1]);
+  params = new URLSearchParams(parent.window.location.search);
 
-  function clearBg() {
+  function setLogo(state = true) {
     for (i = 0; i < logos.length; i++) {
-      logos[i].style.display = "none";
+      logos[i].style.display = state ? "block" : "none";
     }
-    titleText.className = "inGame";
   }
 
   function setGame(path = "") {
@@ -57,49 +52,27 @@
     }
 
     if (gamePath !== "pdf") {
-      titleText.innerHTML = gameData[gamePath].title;
+      backBtn.style.display = "block";
       bgStyle.filter =
         "hue-rotate(" +
         Math.round((gameData[gamePath].color / 7) * 360) +
         "deg)";
-      backBtn.style = "";
     } else {
-      titleText.style = "display: none";
-      backBtn.style = "display: none";
+      backBtn.style.display = "none";
+      bgStyle.filter = "hue-rotate(0deg)";
     }
 
     $("#game").load("./" + gamePath + ".html");
-    name = params.get("name");
 
-    if (name === "cg") {
-      bgStyle.backgroundImage = "url('./assets/bg_cg.jpg')";
-    } else {
-      bgStyle.backgroundImage = "url('./assets/bg.jpg')";
-    }
-
-    clearBg();
-
-    if (gamePath === "select") {
-      backBtn.style = "display: none";
-      if (name === "cg") titleText.innerHTML = "中華儒将：智、仁、勇";
-      else titleText.innerHTML = "選擇主題";
-      titleText.className = "chooseGame";
-      for (i = 0; i < logos.length; i++) {
-        logos[i].style.display = "block";
-      }
-    }
+    bgStyle.backgroundImage = "url('./assets/bg.jpg')";
+    setLogo(false);
   }
 
   async function init() {
-    if (params.get("name") === "cg") {
-      await $.getJSON("gameData_cg.json", function (json) {
-        gameData = json;
-      });
-    } else {
-      await $.getJSON("gameData.json", function (json) {
-        gameData = json;
-      });
-    }
+    await $.getJSON("gameData.json", function (json) {
+      gameData = json;
+    });
+
     setGame();
   }
   init();

@@ -1,63 +1,148 @@
 <body>
-  <div class="pdfContainer">
+  <div class="pdfContainer" style="overflow: hidden">
     <button class="pageBtn" id="prevBtn" onclick="changePage(-1)"><</button>
     <div
       style="
         display: flex;
         position: relative;
         justify-content: center;
-        max-width: 100%;
+        align-items: center;
+        flex: 1;
         max-height: 100%;
+        height: 100%;
       "
     >
-      <img
-        id="image"
-        style="max-width: 100%; max-height: 100%; object-fit: contain"
-        onload="imageLoaded()"
-      />
-      <img id="loading" src="./assets/loading.svg" alt="Loading" />
-      <a
-        id="link"
-        href="#"
-        style="display: none; position: absolute; bottom: 5%; font-size: 4cqh"
-      ></a>
+      <canvas
+        id="pdf-viewer"
+        style="max-width: 100%; max-height: 100%"
+      ></canvas>
+      <div id="link" style="width: 100%">
+        <h1 class="chooseGame">時代精神，變革為民：<br /></h1>
+        <div class="selectionContainer"></div>
+      </div>
     </div>
     <button class="pageBtn" id="nextBtn" onclick="changePage(1)">></button>
   </div>
 </body>
 <script>
-  params = new URLSearchParams(parent.window.location.search);
-  currenPdf = gameData.pdf?.map((e) => e.name).indexOf(params.get("pdf"));
+  // params = new URLSearchParams(parent.window.location.search);
+  currenPdf = gameData.pdf?.map((e) => e.param).indexOf(params.get("pdf"));
   if (currenPdf === -1) {
     currenPdf = 0;
   }
-
-  path = gameData.pdf[currenPdf].path;
-  ext = gameData.pdf[currenPdf].ext;
-  size = gameData.pdf[currenPdf].size;
+  name = gameData.pdf[currenPdf].name;
 
   nextBtn = document.getElementById("nextBtn");
   prevBtn = document.getElementById("prevBtn");
-  prevBtn.className = "hideBtn";
-
-  loadImg = document.getElementById("loading");
-  viewer = document.getElementById("image");
-  viewer.src = path + "/" + 1 + ext;
-
+  canvas = document.getElementById("pdf-viewer");
   link = document.getElementById("link");
 
-  link.innerHTML = gameData.pdf[currenPdf].button;
-  link.href = gameData.pdf[currenPdf].href || "#";
-  link.target = gameData.pdf[currenPdf].href ? "_blank" : "_self";
-  link.onclick = gameData.pdf[currenPdf].to
-    ? () => setGame(gameData.pdf[currenPdf].to)
-    : "";
-
+  pdf = null;
   currentIndex = 1;
-  xDown = null;
+  prevBtn.className = "hideBtn";
+  canvasScale = 1;
 
-  viewer.addEventListener("touchstart", handleTouchStart, false);
-  viewer.addEventListener("touchmove", handleTouchMove, false);
+  async function init() {
+    const pdfPath = "assets/ppt/" + name + ".pdf";
+    const pdfjsLib = await import("./pdfjs-dist/build/pdf.mjs");
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "./pdfjs-dist/build/pdf.worker.mjs";
+
+    pdfjsLib.getDocument(pdfPath).promise.then((doc) => {
+      pdf = doc;
+      resize();
+      changePage(0);
+    });
+
+    link.children[0].innerHTML += name;
+    gameData.pdf[currenPdf].to.forEach((href) => {
+      btn = document.createElement("button");
+      link.children[1].appendChild(btn);
+      btn.className = "selectionBtn";
+      switch (href) {
+        case "puzzle":
+          btn.innerHTML = "砌圖";
+          break;
+        case "rhymes":
+          btn.innerHTML = "接字";
+          break;
+        case "pair":
+          btn.innerHTML = "對對碰";
+          break;
+        case "ticTacToe":
+          btn.innerHTML = "過三關";
+          break;
+        default:
+          btn.innerHTML = "Error";
+          break;
+      }
+      btn.onclick = () => {
+        setGame(href);
+      };
+    });
+  }
+
+  function resize() {
+    pdf.getPage(currentIndex).then((page) => {
+      let viewport = page.getViewport({ scale: canvasScale });
+      let context = canvas.getContext("2d");
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      const canvasContainer = canvas.parentElement.parentElement;
+
+      if (
+        canvasContainer.clientWidth / viewport.width >
+        canvasContainer.clientHeight / viewport.height
+      ) {
+        canvas.style.height = canvasContainer.clientHeight;
+        canvas.style.width =
+          (canvasContainer.clientHeight * viewport.width) / viewport.height;
+        canvasScale = canvasContainer.clientHeight / viewport.height;
+      } else {
+        canvas.style.width = canvasContainer.clientWidth;
+        canvas.style.height =
+          (canvasContainer.clientWidth * viewport.height) / viewport.width;
+        canvasScale = canvasContainer.clientWidth / viewport.width;
+      }
+    });
+  }
+
+  function changePage(offset) {
+    if (pdf === null) return;
+    if (currentIndex + offset < 1 || currentIndex + offset > pdf.numPages + 1)
+      return;
+
+    currentIndex += offset;
+    prevBtn.className = currentIndex <= 1 ? "hideBtn" : "pageBtn";
+    nextBtn.className = currentIndex > pdf.numPages ? "hideBtn" : "pageBtn";
+
+    if (currentIndex + offset > pdf.numPages + 1) {
+      link.style.display = "block";
+      canvas.style.display = "none";
+    } else {
+      canvas.style.display = "block";
+      link.style.display = "none";
+
+      pdf.getPage(currentIndex).then((page) => {
+        let viewport = page.getViewport({ scale: 1 });
+
+        let context = canvas.getContext("2d");
+
+        page.render({
+          canvasContext: context,
+          viewport: viewport,
+        });
+      });
+    }
+  }
+
+  canvas.addEventListener("touchstart", handleTouchStart, false);
+  canvas.addEventListener("touchmove", handleTouchMove, false);
+  link.addEventListener("touchstart", handleTouchStart, false);
+  link.addEventListener("touchmove", handleTouchMove, false);
+
+  init();
 
   function handleTouchStart(evt) {
     firstTouch = evt.touches[0];
@@ -78,35 +163,5 @@
     }
 
     xDown = null;
-  }
-
-  function changePage(page) {
-    if (currentIndex + page >= 1 && currentIndex + page <= size) {
-      currentIndex = currentIndex + page;
-      viewer.src = path + "/" + currentIndex + ext;
-
-      loadImg.display = "block";
-      if (currentIndex === size) {
-        link.style.display = "block";
-      } else {
-        link.style.display = "none";
-      }
-
-      if (currentIndex === 1) {
-        prevBtn.className = "hideBtn";
-      } else {
-        prevBtn.className = "pageBtn";
-      }
-
-      if (currentIndex === size) {
-        nextBtn.className = "hideBtn";
-      } else {
-        nextBtn.className = "pageBtn";
-      }
-    }
-  }
-
-  function imageLoaded() {
-    loadImg.display = "none";
   }
 </script>

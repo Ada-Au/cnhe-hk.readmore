@@ -62,7 +62,8 @@ h3 {
 }
 
 @media only screen and (max-device-width: 768px) {
-  .pageBtn {
+  .pageBtn,
+  .hideBtn {
     display: none;
   }
   .pdfContainer {
@@ -97,11 +98,6 @@ h3 {
 
 /* select game */
 .chooseGame {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: max-content;
   margin: 0;
   text-align: center;
 }
@@ -154,9 +150,15 @@ button:hover {
 
 .selectionContainer {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2vw;
-  margin: 2vh 16vw;
+  margin: 2vh 4vw;
+}
+@media only screen and (max-device-width: 768px) {
+  .selectionContainer {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 2vh 2vw;
+  }
 }
 
 /* rhymes game */

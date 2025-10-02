@@ -39,10 +39,17 @@
 <script>
   questionButtons = document.getElementById("questionButtons");
 
-  for (let i = 0; i < gameData.rhymes.game.length; i++) {
+  if (gameData.rhymes[params.get("pdf")].length > 1) {
+    for (let i = 0; i < gameData.rhymes[params.get("pdf")].length; i++) {
+      button = document.createElement("button");
+      button.innerHTML = "題目" + (i + 1);
+      button.onclick = () => chooseQuestion(i + 1);
+      questionButtons.appendChild(button);
+    }
+  } else {
     button = document.createElement("button");
-    button.innerHTML = "題目" + (i + 1);
-    button.onclick = () => chooseQuestion(i + 1);
+    button.innerHTML = "開始";
+    button.onclick = () => chooseQuestion(1);
     questionButtons.appendChild(button);
   }
 
@@ -102,7 +109,9 @@
   }
 
   function chooseQuestion(questionNumber) {
-    currentGame = structuredClone(gameData.rhymes.game[questionNumber - 1]);
+    currentGame = structuredClone(
+      gameData.rhymes[params.get("pdf")][questionNumber - 1]
+    );
     max = currentGame.correct.length;
 
     if (gameData.rhymes.highlight) {

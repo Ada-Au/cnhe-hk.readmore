@@ -54,13 +54,12 @@
 
   async function init() {
     puzzleImage = new Image();
-
-    puzzleImage.src = gameData.puzzle.path;
+    puzzleImage.src = gameData.puzzle[params.get("pdf")];
 
     puzzleImage.addEventListener("load", (e) => {
       pictureContainer.style.backgroundImage = `url(${puzzleImage.src})`;
       pictureContainer.style.filter =
-        "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
+        "hue-rotate(" + -Math.round((gameData.puzzle.color / 7) * 360) + "deg)";
 
       ratio = e.target.width / 4 / (e.target.height / 5);
 
@@ -68,7 +67,9 @@
         puzzleSlot = document.createElement("div");
         puzzleSlot.classList.add("puzzle-slot");
         puzzleSlot.style.filter =
-          "hue-rotate(" + -Math.round((1 / 7) * 360) + "deg)";
+          "hue-rotate(" +
+          -Math.round((gameData.puzzle.color / 7) * 360) +
+          "deg)";
         puzzleSlot.addEventListener("dragover", dragOver);
         puzzleSlot.addEventListener("drop", dragDrop);
 

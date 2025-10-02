@@ -1,17 +1,179 @@
 {
+  "pdf": [
+    {
+      "name": "林則徐",
+      "param": "pdf01",
+      "button": "開始遊戲",
+      "to": ["puzzle", "rhymes", "pair", "ticTacToe"]
+    },
+    {
+      "name": "范仲淹",
+      "param": "pdf02",
+      "button": "開始遊戲",
+      "to": ["puzzle", "rhymes", "pair", "ticTacToe"]
+    },
+    {
+      "name": "張居正",
+      "param": "pdf02",
+      "button": "開始遊戲",
+      "to": ["puzzle", "rhymes", "pair", "ticTacToe"]
+    },
+    {
+      "name": "董仲舒",
+      "param": "pdf02",
+      "button": "開始遊戲",
+      "to": ["puzzle", "rhymes", "pair", "ticTacToe"]
+    },
+    {
+      "name": "魏徵",
+      "param": "pdf02",
+      "button": "開始遊戲",
+      "to": ["puzzle", "rhymes", "pair", "ticTacToe"]
+    }
+  ],
+  "puzzle": {
+    "color": 1,
+    "title": "⁠砌圖",
+    "pdf01": "./assets/puzzle/1.png",
+    "pdf02": "./assets/puzzle/2.png",
+    "pdf03": "./assets/puzzle/3.png",
+    "pdf04": "./assets/puzzle/4.png",
+    "pdf05": "./assets/puzzle/5.png"
+  },
+  "rhymes": {
+    "title": "⁠接字",
+    "hideSubtitle": true,
+    "color": 2,
+    "random": false,
+    "highlight": false,
+    "pdf01": [
+      {
+        "question": "苟利國家生死以，豈因禍福避趨之",
+        "correct": ["苟", "利", "國", "家", "生", "死", "以", "豈", "因", "禍", "福", "避", "趨", "之"],
+        "wrong": ["先", "天", "下", "之", "憂", "而", "憂", "後", "天", "下", "之", "樂", "而", "樂", "星", "星", "之", "火", "遂", "成", "燎", "原"]
+      }
+    ],
+    "pdf02": [
+      {
+        "question": "先天下之憂而憂，後天下之樂而樂",
+        "correct": ["先", "天", "下", "之", "憂", "而", "憂", "後", "天", "下", "之", "樂", "而", "樂"],
+        "wrong": ["星", "星", "之", "火", "遂", "成", "燎", "原", "天", "地", "之", "氣", "合", "而", "為", "一"]
+      }
+    ],
+    "pdf03": [
+      {
+        "question": "星星之火，遂成燎原",
+        "correct": ["星", "星", "之", "火", "遂", "成", "燎", "原"],
+        "wrong": ["天", "地", "之", "氣", "合", "而", "為", "一", "榮", "辱", "之", "責", "在", "乎", "己", "而", "不", "在", "乎", "人"]
+      }
+    ],
+    "pdf04": [
+      {
+        "question": "天地之氣，合而為一",
+        "correct": ["天", "地", "之", "氣", "合", "而", "為", "一"],
+        "wrong": ["榮", "辱", "之", "責", "在", "乎", "己", "而", "不", "在", "乎", "人", "苟", "利", "國", "家", "生", "死", "以", "豈", "因", "禍", "福", "避", "趨", "之"]
+      }
+    ],
+    "pdf05": [
+      {
+        "question": "榮辱之責，在乎己而不在乎人",
+        "correct": ["榮", "辱", "之", "責", "在", "乎", "己", "而", "不", "在", "乎", "人"],
+        "wrong": ["苟", "利", "國", "家", "生", "死", "以", "豈", "因", "禍", "福", "避", "趨", "之", "先", "天", "下", "之", "憂", "而", "憂", "後", "天", "下", "之", "樂", "而", "樂"]
+      }
+    ]
+  },
+  "pair": {
+    "title": "⁠對對碰",
+    "color": 5,
+    "pdf01": [
+      { "type": "text", "value": "走私鴉片", "match": 1 },
+      { "type": "text", "value": "英國東印度公司", "match": 1 },
+      { "type": "text", "value": "虎門銷煙", "match": 2 },
+      { "type": "text", "value": "鹽水、石灰", "match": 2 },
+      { "type": "text", "value": "鴉片戰爭", "match": 3 },
+      { "type": "text", "value": "南京條約", "match": 3 },
+      { "type": "text", "value": "海納百川", "match": 4 },
+      { "type": "text", "value": "有容乃大", "match": 4 },
+      { "type": "text", "value": "壁立千仞", "match": 5 },
+      { "type": "text", "value": "無欲則剛", "match": 5 }
+    ],
+    "pdf02": [
+      { "type": "text", "value": "長白山醴泉寺", "match": 1 },
+      { "type": "text", "value": "勵志苦讀", "match": 1 },
+      { "type": "text", "value": "泰州", "match": 2 },
+      { "type": "text", "value": "範公堤", "match": 2 },
+      { "type": "text", "value": "江淮", "match": 3 },
+      { "type": "text", "value": "開倉救濟災民", "match": 3 },
+      { "type": "text", "value": "蘇州", "match": 4 },
+      { "type": "text", "value": "挖河渠排水", "match": 4 },
+      { "type": "text", "value": "十事疏", "match": 5 },
+      { "type": "text", "value": "慶曆新政", "match": 5 }
+    ],
+    "pdf03": [
+      { "type": "text", "value": "明神宗", "match": 1 },
+      { "type": "text", "value": "內閣首輔", "match": 1 },
+      { "type": "text", "value": "萬曆元年", "match": 2 },
+      { "type": "text", "value": "張居正變法", "match": 2 },
+      { "type": "text", "value": "清丈土地", "match": 3 },
+      { "type": "text", "value": "核實土地面積", "match": 3 },
+      { "type": "text", "value": "一條鞭法", "match": 4 },
+      { "type": "text", "value": "貨幣繳稅", "match": 4 },
+      { "type": "text", "value": "論時政疏", "match": 5 },
+      { "type": "text", "value": "未能上達皇帝", "match": 5 }
+    ],
+    "pdf04": [
+      { "type": "text", "value": "文景之治", "match": 1 },
+      { "type": "text", "value": "黃老無為", "match": 1 },
+      { "type": "text", "value": "漢武盛世", "match": 2 },
+      { "type": "text", "value": "獨尊儒術", "match": 2 },
+      { "type": "text", "value": "風調雨順", "match": 3 },
+      { "type": "text", "value": "行王道、施善政", "match": 3 },
+      { "type": "text", "value": "儒家經典", "match": 4 },
+      { "type": "text", "value": "教化陶冶人性", "match": 4 },
+      { "type": "text", "value": "封建制度", "match": 5 },
+      { "type": "text", "value": "強幹弱枝", "match": 5 }
+    ],
+    "pdf05": [
+      { "type": "text", "value": "薄賦斂、輕租稅", "match": 1 },
+      { "type": "text", "value": "含養百姓", "match": 1 },
+      { "type": "text", "value": "賞罰公正", "match": 2 },
+      { "type": "text", "value": "輕刑減令", "match": 2 },
+      { "type": "text", "value": "愛民厚俗", "match": 3 },
+      { "type": "text", "value": "用善良感化百姓", "match": 3 },
+      { "type": "text", "value": "選官用人", "match": 4 },
+      { "type": "text", "value": "以德為主、德才兼備", "match": 4 },
+      { "type": "text", "value": "貞觀之治", "match": 5 },
+      { "type": "text", "value": "選賢任能、容納直諫", "match": 5 }
+    ]
+  },
   "ticTacToe": {
-    "title": "過三關<br>(唐玄宗、楊貴妃)",
+    "title": "過三關",
     "color": 6,
-    "game": [
-      { "question": "唐玄宗的全名為李隆基", "answer": true },
-      { "question": "《霓裳羽衣曲》為唐玄宗所創", "answer": true },
-      { "question": "楊貴妃堂兄為安祿山", "answer": false },
+    "pdf01": [
+      {
+        "question": "唐玄宗的全名為李隆基",
+        "answer": true
+      },
+      {
+        "question": "《霓裳羽衣曲》為唐玄宗所創",
+        "answer": true
+      },
+      {
+        "question": "楊貴妃堂兄為安祿山",
+        "answer": false
+      },
       {
         "question": "後宮佳麗三千人，三千寵愛在一身」指的便是楊貴妃",
         "answer": true
       },
-      { "question": "唐玄宗是出色的舞蹈家", "answer": false },
-      { "question": "唐玄宗是出色的音樂家", "answer": true },
+      {
+        "question": "唐玄宗是出色的舞蹈家",
+        "answer": false
+      },
+      {
+        "question": "唐玄宗是出色的音樂家",
+        "answer": true
+      },
       {
         "question": "據史書記載，唐玄宗無法察覺演奏者是否演奏錯誤",
         "answer": false
@@ -20,197 +182,10 @@
         "question": "唐代音樂得以發展蓬勃，這與唐代國勢無關",
         "answer": false
       },
-      { "question": "唐代是一個社會文化開放多元的朝代", "answer": true }
-    ]
-  },
-
-  "connect": {
-    "length": 6,
-    "path": "./assets/connect/connect",
-    "name": ["琵琶", "空篌", "古箏", "直笛", "笙", "竹笛"],
-    "ext": ".jpeg",
-    "title": "⁠聽聲連線<br>(唐朝樂器)",
-    "color": 3,
-    "audio": true
-  },
-  "pair": {
-    "title": "⁠詩畫對對碰<br>(詩佛王維)",
-    "color": 5,
-    "game": [
-      { "type": "image", "value": "./assets/pair/pair1.jpeg", "match": 1 },
-      { "type": "image", "value": "./assets/pair/pair2.jpeg", "match": 2 },
-      { "type": "image", "value": "./assets/pair/pair3.jpeg", "match": 3 },
-      { "type": "image", "value": "./assets/pair/pair4.jpeg", "match": 4 },
-      { "type": "image", "value": "./assets/pair/pair5.jpeg", "match": 5 },
-      { "type": "text", "value": "木末芙蓉花，山中發紅萼", "match": 1 },
-      { "type": "text", "value": "竹喧歸驕女，蓮動下漁舟", "match": 2 },
-      { "type": "text", "value": "月出驚山烏，時鳴春澗中", "match": 3 },
-      { "type": "text", "value": "大漠孤煙直，長河落日圓", "match": 4 },
-      { "type": "text", "value": "獨坐豳篁裏，彈琴復長嘯", "match": 5 }
-    ]
-  },
-  "matching": {
-    "title": "⁠配對<br>(唐朝舞蹈)",
-    "color": 4,
-    "height": 3,
-    "width": 4,
-    "game": [
       {
-        "type": "image",
-        "value": "./assets/matching/matching1.jpeg",
-        "match": 1
-      },
-      {
-        "type": "image",
-        "value": "./assets/matching/matching2.jpeg",
-        "match": 2
-      },
-      {
-        "type": "image",
-        "value": "./assets/matching/matching3.jpeg",
-        "match": 3
-      },
-      {
-        "type": "image",
-        "value": "./assets/matching/matching4.jpeg",
-        "match": 4
-      },
-      { "type": "text", "value": "胡旋舞", "match": 1 },
-      { "type": "text", "value": "胡騰舞", "match": 2 },
-      { "type": "text", "value": "綠腰", "match": 3 },
-      { "type": "text", "value": "柘枝舞", "match": 4 },
-      { "type": "text", "value": "快速、\r\n不斷旋轉", "match": 1 },
-      { "type": "text", "value": "跳躍騰踏、\r\n怠促多變", "match": 2 },
-      { "type": "text", "value": "身著衣襟\r\n修長的舞衣", "match": 3 },
-      { "type": "text", "value": "用蠻鼓引舞", "match": 4 }
-    ]
-  },
-  "puzzle": {
-    "title": "⁠砌圖<br>(王維畫)",
-    "color": 1,
-    "path": "./assets/puzzle.jpeg"
-  },
-  "rhymes": {
-    "title": "⁠聲韻接字<br>(唐詩)",
-    "color": 2,
-    "random": true,
-    "highlight": true,
-    "game": [
-      {
-        "question": "紅豆生南國，春來發幾枝",
-        "correct": ["之", "師", "詩", "知"],
-        "wrong": ["必", "迫", "搬", "愛", "仙", "煙", "煎"]
-      },
-
-      {
-        "question": "獨坐幽篁裏，彈琴復長嘯",
-        "correct": ["照", "消", "囂", "兆", "釣"],
-        "wrong": ["必", "詩", "知", "煙", "桃", "衣", "哀"]
-      },
-      {
-        "question": "空山不見人，但聞人語響",
-        "correct": ["上", "搶", "想", "賞", "掌"],
-        "wrong": ["病", "餅", "影", "港", "朗", "綁", "廣"]
+        "question": "唐代是一個社會文化開放多元的朝代",
+        "answer": true
       }
     ]
-  },
-  "select": { "title": "選擇主題", "color": 0 },
-  "pdf": [
-    {
-      "path": "./assets/ppt/game01",
-      "name": "g01",
-      "size": 5,
-      "ext": ".jpg",
-      "button": "齊齊來砌圖",
-      "to": "puzzle"
-    },
-    {
-      "path": "./assets/ppt/video01",
-      "name": "v01",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題一：中國書畫的文化內涵",
-      "href": "https://youtu.be/7F_1RrmrmcY?si=AH5K-SWLcysaiuR8"
-    },
-    {
-      "path": "./assets/ppt/game02",
-      "name": "g02",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "聲韻接字",
-      "to": "pair"
-    },
-    {
-      "path": "./assets/ppt/video02",
-      "name": "v02",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題二：趣談唐詩",
-      "href": "https://youtu.be/YW3XQGZyyiA?si=K0qbR7Upmpoh8rQ·6"
-    },
-    {
-      "path": "./assets/ppt/game03",
-      "name": "g03",
-      "size": 9,
-      "ext": ".jpg",
-      "button": "聽聲連線",
-      "to": "pair"
-    },
-    {
-      "path": "./assets/ppt/video03",
-      "name": "v03",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題三：唐朝音樂",
-      "href": "https://youtu.be/DAtP6FbQsIE?si=vD76uxu-tQpxtFLq"
-    },
-    {
-      "path": "./assets/ppt/game04",
-      "name": "g04",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "舞蹈配對",
-      "to": "pair"
-    },
-    {
-      "path": "./assets/ppt/video04",
-      "name": "v04",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題四：唐朝舞蹈",
-      "href": "https://youtu.be/ND5cHDrCuxY?si=1GUxPnfQlV6ImJWQ"
-    },
-    {
-      "path": "./assets/ppt/game05",
-      "name": "g05",
-      "size": 8,
-      "ext": ".jpg",
-      "button": "詩畫對對碰",
-      "to": "pair"
-    },
-    {
-      "path": "./assets/ppt/video05",
-      "name": "v05",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題五：詩佛王維",
-      "href": "https://youtu.be/OX8onGnC-Dc?si=hgey0yYE0tG2EyH_"
-    },
-    {
-      "path": "./assets/ppt/game06",
-      "name": "g06",
-      "size": 5,
-      "ext": ".jpg",
-      "button": "過三關",
-      "to": "ticTacToe"
-    },
-    {
-      "path": "./assets/ppt/video06",
-      "name": "v06",
-      "size": 6,
-      "ext": ".jpg",
-      "button": "主題六：楊貴妃與唐玄宗",
-      "href": "https://youtu.be/CnUpeYvqSf0?si=w2mJT675TyCA67ey"
-    }
-  ]
+  }
 }
