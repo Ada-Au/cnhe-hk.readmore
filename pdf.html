@@ -60,7 +60,7 @@
     pdfjsLib.getDocument(pdfPath).promise.then((doc) => {
       pdf = doc;
       resize();
-      changePage(20);
+      changePage(0);
     });
 
     link.children[0].innerHTML += name;
