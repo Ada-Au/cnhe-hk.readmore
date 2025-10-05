@@ -97,9 +97,13 @@ h3 {
 }
 
 /* select game */
-.chooseGame {
+.gameTitle {
   margin: 0;
   text-align: center;
+  font-size: 9cqw;
+  h2 {
+    margin: 0;
+  }
 }
 
 .inGame {
@@ -122,7 +126,7 @@ button {
 }
 
 @media only screen and (max-device-width: 768px) {
-  .chooseGame {
+  .gameTitle {
     font-size: 9cqw;
   }
   button {

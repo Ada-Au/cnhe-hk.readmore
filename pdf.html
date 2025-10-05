@@ -16,8 +16,17 @@
         id="pdf-viewer"
         style="max-width: 100%; max-height: 100%"
       ></canvas>
-      <div id="link" style="width: 100%">
-        <h1 class="chooseGame">時代精神，變革為民：<br /></h1>
+      <div
+        id="link"
+        style="
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          display: none;
+        "
+      >
+        <div class="gameTitle"><h2>時代精神，變革為民</h2></div>
         <div class="selectionContainer"></div>
       </div>
     </div>
@@ -51,7 +60,7 @@
     pdfjsLib.getDocument(pdfPath).promise.then((doc) => {
       pdf = doc;
       resize();
-      changePage(0);
+      changePage(20);
     });
 
     link.children[0].innerHTML += name;
@@ -118,7 +127,7 @@
     nextBtn.className = currentIndex > pdf.numPages ? "hideBtn" : "pageBtn";
 
     if (currentIndex + offset > pdf.numPages + 1) {
-      link.style.display = "block";
+      link.style.display = "flex";
       canvas.style.display = "none";
     } else {
       canvas.style.display = "block";
