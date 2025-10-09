@@ -150,42 +150,114 @@
     "title": "過三關",
     "color": 6,
     "pdf01": [
-      {
-        "question": "唐玄宗的全名為李隆基",
-        "answer": true
-      },
-      {
-        "question": "《霓裳羽衣曲》為唐玄宗所創",
-        "answer": true
-      },
-      {
-        "question": "楊貴妃堂兄為安祿山",
-        "answer": false
-      },
-      {
-        "question": "後宮佳麗三千人，三千寵愛在一身」指的便是楊貴妃",
-        "answer": true
-      },
-      {
-        "question": "唐玄宗是出色的舞蹈家",
-        "answer": false
-      },
-      {
-        "question": "唐玄宗是出色的音樂家",
-        "answer": true
-      },
-      {
-        "question": "據史書記載，唐玄宗無法察覺演奏者是否演奏錯誤",
-        "answer": false
-      },
-      {
-        "question": "唐代音樂得以發展蓬勃，這與唐代國勢無關",
-        "answer": false
-      },
-      {
-        "question": "唐代是一個社會文化開放多元的朝代",
-        "answer": true
-      }
+      { "question": "林則徐出生於1800年", "answer": false },
+      { "question": "林則徐出生地福州", "answer": true },
+      { "question": "虎門銷煙事件發生在1839年", "answer": true },
+      { "question": "虎門銷煙主要銷毀了煙草", "answer": false },
+      { "question": "林則徐官職被任命為欽差大臣是在1938年", "answer": false },
+      { "question": "虎門銷煙地點在深圳", "answer": false },
+      { "question": "林則徐銷毀鴉片的方式主要為化學處理", "answer": true },
+      { "question": "虎門銷煙共銷毀2萬餘箱鴉片", "answer": true },
+      { "question": "虎門銷煙事件直接導致了第二次鴉片戰爭", "answer": false },
+      { "question": "林則徐曾在禁煙時向維多利亞女王致信", "answer": true },
+      { "question": "林則徐強調禁煙的原因之一是白銀大量外流", "answer": true },
+      { "question": "鴉片在清代泛濫帶來的危害不包括領土減少", "answer": true },
+      { "question": "林則徐禁煙措施並未包括發明禁煙丸", "answer": false },
+      { "question": "林則徐用了海鹽銷煙", "answer": true },
+      { "question": "銷煙方案初時，林則徐想將鴉片運送到京師", "answer": true },
+      { "question": "林則徐水利工程的主要貢獻是興修河堤", "answer": true },
+      { "question": "林則徐的禁煙運動展現抗外侵略民族精神", "answer": true },
+      { "question": "林則徐晚年被貶至北京", "answer": false },
+      { "question": "人們對於林則徐的評價多稱為民族英雄", "answer": true },
+      { "question": "虎門銷煙事件開始時，外國商人對林則徐的銷煙措施一度有堅持讚成的態度", "answer": false }
+    ],
+    "pdf02": [
+      { "question": "范仲淹是北宋著名政治家", "answer": true },
+      { "question": "范仲淹幼年時家庭境況是官宦世家", "answer": false },
+      { "question": "范仲淹考中的進士為廣德軍司理參軍開始其官場生涯", "answer": true },
+      { "question": "1021年，范仲淹提出建議重修海堤", "answer": true },
+      { "question": "仁宗派范仲淹負責修建的海堤被稱為范仲淹堤", "answer": false },
+      { "question": "范仲淹在應天府書院擔任教席", "answer": true },
+      { "question": "范仲淹於1028年寫給宰相的書信，是建議稅制改革", "answer": false },
+      { "question": "范仲淹對於國家大事的態度往往秉公直言", "answer": true },
+      { "question": "1029年，范仲淹上書劉太后，請求廢除太后", "answer": false },
+      { "question": "范仲淹反對過度修建廟宇，認為浪費人力物力", "answer": true },
+      { "question": "1033年范仲淹因為多次上疏被拒且堅持己見貶官", "answer": true },
+      { "question": "范仲淹在1041年主張對西夏作主動出兵進攻", "answer": false },
+      { "question": "1042年范仲淹被封樞密直學士", "answer": true },
+      { "question": "范仲淹提出的改革方案《十事疏》，史稱慶曆新政", "answer": true },
+      { "question": "《慶曆新政》遭遇的主要阻力來自地方勢力", "answer": false },
+      { "question": "范仲淹改革軍隊制度以培育人才", "answer": false },
+      { "question": "范仲淹的名言是天下為公", "answer": false },
+      { "question": "范仲淹生於989年", "answer": true },
+      { "question": "范仲淹晚年成立了范氏義莊來救助親族和貧困者", "answer": true },
+      { "question": "毛澤東對范仲淹的評價為失敗的改革家", "answer": false }
+    ],
+    "pdf03": [
+      { "question": "張居正是唐朝內閣首輔", "answer": true },
+      { "question": "張居正出生湖北", "answer": true },
+      { "question": "張居正家境是社會低層", "answer": true },
+      { "question": "張居正20歲時其文章受到湖廣巡撫讚賞", "answer": false },
+      { "question": "張居正25歲時寫了《資治通鑑》提出政治改革", "answer": false },
+      { "question": "張居正曾在翰林院擔任編修職位", "answer": true },
+      { "question": "張居正提出改革政治的第二次奏章是《陳六事疏》", "answer": true },
+      { "question": "六大主張期間，馮保是內閣首輔但並未全面改革", "answer": false },
+      { "question": "明朝的重要邊防地區不包括遼東", "answer": false },
+      { "question": "張居正支持守邊將領李成梁和戚繼光", "answer": true },
+      { "question": "張居正1581年成為內閣首輔", "answer": false },
+      { "question": "張居正上任內閣首輔後，改革持續了10年", "answer": true },
+      { "question": "張居正改革統一按按上、中、下級統一標準徵稅", "answer": true },
+      { "question": "張居正改革中規定學校招生人數不得隨便增加", "answer": true },
+      { "question": "張居正規定鄉試每三年一次", "answer": true },
+      { "question": "1581年，張居正推出均田法", "answer": false },
+      { "question": "張居正改革使得全國稅制由實物稅變為貨幣稅", "answer": true },
+      { "question": "張居正去世是1582年", "answer": true },
+      { "question": "張居正小時候遇到宋太祖賞識得以成長", "answer": false },
+      { "question": "張居正被後世史學家評價為明代唯一大政治家", "answer": true }
+    ],
+    "pdf04": [
+      { "question": "董仲舒主要效力秦朝", "answer": false },
+      { "question": "董仲舒尤為著名奏疏為天人三策", "answer": true },
+      { "question": "董仲舒主張漢武帝採用儒學為官方學問", "answer": true },
+      { "question": "「天人三策」主要闡述了無為而治", "answer": false },
+      { "question": "董仲舒是「春秋」公羊學派的重要代表", "answer": true },
+      { "question": "董仲舒主要以實行科舉推動儒學獨尊的助力", "answer": false },
+      { "question": "董仲舒所強調的「三綱五常」中，「三綱」不包括君為臣綱", "answer": false },
+      { "question": "「天人感應」思想認為君主應該順應天意", "answer": true },
+      { "question": "董仲舒提出「天命」旨在強調君主的正當統治合法性", "answer": true },
+      { "question": "董仲舒認為災異的發生是因為君主失德", "answer": true },
+      { "question": "董仲舒因提出罷黜百家·獨尊儒術成為漢代儒學代表人物", "answer": true },
+      { "question": "董仲舒認為君主若失德，應當靜觀其變，不予理會", "answer": false },
+      { "question": "董仲舒對中國歷史的影響主要在於推動佛道融合", "answer": false },
+      { "question": "「三綱五常」的五常不包括忠", "answer": true },
+      { "question": "董仲舒將春秋繁露作為闡述天人三策的重點", "answer": true },
+      { "question": "漢武帝在董仲舒建議下確立了獨尊儒術", "answer": true },
+      { "question": "漢代太學招收學生主要學習兵法", "answer": false },
+      { "question": "董仲舒的天人感應勸導君主應當道德教化百姓", "answer": true },
+      { "question": "董仲舒自幼被譽為三年不窺園，第三年的他做了什麼刻寫詩文", "answer": false },
+      { "question": "漢武帝經過董仲舒墓碑時，曾痛哭哀嚎", "answer": false }
+    ],
+    "pdf05": [
+      { "question": "魏徵是宋朝著名政治家", "answer": false },
+      { "question": "魏徵主要職務為諫官", "answer": true },
+      { "question": "魏徵被稱為貞觀名臣", "answer": true },
+      { "question": "魏徵為唐高宗親信重臣", "answer": false },
+      { "question": "魏徵在歷史上以直言進諫聞名", "answer": true },
+      { "question": "唐太宗以魏徵為代表的直諫之臣推動貞觀盛世", "answer": true },
+      { "question": "魏徵曾向唐太宗建言的主要思想是唯親是用", "answer": false },
+      { "question": "《貞觀政要》中，魏徵多次提倡窮兵黷武", "answer": false },
+      { "question": "魏徵所著書的內容主要撰述君臣關係", "answer": true },
+      { "question": "魏徵主張君主應虛懷納諫", "answer": true },
+      { "question": "唐太宗對魏徵直諫的態度多為視若無睹", "answer": false },
+      { "question": "魏徵曾用鏡子比喻忠臣對君王的重要性", "answer": true },
+      { "question": "魏徵認為國家興旺的根本在於慎選人才", "answer": true },
+      { "question": "歷史上對魏徵的評價多數為敢言敢說", "answer": true },
+      { "question": "《貞觀政要》主要記載了太宗治國經驗", "answer": true },
+      { "question": "魏徵與太宗為父子關係，故獲得太宗信任", "answer": false },
+      { "question": "魏徵曾以《逐客書》作奏疏", "answer": true },
+      { "question": "貞觀初年太宗的重要措施不包括改革募兵制", "answer": true },
+      { "question": "魏徵的名言金句為德禮誠信，國之大綱", "answer": true },
+      { "question": "「以銅為鏡，可以正衣冠」是唐肅宗評價魏徵的話", "answer": false }
     ]
   }
 }
