@@ -1,7 +1,13 @@
 <body>
   <button
+    id="firstPageBtn"
     class="selectionBtn"
-    style="margin: 4cqh 0 0 4cqw; font-size: 2.5cqw"
+    style="
+      margin: 2cqh 0 0 2cqw;
+      font-size: 2cqw;
+      visibility: hidden;
+      cursor: pointer;
+    "
     onclick="changePage(0, true)"
   >
     小遊戲
@@ -27,16 +33,34 @@
         id="link"
         style="
           width: 100%;
+          height: 100%;
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: center;
           display: none;
+          position: relative;
         "
       >
         <div class="gameTitle">
           <h2>時代精神，變革為民</h2>
         </div>
         <div class="selectionContainer"></div>
+        <div
+          style="
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 2.5cqw;
+            pointer-events: none;
+            box-shadow: 6px 6px 12px rgba(0, 21, 255, 0.6),
+              -6px -6px 12px rgba(255, 0, 0, 0.6);
+          "
+        >
+          小遊戲
+        </div>
       </div>
     </div>
     <button class="pageBtn" id="nextBtn" onclick="changePage(1)">></button>
@@ -54,6 +78,7 @@
   prevBtn = document.getElementById("prevBtn");
   canvas = document.getElementById("pdf-viewer");
   link = document.getElementById("link");
+  firstPageBtn = document.getElementById("firstPageBtn");
 
   pdf = null;
   currentIndex = 1;
@@ -136,6 +161,8 @@
 
     prevBtn.className = currentIndex <= 0 ? "hideBtn" : "pageBtn";
     nextBtn.className = currentIndex >= pdf.numPages ? "hideBtn" : "pageBtn";
+    firstPageBtn.style.visibility =
+      currentIndex < pdf.numPages ? "hidden" : "visible";
 
     if (currentIndex + offset < 0) {
       link.style.display = "flex";
