@@ -1,4 +1,11 @@
 <body>
+  <button
+    class="selectionBtn"
+    style="margin: 0.5cqw 0 0 1cqw; font-size: 2cqw"
+    onclick="changePage(0, true)"
+  >
+    小遊戲
+  </button>
   <div class="pdfContainer" style="overflow: hidden">
     <button class="pageBtn" id="prevBtn" onclick="changePage(-1)"><</button>
     <div
@@ -26,7 +33,9 @@
           display: none;
         "
       >
-        <div class="gameTitle"><h2>時代精神，變革為民</h2></div>
+        <div class="gameTitle">
+          <h2>時代精神，變革為民</h2>
+        </div>
         <div class="selectionContainer"></div>
       </div>
     </div>
@@ -60,7 +69,7 @@
     pdfjsLib.getDocument(pdfPath).promise.then((doc) => {
       pdf = doc;
       resize();
-      changePage(0);
+      changePage(-1);
     });
 
     link.children[0].innerHTML += name;
@@ -117,16 +126,18 @@
     });
   }
 
-  function changePage(offset) {
+  function changePage(offset, reset = false) {
     if (pdf === null) return;
-    if (currentIndex + offset < 1 || currentIndex + offset > pdf.numPages + 1)
+    if (currentIndex + offset < 0 || currentIndex + offset > pdf.numPages)
       return;
 
     currentIndex += offset;
-    prevBtn.className = currentIndex <= 1 ? "hideBtn" : "pageBtn";
-    nextBtn.className = currentIndex > pdf.numPages ? "hideBtn" : "pageBtn";
+    if (reset) currentIndex = -1;
 
-    if (currentIndex + offset > pdf.numPages + 1) {
+    prevBtn.className = currentIndex <= 0 ? "hideBtn" : "pageBtn";
+    nextBtn.className = currentIndex >= pdf.numPages ? "hideBtn" : "pageBtn";
+
+    if (currentIndex + offset < 0) {
       link.style.display = "flex";
       canvas.style.display = "none";
     } else {

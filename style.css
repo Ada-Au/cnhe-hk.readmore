@@ -55,8 +55,8 @@ h3 {
   display: flex;
   justify-content: center;
   width: 96%;
-  height: 95%;
-  padding: 2vh 2vh;
+  height: 85%;
+  padding: 2vh;
   overflow: hidden;
   align-items: center;
 }
