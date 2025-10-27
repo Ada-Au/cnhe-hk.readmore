@@ -2,7 +2,6 @@
   const website = document.getElementById("site");
   const image = website.children[0];
   const container = website.children[1];
-  console.log(website.children[1]);
 
   const setAspectRatio = () => {
     if (
@@ -30,41 +29,13 @@
   };
 </script>
 
-<div
-  style="
-    height: 76vh;
-    align-content: center;
-    margin-block: 12vh;
-    width: 100vw;
-    position: relative;
-  "
-  id="site"
->
+<div id="site">
   <img
     src="./assets/menu.jpg"
     style="height: 100%; width: 100%; object-fit: contain"
   />
-  <div
-    style="
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    "
-  >
-    <div
-      style="
-        display: grid;
-        height: 57%;
-        width: 47%;
-        margin: 14.5% 12.5%;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        gap: 10%;
-      "
-    >
+  <div class="chooseGameBtnContainer">
+    <div>
       <div class="chooseGameBtn" onclick="openLink('pdf01')"></div>
       <div class="chooseGameBtn" onclick="openLink('pdf02')"></div>
       <div class="chooseGameBtn" onclick="openLink('pdf03')"></div>
@@ -78,9 +49,36 @@
 <style>
   .chooseGameBtn {
     flex: 1;
+    cursor: pointer;
     &:hover {
       background: radial-gradient(#ffffff51 80%, transparent 100%);
       opacity: 70%;
     }
+  }
+
+  .chooseGameBtnContainer {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    > div {
+      display: grid;
+      height: 57%;
+      width: 47%;
+      margin: 14.5% 12.5%;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10%;
+    }
+  }
+
+  #site {
+    height: 76vh;
+    align-content: center;
+    margin-block: 12vh;
+    width: 100vw;
+    position: relative;
   }
 </style>
