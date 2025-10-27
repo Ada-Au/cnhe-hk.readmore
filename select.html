@@ -3,6 +3,10 @@
   const image = website.children[0];
   const container = website.children[1];
 
+  image.onload = () => {
+    container.style.aspectRatio = image.naturalWidth / image.naturalHeight;
+  };
+
   const setAspectRatio = () => {
     if (
       website.clientWidth / image.naturalWidth >
@@ -15,8 +19,6 @@
       container.style.width = "100%";
     }
   };
-
-  container.style.aspectRatio = image.naturalWidth / image.naturalHeight;
 
   window.addEventListener("resize", () => {
     setAspectRatio();
