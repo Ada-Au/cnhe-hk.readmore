@@ -26,8 +26,10 @@
   setAspectRatio();
 
   openLink = (pdf) => {
-    console.log(parent.window.location);
-    window.open(parent.window.location + "?game=pdf&pdf=" + pdf, "_self");
+    window.open(
+      parent.window.location.toString().split("?")[0] + "?game=pdf&pdf=" + pdf,
+      "_self"
+    );
   };
 </script>
 
