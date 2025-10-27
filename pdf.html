@@ -157,30 +157,34 @@
       return;
 
     currentIndex += offset;
-    if (reset) currentIndex = -1;
+    if (reset) currentIndex = pdf.numPages - 2;
 
+    firstPageBtn.style.visibility =
+      currentIndex < pdf.numPages - 1 ? "hidden" : "visible";
     prevBtn.className = currentIndex <= 0 ? "hideBtn" : "pageBtn";
     nextBtn.className = currentIndex >= pdf.numPages ? "hideBtn" : "pageBtn";
-    firstPageBtn.style.visibility =
-      currentIndex < pdf.numPages ? "hidden" : "visible";
 
-    if (currentIndex + offset < 0) {
+    if (currentIndex == pdf.numPages - 2) {
       link.style.display = "flex";
       canvas.style.display = "none";
     } else {
       canvas.style.display = "block";
       link.style.display = "none";
 
-      pdf.getPage(currentIndex).then((page) => {
-        let viewport = page.getViewport({ scale: 1 });
+      pdf
+        .getPage(
+          currentIndex < pdf.numPages - 2 ? currentIndex + 1 : currentIndex
+        )
+        .then((page) => {
+          let viewport = page.getViewport({ scale: 1 });
 
-        let context = canvas.getContext("2d");
+          let context = canvas.getContext("2d");
 
-        page.render({
-          canvasContext: context,
-          viewport: viewport,
+          page.render({
+            canvasContext: context,
+            viewport: viewport,
+          });
         });
-      });
     }
   }
 
