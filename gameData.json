@@ -14,19 +14,19 @@
     },
     {
       "name": "張居正",
-      "param": "pdf02",
+      "param": "pdf03",
       "button": "開始遊戲",
       "to": ["puzzle", "rhymes", "pair", "ticTacToe"]
     },
     {
       "name": "董仲舒",
-      "param": "pdf02",
+      "param": "pdf04",
       "button": "開始遊戲",
       "to": ["puzzle", "rhymes", "pair", "ticTacToe"]
     },
     {
       "name": "魏徵",
-      "param": "pdf02",
+      "param": "pdf05",
       "button": "開始遊戲",
       "to": ["puzzle", "rhymes", "pair", "ticTacToe"]
     }

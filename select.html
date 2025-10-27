@@ -1,29 +1,86 @@
 <script>
-  selectionContainers = document.getElementsByClassName("selectionContainer");
+  const website = document.getElementById("site");
+  const image = website.children[0];
+  const container = website.children[1];
+  console.log(website.children[1]);
 
-  for (const selectionContainer of selectionContainers) {
-    for (const btn of selectionContainer.children) {
-      title = gameData[btn.innerHTML].title.split("(");
-      btn.innerHTML = title[0];
-      if (title.length > 1) {
-        subtitle = document.createElement("div");
-        subtitle.innerHTML = "(" + title[1];
-        subtitle.style = "font-size: 2.2vw";
-        btn.appendChild(subtitle);
-      }
+  const setAspectRatio = () => {
+    if (
+      website.clientWidth / image.naturalWidth >
+      website.clientHeight / image.naturalHeight
+    ) {
+      container.style.height = "100%";
+      container.style.width = "unset";
+    } else {
+      container.style.height = "unset";
+      container.style.width = "100%";
     }
-  }
+  };
+
+  container.style.aspectRatio = image.naturalWidth / image.naturalHeight;
+
+  window.addEventListener("resize", () => {
+    setAspectRatio();
+  });
+  setAspectRatio();
+
+  openLink = (pdf) => {
+    console.log(parent.window.location);
+    window.open(parent.window.location + "?game=pdf&pdf=" + pdf, "_self");
+  };
 </script>
 
-<div style="height: 80vh; align-content: center; padding-top: 20vh">
-  <div class="selectionContainer">
-    <button onclick="setGame('puzzle')">puzzle</button>
-    <button onclick="setGame('rhymes')">rhymes</button>
-    <button onclick="setGame('connect')">connect</button>
-  </div>
-  <div class="selectionContainer">
-    <button onclick="setGame('matching')">matching</button>
-    <button onclick="setGame('pair')">pair</button>
-    <button onclick="setGame('ticTacToe')">ticTacToe</button>
+<div
+  style="
+    height: 76vh;
+    align-content: center;
+    margin-block: 12vh;
+    width: 100vw;
+    position: relative;
+  "
+  id="site"
+>
+  <img
+    src="./assets/menu.jpg"
+    style="height: 100%; width: 100%; object-fit: contain"
+  />
+  <div
+    style="
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    "
+  >
+    <div
+      style="
+        display: grid;
+        height: 57%;
+        width: 47%;
+        margin: 14.5% 12.5%;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 10%;
+      "
+    >
+      <div class="chooseGameBtn" onclick="openLink('pdf01')"></div>
+      <div class="chooseGameBtn" onclick="openLink('pdf02')"></div>
+      <div class="chooseGameBtn" onclick="openLink('pdf03')"></div>
+      <div class=""></div>
+      <div class="chooseGameBtn" onclick="openLink('pdf04')"></div>
+      <div class="chooseGameBtn" onclick="openLink('pdf05')"></div>
+    </div>
   </div>
 </div>
+
+<style>
+  .chooseGameBtn {
+    flex: 1;
+    &:hover {
+      background: radial-gradient(#ffffff51 80%, transparent 100%);
+      opacity: 70%;
+    }
+  }
+</style>

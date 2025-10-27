@@ -42,6 +42,8 @@
       localStorage.removeItem("interval");
     }
 
+    bgStyle.backgroundImage = "url('./assets/bg.jpg')";
+
     gamePath = path;
 
     if (gameData[gamePath] === undefined) {
@@ -49,6 +51,8 @@
     }
     if (gameData[gamePath] === undefined) {
       gamePath = "select";
+      $("#game").load("./select.html");
+      return;
     }
 
     if (gamePath !== "pdf") {
@@ -64,7 +68,6 @@
 
     $("#game").load("./" + gamePath + ".html");
 
-    bgStyle.backgroundImage = "url('./assets/bg.jpg')";
     setLogo(false);
   }
 
