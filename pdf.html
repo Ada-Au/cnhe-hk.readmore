@@ -206,12 +206,24 @@
 
   function resize() {
     let shadow = document.getElementById("page-shadow");
-    console.log(imageRatio);
+    if (!pdfImg?.children[1]?.children[0]) return;
+    console.log(
+      window.innerWidth / window.innerHeight,
+      pdfImg.children[1].children[0].naturalWidth /
+        pdfImg.children[1].children[0].naturalHeight,
 
-    if (
-      window.innerWidth / window.innerHeight <
-      pdfImg.children[0].naturalWidth / pdfImg.children[0].naturalHeight
-    ) {
+      window.innerWidth /
+        window.innerHeight /
+        (pdfImg.children[1].children[0].naturalWidth /
+          pdfImg.children[1].children[0].naturalHeight)
+    );
+
+    let windowRatio = window.innerWidth / window.innerHeight;
+    let pdfRatio =
+      pdfImg.children[1].children[0].naturalWidth /
+      pdfImg.children[1].children[0].naturalHeight;
+
+    if (windowRatio < pdfRatio) {
       Array.from(pdfImg.children).forEach((image) => {
         if (!(image.children[0] instanceof HTMLImageElement)) return;
         image.children[0].style.width = "calc(100vw - 48px)";
@@ -230,6 +242,20 @@
         shadow.style.width = "calc(100vh * " + imageRatio + ")";
       });
     }
+
+    if (windowRatio / pdfRatio >= 2) {
+      Array.from(pdfImg.children).forEach((image) => {
+        if (!(image.children[0] instanceof HTMLImageElement)) return;
+        image.classList.add("centered");
+      });
+      shadow.classList.add("centered");
+    } else {
+      Array.from(pdfImg.children).forEach((image) => {
+        if (!(image.children[0] instanceof HTMLImageElement)) return;
+        image.classList.remove("centered");
+      });
+      shadow.classList.remove("centered");
+    }
   }
 
   window.addEventListener("resize", resize);
@@ -241,7 +267,6 @@
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translateY(-50%);
     margin-left: 48px;
     cursor: pointer;
 
@@ -254,14 +279,24 @@
     transition-duration: 1s;
     transition-property: transform;
     transition-timing-function: ease-in-out;
+
+    translate: 0% -50%;
+  }
+
+  .centered {
+    top: 50%;
+    left: 50%;
+    margin-left: 0px;
+
+    /* translate: -50% -50%; */
   }
 
   .flip {
-    transform: translateY(-50%) rotateY(-180deg);
-    -o-transform: translateY(-50%) rotateY(-180deg);
-    -ms-transform: translateY(-50%) rotateY(-180deg);
-    -moz-transform: translateY(-50%) rotateY(-180deg);
-    -webkit-transform: translateY(-50%) rotateY(-180deg);
+    transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-180deg);
   }
 
   .invert > img {
@@ -292,6 +327,6 @@
     pointer-events: none;
   }
   #page-shadow:has(~ .invert) {
-    box-shadow: inset 30px 0 30px #888;
+    box-shadow: inset 50px 0 40px -40px #888;
   }
 </style>
