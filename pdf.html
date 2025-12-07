@@ -1,112 +1,75 @@
 <body>
-  <div style="display: flex; flex-direction: column; height: 100vh">
-    <button
-      id="firstPageBtn"
-      class="selectionBtn"
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: scroll;
+      position: relative;
+    "
+  >
+    <img
+      id="loading"
+      src="./assets/loading.svg"
+      alt="Loading"
+      style="filter: unset; display: block"
+    />
+    <a
+      id="gameBtn"
       style="
-        margin: 2cqh 0 0 2cqw;
-        font-size: 2cqw;
-        visibility: hidden;
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 2.5cqw;
+        box-shadow: 6px 6px 12px rgba(0, 21, 255, 0.6),
+          -6px -6px 12px rgba(255, 0, 0, 0.6);
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 10;
         cursor: pointer;
-        width: fit-content;
+        display: none;
+        color: black;
+        text-decoration: none;
       "
-      onclick="changePage(0, true)"
+      href="#link"
     >
       小遊戲
-    </button>
-    <div class="pdfContainer" style="overflow: hidden">
-      <button class="pageBtn" id="prevBtn" onclick="changePage(-1)"><</button>
+    </a>
+    <div id="pdf-img" style="display: none">
       <div
+        id="link"
         style="
+          width: 100%;
           display: flex;
-          position: relative;
-          justify-content: center;
+          flex-direction: column;
           align-items: center;
-          flex: 1;
-          height: 100%;
+          justify-content: center;
+          display: none;
+          position: relative;
         "
       >
-        <canvas
-          id="pdf-viewer"
-          style="max-width: 100%; max-height: 100%"
-        ></canvas>
-        <div style="position: absolute; z-index: -1">
-          <img
-            id="loading"
-            src="./assets/loading.svg"
-            alt="Loading"
-            style="filter: unset; display: block; position: static"
-          />
+        <div class="gameTitle">
+          <h2>時代精神，變革為民</h2>
         </div>
-        <div
-          id="link"
-          style="
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            display: none;
-            position: relative;
-          "
-        >
-          <div class="gameTitle">
-            <h2>時代精神，變革為民</h2>
-          </div>
-          <div class="selectionContainer"></div>
-          <div
-            style="
-              position: absolute;
-              top: 12px;
-              left: 12px;
-              padding: 6px 10px;
-              border-radius: 8px;
-              font-size: 2.5cqw;
-              pointer-events: none;
-              box-shadow: 6px 6px 12px rgba(0, 21, 255, 0.6),
-                -6px -6px 12px rgba(255, 0, 0, 0.6);
-            "
-          >
-            小遊戲
-          </div>
-        </div>
+        <div class="selectionContainer"></div>
       </div>
-      <button class="pageBtn" id="nextBtn" onclick="changePage(1)">></button>
     </div>
-    <button
-      class="selectionBtn"
-      style="
-        margin: 2cqh 0 0 2cqw;
-        font-size: 2cqw;
-        visibility: hidden;
-        cursor: pointer;
-        pointer-events: none;
-      "
-    >
-      小遊戲
-    </button>
   </div>
 </body>
 <script>
-  // params = new URLSearchParams(parent.window.location.search);
   currenPdf = gameData.pdf?.map((e) => e.param).indexOf(params.get("pdf"));
   if (currenPdf === -1) {
     currenPdf = 0;
   }
   name = gameData.pdf[currenPdf].name;
 
-  nextBtn = document.getElementById("nextBtn");
-  prevBtn = document.getElementById("prevBtn");
   loading = document.getElementById("loading");
-  canvas = document.getElementById("pdf-viewer");
   link = document.getElementById("link");
   firstPageBtn = document.getElementById("firstPageBtn");
+  pdfImg = document.getElementById("pdf-img");
 
   pdf = null;
-  currentIndex = 1;
-  prevBtn.className = "hideBtn";
-  canvasScale = 1;
 
   async function init() {
     const pdfPath = "assets/ppt/" + name + ".pdf";
@@ -116,8 +79,10 @@
 
     pdfjsLib.getDocument(pdfPath).promise.then((doc) => {
       pdf = doc;
-      resize();
-      changePage(-1);
+
+      pdf.getPage(1).then((page) => {
+        addImage(1);
+      });
     });
 
     link.children[0].innerHTML += name;
@@ -148,104 +113,50 @@
     });
   }
 
-  function resize() {
-    pdf
-      .getPage(
-        currentIndex < pdf.numPages - 2 ? currentIndex + 1 : currentIndex
-      )
-      .then((page) => {
-        let viewport = page.getViewport({ scale: canvasScale });
-        let context = canvas.getContext("2d");
+  function addImage(i) {
+    pdf.getPage(i).then((page) => {
+      let viewport = page.getViewport({ scale: 1 });
+      var canvas = document.createElement("canvas");
 
-        const canvasContainer = canvas.parentElement.parentElement;
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      ctx = canvas.getContext("2d");
 
-        if (
-          canvasContainer.clientWidth / viewport.width >
-          canvasContainer.clientHeight / viewport.height
-        ) {
-          canvas.style.height = canvasContainer.clientHeight;
-          canvas.style.width =
-            (canvasContainer.clientHeight * viewport.width) / viewport.height;
-        } else {
-          canvas.style.width = canvasContainer.clientWidth;
-          canvas.style.height =
-            (canvasContainer.clientWidth * viewport.height) / viewport.width;
-        }
-
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+      let pPromise = page.render({
+        canvasContext: ctx,
+        viewport: viewport,
       });
-  }
 
-  function changePage(offset, reset = false) {
-    if (pdf === null) return;
-    if (currentIndex + offset < 0 || currentIndex + offset > pdf.numPages)
-      return;
+      pPromise.promise
+        .then(() => {
+          var image = new Image();
+          image.id = "pdf-page-" + i;
+          image.src = canvas.toDataURL();
+          image.style.width = "100%";
 
-    currentIndex += offset;
-    if (reset) currentIndex = pdf.numPages - 2;
+          if (i < pdf.numPages - 2)
+            link.insertAdjacentElement("beforebegin", image);
+          else pdfImg.appendChild(image);
+          // pdfImg.appendChild(image);
+        })
+        .then(() => {
+          if (i < pdf.numPages) {
+            addImage(i + 1);
+          } else {
+            loading.style.display = "none";
+            pdfImg.style.display = "block";
 
-    firstPageBtn.style.visibility =
-      currentIndex < pdf.numPages - 1 ? "hidden" : "visible";
-    prevBtn.className = currentIndex <= 0 ? "hideBtn" : "pageBtn";
-    nextBtn.className = currentIndex >= pdf.numPages ? "hideBtn" : "pageBtn";
+            link.style.aspectRatio =
+              pdfImg.children[0].naturalWidth +
+              "/" +
+              pdfImg.children[0].naturalHeight;
+            link.style.display = "flex";
 
-    if (currentIndex == pdf.numPages - 2) {
-      link.style.display = "flex";
-      loading.style.display = "none";
-      canvas.style.display = "none";
-    } else {
-      canvas.style.display = "block";
-      loading.style.display = "block";
-      link.style.display = "none";
-
-      pdf
-        .getPage(
-          currentIndex < pdf.numPages - 2 ? currentIndex + 1 : currentIndex
-        )
-        .then((page) => {
-          let viewport = page.getViewport({ scale: 1 });
-
-          let context = canvas.getContext("2d");
-
-          page.render({
-            canvasContext: context,
-            viewport: viewport,
-          });
+            document.getElementById("gameBtn").style.display = "block";
+          }
         });
-    }
+    });
   }
-
-  window.addEventListener("resize", async () => {
-    await resize();
-    changePage(0);
-  });
-
-  canvas.addEventListener("touchstart", handleTouchStart, false);
-  canvas.addEventListener("touchmove", handleTouchMove, false);
-  link.addEventListener("touchstart", handleTouchStart, false);
-  link.addEventListener("touchmove", handleTouchMove, false);
 
   init();
-
-  function handleTouchStart(evt) {
-    firstTouch = evt.touches[0];
-    xDown = firstTouch.clientX;
-  }
-
-  function handleTouchMove(evt) {
-    evt.preventDefault();
-    if (!xDown) return;
-
-    xUp = evt.touches[0].clientX;
-    xDiff = xDown - xUp;
-
-    if (xDiff > 0) {
-      changePage(1);
-    } else {
-      changePage(-1);
-    }
-
-    xDown = null;
-  }
 </script>
