@@ -115,7 +115,7 @@
 
   function addImage(i) {
     pdf.getPage(i).then((page) => {
-      let viewport = page.getViewport({ scale: 1 });
+      let viewport = page.getViewport({ scale: 2 });
       var canvas = document.createElement("canvas");
 
       canvas.height = viewport.height;
@@ -146,6 +146,7 @@
             loading.style.display = "none";
             pdfImg.style.display = "block";
 
+            if (gameData.pdf[currenPdf].to.length === 0) return;
             link.style.aspectRatio =
               pdfImg.children[0].naturalWidth +
               "/" +
