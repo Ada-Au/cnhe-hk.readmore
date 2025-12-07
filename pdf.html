@@ -36,7 +36,12 @@
     >
       小遊戲
     </a>
-    <div id="pdf-img" style="display: none">
+    <div id="pdf-img" style="display: none; position: relative; height: 100vh">
+      <div
+        id="page-shadow"
+        style="z-index: 9999"
+        class="pdf-page-img flip"
+      ></div>
       <div
         id="link"
         style="
@@ -70,6 +75,8 @@
   pdfImg = document.getElementById("pdf-img");
 
   pdf = null;
+  let imageRatio = 1;
+  let allowFlip = true;
 
   async function init() {
     const pdfPath = "assets/ppt/" + name + ".pdf";
@@ -81,6 +88,9 @@
       pdf = doc;
 
       pdf.getPage(1).then((page) => {
+        let viewport = page.getViewport({ scale: 2 });
+        imageRatio = viewport.width / viewport.height;
+
         addImage(1);
       });
     });
@@ -119,7 +129,7 @@
       var canvas = document.createElement("canvas");
 
       canvas.height = viewport.height;
-      canvas.width = viewport.width;
+      canvas.width = viewport.height * imageRatio;
       ctx = canvas.getContext("2d");
 
       let pPromise = page.render({
@@ -129,35 +139,159 @@
 
       pPromise.promise
         .then(() => {
+          var div = document.createElement("div");
+          div.className = "pdf-page-img";
+          div.style.zIndex = pdf.numPages - i;
+          div.id = "page-" + i;
+
           var image = new Image();
           image.id = "pdf-page-" + i;
           image.src = canvas.toDataURL();
-          image.style.width = "100%";
+
+          // image.className = "pdf-page-img";
+          // image.style.zIndex = pdf.numPages - i;
+          image.setAttribute("draggable", "false");
+          image.height;
+
+          image.onclick = () => {
+            if (!allowFlip) return;
+            allowFlip = false;
+            div.classList.toggle("flip");
+
+            if (div.classList.contains("flip")) {
+              setTimeout(() => {
+                div.style.zIndex = i;
+                div.classList.add("invert");
+              }, 500);
+            } else {
+              setTimeout(() => {
+                div.style.zIndex = pdf.numPages - i;
+                div.classList.remove("invert");
+              }, 500);
+            }
+
+            setTimeout(() => {
+              allowFlip = true;
+            }, 800);
+          };
+
+          div.appendChild(image);
 
           if (i < pdf.numPages - 2)
-            link.insertAdjacentElement("beforebegin", image);
-          else pdfImg.appendChild(image);
-          // pdfImg.appendChild(image);
+            link.insertAdjacentElement("beforebegin", div);
+          else pdfImg.appendChild(div);
         })
         .then(() => {
           if (i < pdf.numPages) {
             addImage(i + 1);
           } else {
-            loading.style.display = "none";
-            pdfImg.style.display = "block";
-
-            if (gameData.pdf[currenPdf].to.length === 0) return;
-            link.style.aspectRatio =
-              pdfImg.children[0].naturalWidth +
-              "/" +
-              pdfImg.children[0].naturalHeight;
-            link.style.display = "flex";
-
-            document.getElementById("gameBtn").style.display = "block";
+            afterImageLoad();
           }
         });
     });
   }
 
+  function afterImageLoad() {
+    resize();
+    loading.style.display = "none";
+    pdfImg.style.display = "block";
+
+    if (gameData.pdf[currenPdf].to.length === 0) return;
+    link.style.aspectRatio =
+      pdfImg.children[0].naturalWidth + "/" + pdfImg.children[0].naturalHeight;
+    link.style.display = "flex";
+
+    document.getElementById("gameBtn").style.display = "block";
+  }
+
+  function resize() {
+    let shadow = document.getElementById("page-shadow");
+    console.log(imageRatio);
+
+    if (
+      window.innerWidth / window.innerHeight <
+      pdfImg.children[0].naturalWidth / pdfImg.children[0].naturalHeight
+    ) {
+      Array.from(pdfImg.children).forEach((image) => {
+        if (!(image.children[0] instanceof HTMLImageElement)) return;
+        image.children[0].style.width = "calc(100vw - 48px)";
+        image.children[0].style.height = "auto";
+
+        shadow.style.width = "calc(100vw - 48px)";
+        shadow.style.height = "calc((100vw - 48px) / " + imageRatio + ")";
+      });
+    } else {
+      Array.from(pdfImg.children).forEach((image) => {
+        if (!(image.children[0] instanceof HTMLImageElement)) return;
+        image.children[0].style.height = "100vh";
+        image.children[0].style.width = "auto";
+
+        shadow.style.height = "100vh";
+        shadow.style.width = "calc(100vh * " + imageRatio + ")";
+      });
+    }
+  }
+
+  window.addEventListener("resize", resize);
   init();
 </script>
+
+<style scoped>
+  .pdf-page-img {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    margin-left: 48px;
+    cursor: pointer;
+
+    transform-origin: 0% 0%;
+    -o-transform-origin: 0% 0%;
+    -ms-transform-origin: 0% 0%;
+    -moz-transform-origin: 0% 0%;
+    -webkit-transform-origin: 0% 0%;
+
+    transition-duration: 1s;
+    transition-property: transform;
+    transition-timing-function: ease-in-out;
+  }
+
+  .flip {
+    transform: translateY(-50%) rotateY(-180deg);
+    -o-transform: translateY(-50%) rotateY(-180deg);
+    -ms-transform: translateY(-50%) rotateY(-180deg);
+    -moz-transform: translateY(-50%) rotateY(-180deg);
+    -webkit-transform: translateY(-50%) rotateY(-180deg);
+  }
+
+  .invert > img {
+    transform: scale(-1 1);
+  }
+
+  .pdf-page-img::-moz-selection {
+    background-color: transparent;
+    color: #000;
+  }
+
+  .pdf-page-img::selection {
+    background-color: transparent;
+    color: #000;
+  }
+
+  .pdf-page-img > img::-moz-selection {
+    background-color: transparent;
+    color: #000;
+  }
+
+  .pdf-page-img > img::selection {
+    background-color: transparent;
+    color: #000;
+  }
+
+  #page-shadow {
+    pointer-events: none;
+  }
+  #page-shadow:has(~ .invert) {
+    box-shadow: inset 30px 0 30px #888;
+  }
+</style>
