@@ -147,9 +147,6 @@
           var image = new Image();
           image.id = "pdf-page-" + i;
           image.src = canvas.toDataURL();
-
-          // image.className = "pdf-page-img";
-          // image.style.zIndex = pdf.numPages - i;
           image.setAttribute("draggable", "false");
           image.height;
 
@@ -182,9 +179,11 @@
           else pdfImg.appendChild(div);
         })
         .then(() => {
+          resize();
           if (i < pdf.numPages) {
             addImage(i + 1);
-          } else {
+          }
+          if (i === 2) {
             afterImageLoad();
           }
         });
