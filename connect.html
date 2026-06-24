@@ -12,7 +12,6 @@
   <div class="connectColumn" id="column-right"></div>
 </div>
 <script>
-  console.log("gameData:", gameData, gTopic);
   columnLeft = document.getElementById("column-left");
   columnRight = document.getElementById("column-right");
   canvas = document.getElementById("gameCanvas");
@@ -153,7 +152,16 @@
     if (existingId.length == currentGameData.length) {
       banner = document.createElement("h1");
       marks = Math.round((10 * currentGameData.length) / count);
-      banner.innerHTML = "你贏了!" + "<br>你的分數是: " + marks;
+
+      min = Math.floor((Date.now() - startTime) / 1000 / 60);
+      banner.innerHTML =
+        "你贏了!" +
+        "<br>你的分數是: " +
+        marks +
+        "<br>你的時間是: " +
+        (min == "0" ? "" : min + "分鐘") +
+        Math.round(((Date.now() - startTime) / 1000) % 60) +
+        "秒";
       banner.id = "banner";
       document.getElementById("game").appendChild(banner);
       parent.postMessage({
@@ -173,4 +181,5 @@
   }
 
   document.addEventListener("mousemove", drawLine);
+  startTime = Date.now();
 </script>

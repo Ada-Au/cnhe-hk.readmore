@@ -15,8 +15,12 @@ body {
 
 h1 {
   font-size: 7vw;
-  text-shadow: #fff 0 0 0.24rem, #fff 0 0 0.24rem, #fff 0 0 0.24rem,
-    #fff 0 0 0.24rem, #fff 0 0 0.24rem;
+  text-shadow:
+    #fff 0 0 0.24rem,
+    #fff 0 0 0.24rem,
+    #fff 0 0 0.24rem,
+    #fff 0 0 0.24rem,
+    #fff 0 0 0.24rem;
 }
 
 h2 {
@@ -169,8 +173,12 @@ button:hover {
 .highlight {
   color: red;
   text-decoration: underline;
-  text-shadow: #fff 0 0 0.24rem, #fff 0 0 0.24rem, #fff 0 0 0.24rem,
-    #fff 0 0 0.24rem, #fff 0 0 0.24rem;
+  text-shadow:
+    #fff 0 0 0.24rem,
+    #fff 0 0 0.24rem,
+    #fff 0 0 0.24rem,
+    #fff 0 0 0.24rem,
+    #fff 0 0 0.24rem;
 }
 #trackContainer {
   display: flex;
@@ -224,7 +232,7 @@ button:hover {
   padding: 10px;
   text-shadow: none;
   pointer-events: none;
-  font-size: 7cqw;
+  font-size: 6cqw;
 }
 
 /* puzzle game */
