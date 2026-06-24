@@ -1,6 +1,18 @@
 <div id="game-board"></div>
 <script>
-  cards = gameData.pair[params.get("pdf")];
+  cards = [
+    ...currentGameData.map((item, index) => {
+      return { type: "text", value: item.ans, match: index };
+    }),
+    ...currentGameData.map((item, index) => {
+      return {
+        type: "image",
+        value: item.image,
+        text: item.title,
+        match: index,
+      };
+    }),
+  ];
   cards.sort(() => Math.random() - 0.5);
 
   gameBoard = document.getElementById("game-board");
@@ -18,17 +30,31 @@
     cardFront.style.top = cardTop;
 
     if (card.type === "image") {
+      cardFront.style.display = "flex";
+      cardFront.style.flexDirection = "column";
+
       cardImage = document.createElement("div");
 
-      cardImage.style.backgroundImage = "url(" + card.value + ")";
+      cardImage.style.backgroundImage = "url(./assets/pair/" + card.value + ")";
       cardImage.style.backgroundSize = "contain";
       cardImage.style.backgroundRepeat = "no-repeat";
       cardImage.style.backgroundPosition = "center";
       cardImage.style.filter =
-        "hue-rotate(" + -Math.round((5 / 7) * 360) + "deg)";
-      cardImage.style.height = "100%";
+        "hue-rotate(" +
+        -Math.round(
+          (gameData[gTopic].color / Object.keys(gameData).length) * 360,
+        ) +
+        "deg)";
+
+      cardImage.style.flex = "1";
 
       cardFront.appendChild(cardImage);
+
+      cardText = document.createElement("div");
+      cardText.innerHTML = card.text;
+      cardText.style.width = "100%";
+      cardText.style.fontSize = "3cqw";
+      cardFront.appendChild(cardText);
     } else {
       cardFront.textContent = card.value;
     }
@@ -116,7 +142,7 @@
       if (flipCount > cards.length) {
         marks = Math.max(
           10 - Math.ceil((flipCount - cards.length) / cards.length / 2),
-          0
+          0,
         );
       }
 

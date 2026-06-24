@@ -12,6 +12,7 @@
   <div class="connectColumn" id="column-right"></div>
 </div>
 <script>
+  console.log("gameData:", gameData, gTopic);
   columnLeft = document.getElementById("column-left");
   columnRight = document.getElementById("column-right");
   canvas = document.getElementById("gameCanvas");
@@ -24,22 +25,26 @@
   canvas.height = height;
 
   ansOrder = Array.from(
-    { length: gameData.connect.name.length },
-    (_, index) => index
+    { length: currentGameData.length },
+    (_, index) => index,
   ).sort(() => Math.random() - 0.5);
   isDrawing = false;
 
-  for (let i = 0; i < gameData.connect.name.length; i++) {
+  for (let i = 0; i < currentGameData.length; i++) {
     container = document.createElement("div");
     div = document.createElement("div");
     container.classList.add("connectSelection");
-    container.style.height = `calc((100% - 5cqmin) / ${gameData.connect.name.length})`;
-
-    if (gameData.connect.path) {
+    container.style.height = `calc((100% - 5cqmin) / ${currentGameData.length})`;
+    if (currentGameData[i].image) {
       div.classList.add("connectSelectionPic");
       div.style.backgroundImage =
-        "url('" + gameData.connect.path + (i + 1) + gameData.connect.ext + "')";
-      div.style.filter = "hue-rotate(" + -Math.round((3 / 7) * 360) + "deg)";
+        "url('./assets/connect/" + currentGameData[i].image + "')";
+      div.style.filter =
+        "hue-rotate(" +
+        -Math.round(
+          (gameData[gTopic].color / Object.keys(gameData).length) * 360,
+        ) +
+        "deg)";
     }
 
     container.onclick = () => {
@@ -48,7 +53,7 @@
     };
 
     text = document.createElement("div");
-    text.innerHTML = gameData.connect.name[i];
+    text.innerHTML = currentGameData[i].title;
     text.style.width = "100%";
     text.style.textAlign = "center";
     text.style.fontSize = " 2.5cqw";
@@ -57,19 +62,19 @@
     columnLeft.appendChild(container);
 
     div = document.createElement("div");
-    if (gameData.connect.audio) {
+    if (currentGameData[ansOrder[i]].audio) {
       audio = document.createElement("audio");
-      audio.src = gameData.connect.path + (ansOrder[i] + 1) + ".mp3";
+      audio.src = currentGameData[ansOrder[i]].audio;
       audio.controls = true;
       audios.push(audio);
       div.appendChild(audio);
     } else {
-      div.innerHTML = gameData.connect.answers[ansOrder[i]];
+      div.innerHTML = currentGameData[ansOrder[i]].ans;
       div.style.fontSize = " 2.5cqw";
     }
 
     div.classList.add("connectSelection");
-    div.style.height = `calc((100% - 5cqmin) / ${gameData.connect.name.length})`;
+    div.style.height = `calc((100% - 5cqmin) / ${currentGameData.length})`;
 
     div.onclick = () => {
       if (isDrawing) stopDrawing(i, false);
@@ -90,7 +95,7 @@
     if (existingId.includes(isLeft ? i : ansOrder[i])) return;
     isDrawing = true;
     startPoint.x = isLeft ? 0 : width;
-    startPoint.y = (height / gameData.connect.name.length) * (i + 0.5);
+    startPoint.y = (height / currentGameData.length) * (i + 0.5);
     current = isLeft ? i : ansOrder[i];
   }
 
@@ -110,7 +115,7 @@
   function stopDrawing(i, isLeft) {
     isDrawing = false;
     endPoint.x = isLeft ? 0 : width;
-    endPoint.y = (height / gameData.connect.name.length) * (i + 0.5);
+    endPoint.y = (height / currentGameData.length) * (i + 0.5);
     count++;
 
     if (current == (isLeft ? i : ansOrder[i])) {
@@ -145,9 +150,9 @@
       }, 500);
     }
 
-    if (existingId.length == gameData.connect.name.length) {
+    if (existingId.length == currentGameData.length) {
       banner = document.createElement("h1");
-      marks = Math.round((10 * gameData.connect.name.length) / count);
+      marks = Math.round((10 * currentGameData.length) / count);
       banner.innerHTML = "你贏了!" + "<br>你的分數是: " + marks;
       banner.id = "banner";
       document.getElementById("game").appendChild(banner);

@@ -16,7 +16,7 @@
     style="left: 4cqmin; max-width: 50%"
   />
   <div id="game" style="height: 100%; width: 100%; container-type: size"></div>
-  <button id="backBtn" onclick="setGame('pdf')">返回</button>
+  <button id="backBtn" onclick="setGame('select')">返回</button>
 </div>
 
 <script>
@@ -36,6 +36,9 @@
     }
   }
 
+  var gTopic = "0";
+  var currentGameData = {};
+
   function setGame(path = "") {
     if (localStorage.getItem("interval")) {
       clearInterval(localStorage.getItem("interval"));
@@ -45,28 +48,31 @@
     bgStyle.backgroundImage = "url('./assets/bg.jpg')";
 
     gamePath = path;
+    gName = gamePath.split("-")[0];
+    gTopic = gamePath.split("-")[1];
 
-    if (gameData[gamePath] === undefined) {
-      gamePath = params.get("game") || "select";
-    }
-    if (gameData[gamePath] === undefined) {
+    backBtn.style.display = "none";
+    bgStyle.filter = "hue-rotate(0deg)";
+    setLogo(true);
+
+    if (
+      gameData[gTopic] === undefined ||
+      gameData[gTopic][gName] === undefined
+    ) {
       gamePath = "select";
       $("#game").load("./select.html");
       return;
     }
 
+    currentGameData = gameData[gTopic][gName];
+
     if (gamePath !== "pdf") {
       backBtn.style.display = "block";
       bgStyle.filter =
-        "hue-rotate(" +
-        Math.round((gameData[gamePath].color / 7) * 360) +
-        "deg)";
-    } else {
-      backBtn.style.display = "none";
-      bgStyle.filter = "hue-rotate(0deg)";
+        "hue-rotate(" + Math.round((gameData[gTopic].color / 3) * 360) + "deg)";
     }
 
-    $("#game").load("./" + gamePath + ".html");
+    $("#game").load("./" + gName + ".html");
 
     setLogo(false);
   }
