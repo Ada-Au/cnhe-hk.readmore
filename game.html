@@ -39,6 +39,7 @@
   var gTopic = "0";
   var currentGameData = {};
   var startTime = 0;
+  var totalGameCount = 0;
 
   function setGame(path = "") {
     if (localStorage.getItem("interval")) {
@@ -50,27 +51,31 @@
 
     gamePath = path;
     gName = gamePath.split("-")[0];
-    gTopic = gamePath.split("-")[1];
+    gMode = gamePath.split("-")[1];
+    gTopic = gamePath.split("-")[2];
 
     backBtn.style.display = "none";
     bgStyle.filter = "hue-rotate(0deg)";
     setLogo(true);
 
     if (
-      gameData[gTopic] === undefined ||
-      gameData[gTopic][gName] === undefined
+      gameData[gMode] === undefined ||
+      gameData[gMode][gTopic] === undefined ||
+      gameData[gMode][gTopic][gName] === undefined
     ) {
       gamePath = "select";
       $("#game").load("./select.html");
       return;
     }
 
-    currentGameData = gameData[gTopic][gName];
+    currentGameData = gameData[gMode][gTopic][gName];
 
     if (gamePath !== "pdf") {
       backBtn.style.display = "block";
       bgStyle.filter =
-        "hue-rotate(" + Math.round((gameData[gTopic].color / 3) * 360) + "deg)";
+        "hue-rotate(" +
+        Math.round((gameData[gMode][gTopic].color / 9) * 360) +
+        "deg)";
     }
 
     $("#game").load("./" + gName + ".html");
@@ -82,6 +87,12 @@
     await $.getJSON("gameData.json", function (json) {
       gameData = json;
     });
+
+    totalGameCount = Object.keys(gameData).reduce((total, mode) => {
+      return total + Object.keys(gameData[mode]).length;
+    }, 0);
+
+    console.log("Total game count:", totalGameCount);
 
     setGame();
   }

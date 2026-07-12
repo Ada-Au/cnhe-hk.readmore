@@ -40,9 +40,7 @@
         "url('./assets/connect/" + currentGameData[i].image + "')";
       div.style.filter =
         "hue-rotate(" +
-        -Math.round(
-          (gameData[gTopic].color / Object.keys(gameData).length) * 360,
-        ) +
+        -Math.round((gameData[gMode][gTopic].color / totalGameCount) * 360) +
         "deg)";
     }
 

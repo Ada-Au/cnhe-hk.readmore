@@ -1,19 +1,14 @@
 <script>
   (function () {
-    // 1. 將變數包在 IIFE 內，完美解決 redeclaration of const website 錯誤
     const website = document.getElementById("site");
+    const menu1 = website?.children;
+    const menu2 = website?.children;
 
-    // 安全檢查：確認 HTML 內是否有對應的元素，避免 children 抓錯爆掉
-    const menu1 = website?.children[0];
-    const menu2 = website?.children[1];
-
-    // 注意：原本的 image 和 container 因為在此 HTML 結構中不存在（只有兩個 menu），
-    // 如果你未來會在 #site 內動態新增圖片，請確保抓取邏輯正確。這裡先保留防錯處理：
     const image = website?.querySelector("img");
     const container = menu2;
 
     const setAspectRatio = () => {
-      if (!image || !website || !container) return; // 防錯機制
+      if (!image || !website || !container) return;
       if (
         website.clientWidth / image.naturalWidth >
         website.clientHeight / image.naturalHeight
@@ -34,42 +29,76 @@
       };
     }
 
-    // 使用具名函數，方便未來清理，避免重複綁定 resize 造成網頁變卡
     const onResize = () => setAspectRatio();
     window.addEventListener("resize", onResize);
     setAspectRatio();
 
-    // 2. 將全域函數掛載到 window 物件上，確保 HTML 的 onclick="openMenu()" 找得到它們
     window.openLink = (pdf) => {
       window.open(
-        parent.window.location.toString().split("?")[0] +
-          "?game=pdf&pdf=" +
-          pdf,
+        parent.window.location.toString().split("?") + "?game=pdf&pdf=" + pdf,
         "_self",
       );
     };
 
-    let currentGame = 0; // 改用 let 更符合現代規範
-    const menu = document.getElementById("menu");
+    // --- 核心邏輯控制 ---
+    let currentMode = 0; // 儲存目前選擇的 Mode (1, 2, 3)
+    let currentTopic = 0; // 儲存目前選擇的 Topic (1, 2, 3)
 
-    window.openMenu = (topic) => {
-      currentGame = topic;
-      if (menu) menu.style.display = "flex";
+    const gameMenu = document.getElementById("gameMenu");
 
-      let btn;
+    // 第一層：選擇 Mode
+    window.selectMode = (modeNum) => {
+      currentMode = modeNum;
+
+      // 1. 切換 Mode 按鈕的高亮樣式
       for (let i = 1; i <= 3; i++) {
-        btn = document.getElementById("btn" + i);
-        if (btn) {
-          btn.style.backgroundColor =
-            currentGame === i ? "rgba(206, 249, 254, 1)" : "#f0f0f0";
+        const modeBtn = document.getElementById("modeBtn" + i);
+        if (modeBtn) {
+          modeBtn.style.backgroundColor =
+            currentMode === i ? "rgba(206, 249, 254, 1)" : "#f0f0f0";
         }
+      }
+
+      // 2. 顯示對應 Mode 的 Topic 群組，隱藏其他群組
+      for (let i = 1; i <= 3; i++) {
+        const topicGroup = document.getElementById("topicsForMode" + i);
+        if (topicGroup) {
+          topicGroup.style.display = currentMode === i ? "grid" : "none";
+        }
+      }
+
+      // 3. 重置狀態：隱藏第三層 Game 選單，並清空所有 Topic 按鈕的高亮顏色
+      if (gameMenu) gameMenu.style.display = "none";
+      const allTopicBtns = document.querySelectorAll(".topicBtn");
+      allTopicBtns.forEach((btn) => (btn.style.backgroundColor = "#f0f0f0"));
+      currentTopic = 0;
+    };
+
+    // 第二層：選擇 Topic
+    window.openMenu = (topicNum) => {
+      currentTopic = topicNum;
+
+      // 顯示第三層 Game 菜單
+      if (gameMenu) gameMenu.style.display = "flex";
+
+      // 僅高亮當前 Mode 下被選中的 Topic 按鈕
+      const currentGroup = document.getElementById(
+        "topicsForMode" + currentMode,
+      );
+      if (currentGroup) {
+        const btns = currentGroup.querySelectorAll(".topicBtn");
+        btns.forEach((btn, index) => {
+          btn.style.backgroundColor =
+            index + 1 === topicNum ? "rgba(206, 249, 254, 1)" : "#f0f0f0";
+        });
       }
     };
 
-    window.openGame = (game) => {
-      // 這裡會直接調用父層 game.html 已經定義好的 setGame 函數
+    // 第三層：觸發 Game
+    window.openGame = (gameType) => {
       if (typeof setGame === "function") {
-        setGame(game + "-" + currentGame);
+        // 傳遞格式：game-topic-mode (例如: connect-2-1 代表 Mode 1 的 Topic 2 的連一連)
+        setGame(gameType + "-" + currentMode + "-" + currentTopic);
       } else {
         console.error("找不到 setGame 函數，請確認 game.html 是否有定義。");
       }
@@ -78,21 +107,65 @@
 </script>
 
 <div id="site">
-  <div class="menu">
-    <div class="selectBtn" onclick="openMenu(1)" id="btn1">
-      星空下的種子：<br />跨越時空的禾下夢
+  <!-- 第一層：3 個 Mode 選擇區 -->
+  <div class="menu three-columns" id="modeMenu">
+    <div class="selectBtn" onclick="selectMode(1)" id="modeBtn1">
+      第一輯：鄉村改革
     </div>
-    <div class="selectBtn" onclick="openMenu(2)" id="btn2">
-      綠色的約定：<br />從趙家河到余村的時空對話
+    <div class="selectBtn" onclick="selectMode(2)" id="modeBtn2">
+      第二輯：民生改革
     </div>
-    <div class="selectBtn" onclick="openMenu(3)" id="btn3">
-      田野間的「智慧魔法」：<br />從荒灘到糧倉
+    <div class="selectBtn" onclick="selectMode(3)" id="modeBtn3">
+      第三輯：改革中的未來
     </div>
   </div>
 
+  <!-- 第二層：Topic 選擇區（根據所選 Mode 顯示對應容器） -->
+  <div id="topicContainer">
+    <!-- Mode 1 的專屬 Topics -->
+    <div class="menu three-columns" id="topicsForMode1" style="display: none">
+      <div class="selectBtn topicBtn" onclick="openMenu(1)">
+        星空下的種子：<br />跨越時空的禾下夢
+      </div>
+      <div class="selectBtn topicBtn" onclick="openMenu(2)">
+        綠色的約定：<br />從趙家河到余村的時空對話
+      </div>
+      <div class="selectBtn topicBtn" onclick="openMenu(3)">
+        田野間的「智慧魔法」：<br />從荒灘到糧倉
+      </div>
+    </div>
+
+    <!-- Mode 2 的專屬 Topics -->
+    <div class="menu three-columns" id="topicsForMode2" style="display: none">
+      <div class="selectBtn topicBtn" onclick="openMenu(1)">
+        社會改革：<br />文化自信
+      </div>
+      <div class="selectBtn topicBtn" onclick="openMenu(2)">
+        社會改革：<br />素質教育的演變
+      </div>
+      <div class="selectBtn topicBtn" onclick="openMenu(3)">
+        社會改革：<br />經濟與生活
+      </div>
+    </div>
+
+    <!-- Mode 3 的專屬 Topics -->
+    <div class="menu three-columns" id="topicsForMode3" style="display: none">
+      <div class="selectBtn topicBtn" onclick="openMenu(1)">
+        改革中的未來：<br />航天與能源
+      </div>
+      <div class="selectBtn topicBtn" onclick="openMenu(2)">
+        改革中的未來：<br />可持續發展
+      </div>
+      <div class="selectBtn topicBtn" onclick="openMenu(3)">
+        改革中的未來：<br />中國北斗
+      </div>
+    </div>
+  </div>
+
+  <!-- 第三層：Game 選擇區（預設隱藏，選擇 Topic 後顯示） -->
   <div
-    class="menu"
-    id="menu"
+    class="menu two-columns"
+    id="gameMenu"
     style="display: none; gap: 16px; justify-content: center; margin-top: 16px"
   >
     <div class="selectBtn" onclick="openGame('connect')">連一連</div>
@@ -119,11 +192,27 @@
 
   .menu {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
     place-items: center;
     text-align: center;
     gap: 16px;
     padding: 16px;
+  }
+
+  /* 通用響應式欄位控制 */
+  .three-columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  }
+
+  .two-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 600px;
+    margin: 16px auto 0 auto;
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
   }
 
   .chooseGameBtn {
@@ -154,9 +243,10 @@
   }
 
   #site {
-    height: 76vh;
+    height: auto;
+    min-height: 76vh;
     align-content: center;
-    margin-block: 12vh;
+    margin-block: 6vh;
     width: 100vw;
     position: relative;
   }
